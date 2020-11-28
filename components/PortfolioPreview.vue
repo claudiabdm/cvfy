@@ -30,11 +30,35 @@
         <section class="porfolio__contact">
           <h4>Professional Skills</h4>
           <div class="flex flex-col">
-            <ul></ul>
+            <ul>
+              <li
+                v-for="skill in formSettings.jobSkills"
+                :key="`preview${skill}`"
+              >
+                {{ skill }}
+              </li>
+            </ul>
+            <ul>
+              <li
+                v-for="skill in formSettings.softSkills"
+                :key="`preview${skill}`"
+              >
+                {{ skill }}
+              </li>
+            </ul>
+            <ul>
+              <li
+                v-for="skill in formSettings.languages"
+                :key="`preview${skill.lang}`"
+              >
+                {{ skill.lang }} {{ skill.level }}
+              </li>
+            </ul>
           </div>
         </section>
       </div>
     </div>
+    <button @click="changeColor">Change color</button>
   </div>
 </template>
 
@@ -52,6 +76,9 @@ export default Vue.extend({
         location: string
         phoneNumber: string
         aboutme: string
+        jobSkills: string[]
+        softSkills: string[]
+        languages: { lang: string; level: string }[]
       },
       default: {
         jobTtitle: '',
@@ -61,18 +88,35 @@ export default Vue.extend({
         location: '',
         phoneNumber: '',
         aboutme: '',
+        jobSkills: [''],
+        softSkills: [''],
+        languages: [{ lang: '', level: '' }],
       },
+    },
+  },
+  methods: {
+    changeColor() {
+      if (
+        document.documentElement.style.getPropertyValue('--bg-color') === '#fff'
+      ) {
+        document.documentElement.style.setProperty('--bg-color', '#666')
+      } else {
+        document.documentElement.style.setProperty('--bg-color', '#fff')
+      }
     },
   },
 })
 </script>
 <style lang="postcss" scoped>
+:root {
+  --bg-color: #666;
+}
 .portfolio {
   @apply grid grid-cols-3;
   height: 100%;
   &__side {
-    @apply col-span-1;
-    background-color: #666;
+    @apply col-span-1 p-5;
+    background-color: var(--bg-color);
   }
   &__icon-wrapper {
     @apply flex flex-row;

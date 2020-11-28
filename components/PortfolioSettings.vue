@@ -1,125 +1,131 @@
 <template>
-  <div class="bg-gray-100 shadow py-4 px-6 font-bold">
+  <div class="bg-gray-100 shadow p-4 px-6 font-bold">
     <h2 class="text-2xl mb-3 tracking-wide">Portfolio Settings</h2>
-    <form class="form">
+    <form class="form mb-10">
       <!-- PERSONAL DETAILS -->
+
       <fieldset class="form__section">
-        <legend class="form__legend">Personal Details</legend>
-        <div class="grid grid-cols-2 gap-x-3 gap-y-4">
-          <div class="form__group col-span-full">
-            <label class="form__label" for="job-pos"
-              >💼 Job Title / Current Position</label
-            >
-            <input
-              id="job-pos"
-              v-model="formSettings.jobTitle"
-              class="form__control"
-              type="text"
-            />
-          </div>
-          <div class="form__group">
-            <label class="form__label" for="first-name">👤 First Name</label>
-            <input
-              id="first-name"
-              v-model="formSettings.name"
-              class="form__control"
-              type="text"
-            />
-          </div>
-          <div class="form__group">
-            <label class="form__label" for="last-name">👤 Last Name</label>
-            <input
-              id="last-name"
-              v-model="formSettings.lastName"
-              class="form__control"
-              type="text"
-            />
-          </div>
-          <div class="form__group col-span-full">
-            <label class="form__label" for="email">✉️ Email</label>
-            <input
-              id="email"
-              v-model="formSettings.email"
-              class="form__control"
-              type="email"
-            />
-          </div>
-          <div class="form__group">
-            <label class="form__label" for="location">📍 Location</label>
-            <input
-              id="location"
-              v-model="formSettings.location"
-              class="form__control"
-              type="text"
-            />
-          </div>
-          <div class="form__group">
-            <label class="form__label" for="phone">📱 Phone Number</label>
-            <input
-              id="phone"
-              v-model="formSettings.phoneNumber"
-              class="form__control"
-              type="tel"
-            />
-          </div>
-          <div class="form__group col-span-full">
-            <label class="form__label" for="aboutme">🌟 About Me</label>
-            <textarea
-              id="aboutme"
-              v-model="formSettings.aboutme"
-              class="form__control"
-              name="aboutme"
-              cols="30"
-              rows="10"
-            ></textarea>
-          </div>
-        </div>
+        <expansion-panel>
+          <template v-slot:title>
+            <legend class="form__legend">Personal Details</legend>
+          </template>
+          <template v-slot:content>
+            <div class="grid grid-cols-2 gap-x-3 gap-y-4">
+              <div class="form__group col-span-full">
+                <label class="form__label" for="job-pos"
+                  >💼 Job Title / Current Position</label
+                >
+                <input
+                  id="job-pos"
+                  v-model="formSettings.jobTitle"
+                  class="form__control"
+                  type="text"
+                />
+              </div>
+              <div class="form__group">
+                <label class="form__label" for="first-name"
+                  >👤 First Name</label
+                >
+                <input
+                  id="first-name"
+                  v-model="formSettings.name"
+                  class="form__control"
+                  type="text"
+                />
+              </div>
+              <div class="form__group">
+                <label class="form__label" for="last-name">👤 Last Name</label>
+                <input
+                  id="last-name"
+                  v-model="formSettings.lastName"
+                  class="form__control"
+                  type="text"
+                />
+              </div>
+              <div class="form__group col-span-full">
+                <label class="form__label" for="email">✉️ Email</label>
+                <input
+                  id="email"
+                  v-model="formSettings.email"
+                  class="form__control"
+                  type="email"
+                />
+              </div>
+              <div class="form__group">
+                <label class="form__label" for="location">📍 Location</label>
+                <input
+                  id="location"
+                  v-model="formSettings.location"
+                  class="form__control"
+                  type="text"
+                />
+              </div>
+              <div class="form__group">
+                <label class="form__label" for="phone">📱 Phone Number</label>
+                <input
+                  id="phone"
+                  v-model="formSettings.phoneNumber"
+                  class="form__control"
+                  type="tel"
+                />
+              </div>
+              <div class="form__group col-span-full">
+                <label class="form__label" for="aboutme">🌟 About Me</label>
+                <textarea
+                  id="aboutme"
+                  v-model="formSettings.aboutme"
+                  class="form__control"
+                  name="aboutme"
+                  cols="30"
+                  rows="10"
+                ></textarea>
+              </div>
+            </div>
+          </template>
+        </expansion-panel>
       </fieldset>
       <!-- PERSONAL DETAILS -->
 
-      <!-- Skills -->
-      <fieldset class="form__section">
-        <legend class="form__legend">Skills</legend>
-        <div class="form__group">
-          <label class="form__label" for="jobSkills">🛠 Technical Skills</label>
-          <div class="flex gap-3">
-            <input
-              id="jobSkills"
-              v-model="jobSkill"
-              class="form__control"
-              type="text"
-              @keyup.enter="addSkill(jobSkill, 'jobSkills')"
-            />
-            <button
-              class="form__btn"
-              type="button"
-              @click="addSkill(jobSkill, 'jobSkills')"
-            >
-              Add
-            </button>
-          </div>
-          <ul class="form__skills">
-            <li
-              v-for="skill in formSettings.jobSkills"
-              :key="skill"
-              class="form__btn form__btn--tag"
-            >
-              {{ skill }}
-              <button type="button" @click="removeSkill(skill, 'jobSkills')">
-                <svg class="form__icon">
-                  <use href="@/assets/sprite.svg#close"></use>
-                </svg>
-              </button>
-            </li>
-          </ul>
-        </div>
+      <!-- SKILLS -->
+      <fieldset class="form__section grid gap-3">
+        <expansion-panel>
+          <template v-slot:title>
+            <legend class="form__legend">Skills</legend>
+          </template>
+          <template v-slot:content>
+            <div>
+              <portfolio-input-tags
+                tag-list-name="jobSkills"
+                tag-list-label="🛠 Technical Skills"
+                :tag-list="formSettings.jobSkills"
+                @addTag="addSkill($event)"
+                @removeTag="removeSkill($event)"
+              ></portfolio-input-tags>
+              <portfolio-input-tags
+                tag-list-name="softSkills"
+                tag-list-label="🧸 Soft Skills"
+                :tag-list="formSettings.softSkills"
+                @addTag="addSkill($event)"
+                @removeTag="removeSkill($event)"
+              ></portfolio-input-tags>
+              <portfolio-input-tags
+                tag-list-name="languages"
+                tag-list-label="🌎 Languages"
+                :tag-list-lang="formSettings.languages"
+                @addTag="addSkill($event)"
+                @removeTag="removeSkill($event)"
+              ></portfolio-input-tags>
+            </div>
+          </template>
+        </expansion-panel>
       </fieldset>
-      <!-- Skills -->
+      <!-- SKILLS -->
     </form>
   </div>
 </template>
 <script lang="ts">
 import Vue from 'vue'
+
 export default Vue.extend({
   name: 'PortfolioSettings',
   props: {
@@ -133,6 +139,8 @@ export default Vue.extend({
         phoneNumber: string
         aboutme: string
         jobSkills: string[]
+        softSkills: string[]
+        languages: { lang: string; level: string }[]
       },
       default: {
         jobTtitle: '',
@@ -142,7 +150,9 @@ export default Vue.extend({
         location: '',
         phoneNumber: '',
         aboutme: '',
-        jobSkills: [],
+        jobSkills: [''],
+        softSkills: [''],
+        languages: [{ lang: '', level: '' }],
       },
     },
   },
@@ -152,17 +162,17 @@ export default Vue.extend({
     }
   },
   methods: {
-    addSkill(skill: string, skillType: string): void {
-      this.$emit('addSkill', { skill, skillType })
+    addSkill(e: { tag: string; tagType: string }): void {
+      this.$emit('addSkill', { skill: e.tag, skillType: e.tagType })
       this.jobSkill = ''
     },
-    removeSkill(skill: string, skillType: string): void {
-      this.$emit('removeSkill', { skill, skillType })
+    removeSkill(e: { tag: string; tagType: string }): void {
+      this.$emit('removeSkill', { skill: e.tag, skillType: e.tagType })
     },
   },
 })
 </script>
-<style lang="postcss" scoped>
+<style lang="postcss">
 .form {
   @apply font-light;
 
@@ -171,8 +181,9 @@ export default Vue.extend({
   }
 
   &__legend {
-    @apply text-lg font-normal mb-3 font-bold tracking-wide;
+    @apply text-lg font-normal font-bold tracking-wide;
   }
+
   &__group {
     @apply flex flex-col;
   }
@@ -202,16 +213,12 @@ export default Vue.extend({
       cursor: pointer;
     }
     &--tag {
-      @apply flex gap-2;
+      @apply flex gap-2 py-1;
       align-items: center;
       &:hover {
         @appy bg-purple-700;
       }
     }
-  }
-
-  &__skills {
-    @apply flex flex-wrap gap-3 mt-3;
   }
 
   &__icon {

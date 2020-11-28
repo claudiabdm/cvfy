@@ -1,9 +1,9 @@
 <template>
-  <div class="grid grid-cols-3 h-full">
+  <div class="portfolio grid grid-cols-3 h-full">
     <portfolio-settings
       id="settings"
       :form-settings="formSettings"
-      class="col-span-1"
+      class="portfolio__settings col-span-1 overflow-y-auto"
       @addSkill="onAddSkill($event)"
       @removeSkill="onRemoveSkill($event)"
     ></portfolio-settings>
@@ -30,17 +30,34 @@ export default Vue.extend({
         aboutme: 'Soy clauduuauu',
         jobSkills: ['Nuxt.js'],
         softSkills: ['Teamwork'],
+        languages: [
+          { lang: 'Spanish', level: 'Native' },
+          { lang: 'English', level: 'C1' },
+          { lang: 'Japanese', level: 'A2' },
+        ],
       },
     }
   },
   methods: {
     onAddSkill(e: {
-      skill: string
-      skillType: 'jobSkills' | 'softSkills'
+      skill: string | { lang: string; level: string }
+      skillType: 'jobSkills' | 'softSkills' | 'languages'
     }): void {
-      this.formSettings[e.skillType] = [
-        ...new Set([...this.formSettings[e.skillType], e.skill]),
-      ]
+      if (e.skillType === 'languages') {
+        const newLang = e.skill as { lang: string; level: string }
+        const newLangIdx = this.formSettings.languages.findIndex(
+          (lang) => lang.lang === newLang.lang
+        )
+        if (newLangIdx < 0) {
+          this.formSettings.languages = [
+            ...new Set([...this.formSettings[e.skillType], e.skill]),
+          ] as { lang: string; level: string }[]
+        }
+      } else {
+        this.formSettings[e.skillType] = [
+          ...new Set([...this.formSettings[e.skillType], e.skill]),
+        ] as string[]
+      }
     },
     onRemoveSkill(e: {
       skill: string
@@ -53,3 +70,8 @@ export default Vue.extend({
   },
 })
 </script>
+<style lang="postcss" scoped>
+.portfolio {
+  grid-template-columns: 20rem 1fr 1fr;
+}
+</style>

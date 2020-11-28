@@ -14,7 +14,7 @@ export default {
   },
 
   // Global CSS (https://go.nuxtjs.dev/config-css)
-  css: [],
+  css: ['@/assets/styles/styles.css'],
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
   plugins: [],
@@ -37,5 +37,16 @@ export default {
   ],
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
-  build: {},
+  build: {
+    postcss: {
+      // Add plugin names as key and arguments as value
+      // Install them before as dependencies with npm or yarn
+      plugins: {
+        'postcss-nested': {},
+      },
+    },
+  },
+  tailwindcss: {
+    configPath: '~/tailwind.config.js',
+  },
 }
