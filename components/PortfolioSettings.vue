@@ -1,9 +1,8 @@
 <template>
-  <div class="bg-gray-100 shadow p-4 px-6 font-bold">
-    <h2 class="text-2xl mb-3 tracking-wide">Portfolio Settings</h2>
+  <div class="bg-gray-100 shadow font-bold">
+    <h2 class="text-2xl my-3 mx-6 tracking-wide">Portfolio Settings</h2>
     <form class="form mb-10">
       <!-- PERSONAL DETAILS -->
-
       <fieldset class="form__section">
         <expansion-panel>
           <template v-slot:title>
@@ -120,6 +119,97 @@
         </expansion-panel>
       </fieldset>
       <!-- SKILLS -->
+
+      <!-- SOCIAL -->
+      <fieldset class="form__section grid gap-3">
+        <expansion-panel>
+          <template v-slot:title>
+            <legend class="form__legend">Social</legend>
+          </template>
+          <template v-slot:content>
+            <div class="grid grid-cols-2 gap-x-3 gap-y-4">
+              <div class="form__group col-span-full">
+                <label class="form__label flex" for="linkedin">
+                  <svg class="form__icon rounded mr-1">
+                    <use href="@/assets/sprite.svg#linkedin"></use>
+                  </svg>
+                  Linkedin
+                </label>
+                <input
+                  id="linkedin"
+                  v-model="formSettings.linkedin"
+                  class="form__control"
+                  type="text"
+                />
+              </div>
+              <div class="form__group col-span-full">
+                <label class="form__label flex" for="twitter">
+                  <svg class="form__icon rounded mr-1">
+                    <use href="@/assets/sprite.svg#twitter"></use>
+                  </svg>
+                  Twitter
+                </label>
+                <input
+                  id="twitter"
+                  v-model="formSettings.twitter"
+                  class="form__control"
+                  type="text"
+                />
+              </div>
+              <div class="form__group col-span-full">
+                <label class="form__label flex" for="github">
+                  <svg class="form__icon mr-1">
+                    <use href="@/assets/sprite.svg#github"></use>
+                  </svg>
+                  GitHub
+                </label>
+                <input
+                  id="github"
+                  v-model="formSettings.github"
+                  class="form__control"
+                  type="text"
+                />
+              </div>
+            </div>
+          </template>
+        </expansion-panel>
+      </fieldset>
+      <!-- SOCIAL -->
+
+      <!-- EDUCATION -->
+      <fieldset class="form__section grid gap-3">
+        <expansion-panel>
+          <template v-slot:title>
+            <legend class="form__legend">Education</legend>
+          </template>
+          <template v-slot:content>
+            <portfolio-dynamic-section
+              section-name="education"
+              :entries="formSettings.education"
+              @addEntry="onUpdateSection"
+              @removeEntry="onUpdateSection"
+            ></portfolio-dynamic-section>
+          </template>
+        </expansion-panel>
+      </fieldset>
+      <!-- EDUCATION -->
+      <!-- WORK EXPERIENCE -->
+      <fieldset class="form__section grid gap-3">
+        <expansion-panel>
+          <template v-slot:title>
+            <legend class="form__legend">Work Experience</legend>
+          </template>
+          <template v-slot:content>
+            <portfolio-dynamic-section
+              section-name="work"
+              :entries="formSettings.work"
+              @addEntry="onUpdateSection"
+              @removeEntry="onUpdateSection"
+            ></portfolio-dynamic-section>
+          </template>
+        </expansion-panel>
+      </fieldset>
+      <!-- WORK EXPERIENCE -->
     </form>
   </div>
 </template>
@@ -141,6 +231,17 @@ export default Vue.extend({
         jobSkills: string[]
         softSkills: string[]
         languages: { lang: string; level: string }[]
+        linkedin: string
+        twitter: string
+        github: string
+        education: {
+          title: string
+          location: string
+          from: Date
+          to: Date
+          current: boolean
+          summary: string
+        }[]
       },
       default: {
         jobTtitle: '',
@@ -153,6 +254,29 @@ export default Vue.extend({
         jobSkills: [''],
         softSkills: [''],
         languages: [{ lang: '', level: '' }],
+        linkedin: '',
+        twitter: '',
+        github: '',
+        education: [
+          {
+            title: '',
+            location: '',
+            from: new Date(),
+            to: new Date(),
+            current: false,
+            summary: '',
+          },
+        ],
+        work: [
+          {
+            title: '',
+            location: '',
+            from: new Date(),
+            to: new Date(),
+            current: false,
+            summary: '',
+          },
+        ],
       },
     },
   },
@@ -169,6 +293,20 @@ export default Vue.extend({
     removeSkill(e: { tag: string; tagType: string }): void {
       this.$emit('removeSkill', { skill: e.tag, skillType: e.tagType })
     },
+    onUpdateSection(e: {
+      eventType: string
+      sectionName: string
+      entry: {
+        title: string
+        location: string
+        from: Date
+        to: Date
+        current: boolean
+        summary: string
+      }
+    }): void {
+      this.$emit('updateSection', e)
+    },
   },
 })
 </script>
@@ -182,10 +320,14 @@ export default Vue.extend({
 
   &__legend {
     @apply text-lg font-normal font-bold tracking-wide;
+
+    &--small {
+      @apply text-sm;
+    }
   }
 
   &__group {
-    @apply flex flex-col;
+    @apply flex flex-col px-1;
   }
 
   &__label {
@@ -196,11 +338,19 @@ export default Vue.extend({
   }
 
   &__control {
-    @apply shadow rounded px-2 py-1 border border-transparent font-light w-full;
+    @apply shadow rounded px-2 py-1 border border-transparent font-light w-full mb-1;
     transition: all 0.1s linear;
     outline: none;
     &:focus {
       @apply border border-purple-700;
+    }
+
+    &--checkbox {
+      @apply mr-1;
+      width: 1.25rem;
+      height: 1.25rem;
+      background: none;
+      box-shadow: none;
     }
   }
 
@@ -217,6 +367,12 @@ export default Vue.extend({
       align-items: center;
       &:hover {
         @appy bg-purple-700;
+      }
+    }
+    &--delete {
+      @apply bg-red-400;
+      &:hover {
+        @apply bg-red-500;
       }
     }
   }

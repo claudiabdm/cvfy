@@ -4,8 +4,9 @@
       id="settings"
       :form-settings="formSettings"
       class="portfolio__settings col-span-1 overflow-y-auto"
-      @addSkill="onAddSkill($event)"
-      @removeSkill="onRemoveSkill($event)"
+      @addSkill="onAddSkill"
+      @removeSkill="onRemoveSkill"
+      @updateSection="onUpdateSection"
     ></portfolio-settings>
     <portfolio-preview
       id="portfolio"
@@ -34,6 +35,31 @@ export default Vue.extend({
           { lang: 'Spanish', level: 'Native' },
           { lang: 'English', level: 'C1' },
           { lang: 'Japanese', level: 'A2' },
+        ],
+        linkedin: 'https://www.linkedin.com/in/claudiabdm/',
+        twitter: 'https://twitter.com/claudiabdm',
+        github: 'https://github.com/claudiabdm',
+        education: [
+          {
+            title: "Bachelor's Degree in Biology",
+            location: 'Madrid, Spain',
+            from: new Date(),
+            to: new Date(),
+            current: false,
+            summary:
+              'Erasmus internship at University of Birmingham for 9 months in my final year.',
+          },
+        ],
+        work: [
+          {
+            title: 'Junior Front-end Developer',
+            location: 'Madrid, Spain',
+            from: new Date(),
+            to: new Date(),
+            current: false,
+            summary:
+              'Erasmus internship at University of Birmingham for 9 months in my final year.',
+          },
         ],
       },
     }
@@ -66,6 +92,26 @@ export default Vue.extend({
       this.formSettings[e.skillType] = [
         ...this.formSettings[e.skillType].filter((skill) => skill !== e.skill),
       ]
+    },
+    onUpdateSection(e: {
+      eventType: 'addEntry' | 'removeEntry'
+      sectionName: 'education' | 'work'
+      entry: {
+        title: string
+        location: string
+        from: Date
+        to: Date
+        current: boolean
+        summary: string
+      }
+    }): void {
+      if (e.eventType === 'addEntry') {
+        this.formSettings[e.sectionName].push(e.entry)
+      } else {
+        this.formSettings[e.sectionName] = this.formSettings[
+          e.sectionName
+        ].filter((entry) => entry.title !== e.entry.title)
+      }
     },
   },
 })
