@@ -1,5 +1,5 @@
 <template>
-  <div class="portfolio grid grid-cols-3 h-full">
+  <div class="portfolio bg-gray-50 grid grid-cols-2 h-full">
     <portfolio-settings
       id="settings"
       :form-settings="formSettings"
@@ -11,7 +11,7 @@
     <portfolio-preview
       id="portfolio"
       :form-settings="formSettings"
-      class="col-span-2"
+      class="col-span-2 justify-self-center"
     ></portfolio-preview>
   </div>
 </template>
@@ -22,7 +22,7 @@ export default Vue.extend({
   data() {
     return {
       formSettings: {
-        jobTitle: 'Front End Developer',
+        jobTitle: 'Junio Front-End Developer',
         name: 'Claudia',
         lastName: 'Benito',
         email: 'claudiabdm@hotmail.es',
@@ -32,9 +32,9 @@ export default Vue.extend({
         jobSkills: ['Nuxt.js'],
         softSkills: ['Teamwork'],
         languages: [
-          { lang: 'Spanish', level: 'Native' },
-          { lang: 'English', level: 'C1' },
-          { lang: 'Japanese', level: 'A2' },
+          { lang: 'Spanish', level: '100%' },
+          { lang: 'English', level: '80%' },
+          { lang: 'Japanese', level: '20%' },
         ],
         linkedin: 'https://www.linkedin.com/in/claudiabdm/',
         twitter: 'https://twitter.com/claudiabdm',

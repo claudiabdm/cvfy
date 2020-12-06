@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-gray-100 shadow font-bold">
+  <div class="bg-gray-100 bg-opacity-100 shadow font-bold">
     <h2 class="text-2xl my-3 mx-6 tracking-wide">Portfolio Settings</h2>
     <form class="form mb-10">
       <!-- PERSONAL DETAILS -->
@@ -193,6 +193,7 @@
         </expansion-panel>
       </fieldset>
       <!-- EDUCATION -->
+
       <!-- WORK EXPERIENCE -->
       <fieldset class="form__section grid gap-3">
         <expansion-panel>
@@ -338,7 +339,7 @@ export default Vue.extend({
   }
 
   &__control {
-    @apply shadow rounded px-2 py-1 border border-transparent font-light w-full mb-1;
+    @apply shadow rounded px-2 py-1 border border-transparent font-light w-full;
     transition: all 0.1s linear;
     outline: none;
     &:focus {

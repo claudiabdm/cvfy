@@ -9,17 +9,23 @@
             v-model="tagInputLang.lang"
             class="form__control"
             type="text"
-            placeholder="Language"
+            placeholder="Spanish"
             @keyup.enter="addTag(tagInputLang, tagListName)"
           />
-          <input
-            id="level"
-            v-model="tagInputLang.level"
-            class="form__control"
-            type="text"
-            placeholder="Level"
-            @keyup.enter="addTag(tagInputLang, tagListName)"
-          />
+          <div class="flex items-center relative">
+            <input
+              id="level"
+              v-model="tagInputLang.level"
+              class="form__control"
+              type="number"
+              min="0"
+              max="100"
+              step="10"
+              placeholder="80"
+              @keyup.enter="addTag(tagInputLang, tagListName)"
+            />
+            <span class="percentage">%</span>
+          </div>
         </div>
         <button
           class="form__btn"
@@ -29,6 +35,7 @@
           Add
         </button>
       </template>
+
       <template v-else>
         <input
           id="tagListName"
@@ -103,12 +110,21 @@ export default Vue.extend({
     }
   },
   methods: {
-    addTag(tag: string, tagType: string | { lang: ''; level: '' }): void {
+    addTag(
+      tag: string | { lang: string; level: string },
+      tagType: string
+    ): void {
+      if (typeof tag !== 'string') {
+        tag.level = `${tag.level}%`
+      }
       this.$emit('addTag', { tag, tagType })
       this.tagInput = ''
       this.tagInputLang = { lang: '', level: '' }
     },
-    removeTag(tag: string, tagType: string | { lang: ''; level: '' }): void {
+    removeTag(
+      tag: string | { lang: string; level: string },
+      tagType: string
+    ): void {
       this.$emit('removeTag', { tag, tagType })
     },
   },
@@ -117,5 +133,10 @@ export default Vue.extend({
 <style lang="postcss" scoped>
 .tags {
   @apply flex flex-wrap gap-3 mt-3 text-xs;
+}
+
+.percentage {
+  position: absolute;
+  right: 25%;
 }
 </style>
