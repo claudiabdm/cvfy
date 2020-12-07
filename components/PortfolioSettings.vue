@@ -243,6 +243,14 @@ export default Vue.extend({
           current: boolean
           summary: string
         }[]
+        work: {
+          title: string
+          location: string
+          from: Date
+          to: Date
+          current: boolean
+          summary: string
+        }[]
       },
       default: {
         jobTtitle: '',

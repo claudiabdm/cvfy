@@ -14,7 +14,8 @@
     "@nuxt/typescript-runtime": "^2.0.0",
     "@nuxtjs/pwa": "^3.0.2",
     "core-js": "^3.6.5",
-    "nuxt": "^2.14.6"
+    "nuxt": "^2.14.6",
+    "puppeteer": "^5.5.0"
   },
   "devDependencies": {
     "@nuxt/types": "^2.14.6",

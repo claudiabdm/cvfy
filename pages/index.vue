@@ -9,7 +9,6 @@
       @updateSection="onUpdateSection"
     ></portfolio-settings>
     <portfolio-preview
-      id="portfolio"
       :form-settings="formSettings"
       class="col-span-2 justify-self-center"
     ></portfolio-preview>

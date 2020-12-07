@@ -1,5 +1,5 @@
 <template>
-  <div class="p-10 font-normal w-full overflow-auto">
+  <div id="portfolio" class="p-10 font-normal w-full overflow-auto">
     <div class="portfolio bg-white">
       <div class="portfolio__side">
         <h2 class="portfolio__name">
@@ -76,9 +76,41 @@
         </section>
         <!-- // LANGUAGES -->
       </div>
-      <div class="portfolio__main"></div>
+      <div class="portfolio__main">
+        <!-- ABOUT ME -->
+        <section class="portfolio__section portfolio__section--main w-full">
+          <h4 class="portfolio__section-title portfolio__section-title--main">
+            About me
+          </h4>
+          <p>{{ formSettings.aboutme }}</p>
+        </section>
+        <!-- // ABOUT ME -->
+        <hr class="my-5" />
+        <!-- ABOUT ME -->
+        <section class="portfolio__section portfolio__section--main w-full">
+          <h4 class="portfolio__section-title portfolio__section-title--main">
+            Experience
+          </h4>
+          <ul class="mt-3">
+            <li v-for="job in formSettings.work" :key="job.title">
+              <h5 class="portfolio__section-title portfolio__section-title--sm">
+                {{ job.title }}
+              </h5>
+              <div class="font-normal">
+                <span>{{ job.location }} | </span>
+                <span>
+                  {{ formatDate(job.from) }} -
+                  <template v-if="job.current">Current</template>
+                  <template v-else>{{ formatDate(job.to) }}</template>
+                </span>
+              </div>
+              <p class="font-light">{{ job.summary }}</p>
+            </li>
+          </ul>
+        </section>
+        <!-- // ABOUT ME -->
+      </div>
     </div>
-    <button @click="changeColor">Change color</button>
   </div>
 </template>
 
@@ -99,6 +131,25 @@ export default Vue.extend({
         jobSkills: string[]
         softSkills: string[]
         languages: { lang: string; level: string }[]
+        linkedin: string
+        twitter: string
+        github: string
+        education: {
+          title: string
+          location: string
+          from: Date
+          to: Date
+          current: boolean
+          summary: string
+        }[]
+        work: {
+          title: string
+          location: string
+          from: Date
+          to: Date
+          current: boolean
+          summary: string
+        }[]
       },
       default: {
         jobTtitle: '',
@@ -111,6 +162,29 @@ export default Vue.extend({
         jobSkills: [''],
         softSkills: [''],
         languages: [{ lang: '', level: '' }],
+        linkedin: '',
+        twitter: '',
+        github: '',
+        education: [
+          {
+            title: '',
+            location: '',
+            from: new Date(),
+            to: new Date(),
+            current: false,
+            summary: '',
+          },
+        ],
+        work: [
+          {
+            title: '',
+            location: '',
+            from: new Date(),
+            to: new Date(),
+            current: false,
+            summary: '',
+          },
+        ],
       },
     },
   },
@@ -132,6 +206,11 @@ export default Vue.extend({
         document.documentElement.style.setProperty('--bg-color', '#fff')
       }
     },
+    formatDate(date: Date): string {
+      const locale = process.browser ? navigator.language : 'en-GB'
+      const options = { year: 'numeric', month: 'long' }
+      return date.toLocaleDateString(locale, options)
+    },
   },
 })
 </script>
@@ -140,13 +219,17 @@ export default Vue.extend({
   --bg-color: #f3f4f6;
 }
 .portfolio {
-  @apply grid grid-cols-3 text-gray-700 shadow;
+  display: -webkit-flex;
+  @apply flex text-gray-700 shadow;
+  display: -webkit-box;
   width: 21cm;
   height: 29.7cm;
   overflow-y: auto;
+  overflow-wrap: anywhere;
 
   &__side {
-    @apply col-span-1 p-6 bg-gray-100 bg-opacity-100;
+    @apply p-6 bg-gray-100 bg-opacity-100;
+    max-width: 30%;
   }
 
   &__name {
@@ -160,14 +243,24 @@ export default Vue.extend({
 
   &__section {
     @apply mt-10;
+    &--main {
+      margin-top: 0;
+    }
   }
 
   &__section-title {
     @apply text-lg uppercase mb-2 font-bold tracking-wide;
+    &--sm {
+      @apply text-base;
+    }
+    &--main {
+      color: #4c1d95;
+    }
   }
 
   &__icon-wrapper {
     @apply flex flex-row font-light;
+    display: -webkit-box;
     align-items: center;
   }
   &__icon {
@@ -179,6 +272,7 @@ export default Vue.extend({
 
   &__tags {
     @apply flex flex-wrap gap-3 mt-3;
+    display: -webkit-box;
   }
 
   &__tag {
@@ -215,6 +309,11 @@ export default Vue.extend({
     @apply rounded-full mr-2;
     background-color: #4c1d95;
     height: 0.5rem;
+  }
+
+  &__main {
+    @apply p-6;
+    width: 70%;
   }
 }
 </style>
