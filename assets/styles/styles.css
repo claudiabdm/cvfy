@@ -14,3 +14,8 @@
     margin: 0;
   }
 }
+
+:root {
+  --bg-color: #f3f4f6;
+  --primary: #4c1d95;
+}

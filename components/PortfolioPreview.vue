@@ -69,9 +69,14 @@
             >
               {{ lang.lang }}
               <div
-                class="portfolio__bar-level"
-                :style="{ width: lang.level }"
-              ></div>
+                class="portfolio__bar-level bg-gray-300"
+                :style="{ width: '100%' }"
+              >
+                <span
+                  class="portfolio__bar-level portfolio__bar-level--in"
+                  :style="{ width: lang.level }"
+                ></span>
+              </div>
             </li>
           </ul>
         </section>
@@ -241,9 +246,6 @@ export default Vue.extend({
 })
 </script>
 <style lang="postcss" scoped>
-:root {
-  --bg-color: #f3f4f6;
-}
 .portfolio {
   @apply flex m-10 text-gray-700 shadow;
   width: 21cm;
@@ -257,7 +259,7 @@ export default Vue.extend({
 
   &__name {
     @apply text-3xl uppercase font-bold leading-8 mb-3 tracking-wide;
-    color: #4c1d95;
+    color: var(--primary);
   }
 
   &__job-title {
@@ -277,7 +279,7 @@ export default Vue.extend({
       @apply text-base;
     }
     &--main {
-      color: #4c1d95;
+      color: var(--primary);
     }
   }
 
@@ -299,7 +301,7 @@ export default Vue.extend({
 
   &__tag {
     @apply px-2 py-1 rounded text-sm text-white;
-    background-color: #4c1d95;
+    background-color: var(--primary);
   }
 
   &__list {
@@ -312,7 +314,7 @@ export default Vue.extend({
     li::before {
       content: '';
       @apply w-2 h-2 rounded-full mr-2;
-      background-color: #4c1d95;
+      background-color: var(--primary);
     }
   }
 
@@ -329,8 +331,14 @@ export default Vue.extend({
   }
   &__bar-level {
     @apply rounded-full mr-2;
-    background-color: #4c1d95;
+    position: relative;
     height: 0.5rem;
+
+    &--in {
+      position: absolute;
+      display: inline-block;
+      background-color: var(--primary);
+    }
   }
 
   &__main {
