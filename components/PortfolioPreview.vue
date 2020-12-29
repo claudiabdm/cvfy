@@ -1,5 +1,5 @@
 <template>
-  <div id="portfolio" class="p-10 font-normal w-full overflow-auto">
+  <div id="portfolio" class="font-normal w-full overflow-auto">
     <div class="portfolio bg-white">
       <div class="portfolio__side">
         <h2 class="portfolio__name">
@@ -52,6 +52,7 @@
             <li
               v-for="skill in formSettings.softSkills"
               :key="`preview${skill}`"
+              class="font-light"
             >
               {{ skill }}
             </li>
@@ -82,11 +83,11 @@
           <h4 class="portfolio__section-title portfolio__section-title--main">
             About me
           </h4>
-          <p>{{ formSettings.aboutme }}</p>
+          <p class="font-light">{{ formSettings.aboutme }}</p>
         </section>
         <!-- // ABOUT ME -->
-        <hr class="my-5" />
-        <!-- ABOUT ME -->
+        <hr class="my-5 border-gray-100 border-2" />
+        <!-- EXPERIENCE -->
         <section class="portfolio__section portfolio__section--main w-full">
           <h4 class="portfolio__section-title portfolio__section-title--main">
             Experience
@@ -108,7 +109,31 @@
             </li>
           </ul>
         </section>
-        <!-- // ABOUT ME -->
+        <!-- // EXPERIENCE -->
+        <hr class="my-5 border-gray-100 border-2" />
+        <!-- EDUCATION -->
+        <section class="portfolio__section portfolio__section--main w-full">
+          <h4 class="portfolio__section-title portfolio__section-title--main">
+            Education
+          </h4>
+          <ul class="mt-3">
+            <li v-for="edu in formSettings.education" :key="edu.title">
+              <h5 class="portfolio__section-title portfolio__section-title--sm">
+                {{ edu.title }}
+              </h5>
+              <div class="font-normal">
+                <span>{{ edu.location }} | </span>
+                <span>
+                  {{ formatDate(edu.from) }} -
+                  <template v-if="edu.current">Current</template>
+                  <template v-else>{{ formatDate(edu.to) }}</template>
+                </span>
+              </div>
+              <p class="font-light">{{ edu.summary }}</p>
+            </li>
+          </ul>
+        </section>
+        <!-- // EDUCATION -->
       </div>
     </div>
   </div>
@@ -209,7 +234,8 @@ export default Vue.extend({
     formatDate(date: Date): string {
       const locale = process.browser ? navigator.language : 'en-GB'
       const options = { year: 'numeric', month: 'long' }
-      return date.toLocaleDateString(locale, options)
+      const dateObj = new Date(date)
+      return dateObj.toLocaleDateString(locale, options)
     },
   },
 })
@@ -219,13 +245,10 @@ export default Vue.extend({
   --bg-color: #f3f4f6;
 }
 .portfolio {
-  display: -webkit-flex;
-  @apply flex text-gray-700 shadow;
-  display: -webkit-box;
+  @apply flex m-10 text-gray-700 shadow;
   width: 21cm;
   height: 29.7cm;
   overflow-y: auto;
-  overflow-wrap: anywhere;
 
   &__side {
     @apply p-6 bg-gray-100 bg-opacity-100;
@@ -272,7 +295,6 @@ export default Vue.extend({
 
   &__tags {
     @apply flex flex-wrap gap-3 mt-3;
-    display: -webkit-box;
   }
 
   &__tag {
@@ -313,7 +335,6 @@ export default Vue.extend({
 
   &__main {
     @apply p-6;
-    width: 70%;
   }
 }
 </style>

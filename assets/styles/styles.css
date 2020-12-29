@@ -1,27 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
-/* @font-face {
-  font-family: 'Roboto';
-  font-style: normal;
-  font-weight: 300;
-  font-display: swap;
-  src: url(~assets/fonts/Roboto-Light.ttf);
-}
-
-@font-face {
-  font-family: 'Roboto';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url(~assets/fonts/Roboto-Regular.ttf);
-}
-@font-face {
-  font-family: 'Roboto';
-  font-style: normal;
-  font-weight: 700;
-  font-display: swap;
-  src: url(~assets/fonts/Roboto-Bold.ttf);
-} */
-
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
 
 @media print {
   #settings {
@@ -29,6 +6,11 @@
   }
   #portfolio {
     display: block;
+    width: 100%;
     padding: 0;
+  }
+
+  #portfolio .portfolio {
+    margin: 0;
   }
 }

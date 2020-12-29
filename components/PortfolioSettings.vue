@@ -211,6 +211,20 @@
         </expansion-panel>
       </fieldset>
       <!-- WORK EXPERIENCE -->
+      <div class="form__section flex flex-col p-6 gap-3">
+        <label class="form__btn flex justify-center">
+          Upload CV Settings (JSON)
+          <input
+            type="file"
+            accept=".json"
+            name="uploadCV"
+            class="hidden"
+            @change="uploadCV"
+          />
+        </label>
+        <button class="form__btn">Download PDF</button>
+        <button class="form__btn">Download CV Settings (JSON)</button>
+      </div>
     </form>
   </div>
 </template>
@@ -315,6 +329,14 @@ export default Vue.extend({
       }
     }): void {
       this.$emit('updateSection', e)
+    },
+    uploadCV(e: any) {
+      const fr = new FileReader()
+      fr.onload = (e: any) => {
+        const data = JSON.parse(e.target.result)
+        this.$emit('uploadCv', data)
+      }
+      fr.readAsText(e.target.files[0])
     },
   },
 })

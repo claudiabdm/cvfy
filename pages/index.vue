@@ -1,17 +1,15 @@
 <template>
-  <div class="portfolio bg-gray-50 grid grid-cols-2 h-full">
+  <div class="flex bg-gray-50 h-full">
     <portfolio-settings
       id="settings"
       :form-settings="formSettings"
-      class="portfolio__settings col-span-1 overflow-y-auto"
+      class="overflow-y-auto w-4/12"
       @addSkill="onAddSkill"
       @removeSkill="onRemoveSkill"
       @updateSection="onUpdateSection"
+      @uploadCv="onUploadCv"
     ></portfolio-settings>
-    <portfolio-preview
-      :form-settings="formSettings"
-      class="col-span-2 justify-self-center"
-    ></portfolio-preview>
+    <portfolio-preview :form-settings="formSettings"></portfolio-preview>
   </div>
 </template>
 
@@ -112,11 +110,9 @@ export default Vue.extend({
         ].filter((entry) => entry.title !== e.entry.title)
       }
     },
+    onUploadCv(e: any) {
+      this.formSettings = { ...e.formSettings }
+    },
   },
 })
 </script>
-<style lang="postcss" scoped>
-.portfolio {
-  grid-template-columns: 20rem 1fr 1fr;
-}
-</style>

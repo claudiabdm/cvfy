@@ -1,0 +1,41 @@
+{
+  "formSettings": {
+    "jobTitle": "Junio Front-End Developer",
+    "name": "Claudia",
+    "lastName": "Benito",
+    "email": "claudiabdm@hotmail.es",
+    "location": "Madrid, Spain",
+    "phoneNumber": "+34 692662091",
+    "aboutme": "Soy clauduuauu",
+    "jobSkills": ["Nuxt.js"],
+    "softSkills": ["Teamwork"],
+    "languages": [
+      { "lang": "Spanish", "level": "100%" },
+      { "lang": "English", "level": "80%" },
+      { "lang": "Japanese", "level": "20%" }
+    ],
+    "linkedin": "https://www.linkedin.com/in/claudiabdm/",
+    "twitter": "https://twitter.com/claudiabdm",
+    "github": "https://github.com/claudiabdm",
+    "education": [
+      {
+        "title": "Bachelor's Degree in Biology",
+        "location": "Madrid, Spain",
+        "from": "Mon Dec 07 2020 15:52:28 GMT+0100 (Central European Standard Time)",
+        "to": "Mon Dec 07 2020 15:52:28 GMT+0100 (Central European Standard Time)",
+        "current": "false",
+        "summary": "Erasmus internship at University of Birmingham for 9 months in my final year."
+      }
+    ],
+    "work": [
+      {
+        "title": "Junior Front-end Developer",
+        "location": "Madrid, Spain",
+        "from": "Mon Dec 07 2020 15:52:28 GMT+0100 (Central European Standard Time)",
+        "to": "Mon Dec 07 2020 15:52:28 GMT+0100 (Central European Standard Time)",
+        "current": "false",
+        "summary": "Erasmus internship at University of Birmingham for 9 months in my final year."
+      }
+    ]
+  }
+}
