@@ -33,9 +33,10 @@ export default Vue.extend({
           { lang: 'English', level: '80%' },
           { lang: 'Japanese', level: '20%' },
         ],
-        linkedin: 'https://www.linkedin.com/in/claudiabdm/',
-        twitter: 'https://twitter.com/claudiabdm',
-        github: 'https://github.com/claudiabdm',
+        linkedin: 'claudiabdm',
+        twitter: 'claudiabdm',
+        github: 'claudiabdm',
+        website: '',
         education: [
           {
             title: "Bachelor's Degree in Biology",

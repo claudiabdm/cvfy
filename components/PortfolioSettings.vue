@@ -170,6 +170,20 @@
                   type="text"
                 />
               </div>
+              <div class="form__group col-span-full">
+                <label class="form__label flex" for="website">
+                  <svg class="form__icon mr-1">
+                    <use href="@/assets/sprite.svg#website"></use>
+                  </svg>
+                  Website
+                </label>
+                <input
+                  id="website"
+                  v-model="formSettings.website"
+                  class="form__control"
+                  type="text"
+                />
+              </div>
             </div>
           </template>
         </expansion-panel>
@@ -223,7 +237,12 @@
           />
         </label>
         <button class="form__btn">Download PDF</button>
-        <button class="form__btn">Download CV Settings (JSON)</button>
+        <a
+          :href="formSettingsHref"
+          download="cv.json"
+          class="form__btn flex justify-center"
+          >Download CV Settings (JSON)</a
+        >
       </div>
     </form>
   </div>
@@ -249,6 +268,7 @@ export default Vue.extend({
         linkedin: string
         twitter: string
         github: string
+        website: string
         education: {
           title: string
           location: string
@@ -307,6 +327,13 @@ export default Vue.extend({
     return {
       jobSkill: '',
     }
+  },
+  computed: {
+    formSettingsHref() {
+      return `data:text/json;charset=utf-8,${encodeURIComponent(
+        JSON.stringify(this.formSettings)
+      )}`
+    },
   },
   methods: {
     addSkill(e: { tag: string; tagType: string }): void {

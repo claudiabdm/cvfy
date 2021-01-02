@@ -81,6 +81,51 @@
           </ul>
         </section>
         <!-- // LANGUAGES -->
+        <!-- SOCIAL -->
+        <section class="portfolio__section">
+          <h4 class="portfolio__section-title">SOCIAL</h4>
+          <div class="flex flex-col">
+            <div v-if="formSettings.linkedin" class="portfolio__icon-wrapper">
+              <svg class="portfolio__icon">
+                <use href="@/assets/sprite.svg#linkedin-color"></use>
+              </svg>
+              <a
+                target="_blank"
+                :href="`https://linkedin.com/in/${formSettings.github}`"
+                >{{ formSettings.linkedin }}</a
+              >
+            </div>
+            <div v-if="formSettings.twitter" class="portfolio__icon-wrapper">
+              <svg class="portfolio__icon">
+                <use href="@/assets/sprite.svg#twitter-color"></use>
+              </svg>
+              <a
+                target="_blank"
+                :href="`https://twitter.com/${formSettings.twitter}`"
+                >{{ formSettings.twitter }}</a
+              >
+            </div>
+            <div v-if="formSettings.github" class="portfolio__icon-wrapper">
+              <svg class="portfolio__icon">
+                <use href="@/assets/sprite.svg#github-color"></use>
+              </svg>
+              <a
+                target="_blank"
+                :href="`https://github.com/${formSettings.github}`"
+                >{{ formSettings.github }}</a
+              >
+            </div>
+            <div v-if="formSettings.website" class="portfolio__icon-wrapper">
+              <svg class="portfolio__icon">
+                <use href="@/assets/sprite.svg#website"></use>
+              </svg>
+              <a target="_blank" :href="formSettings.website">{{
+                formSettings.website
+              }}</a>
+            </div>
+          </div>
+        </section>
+        <!-- // SOCIAL -->
       </div>
       <div class="portfolio__main">
         <!-- ABOUT ME -->
@@ -164,6 +209,7 @@ export default Vue.extend({
         linkedin: string
         twitter: string
         github: string
+        website: string
         education: {
           title: string
           location: string
@@ -195,6 +241,7 @@ export default Vue.extend({
         linkedin: '',
         twitter: '',
         github: '',
+        website: '',
         education: [
           {
             title: '',
@@ -254,7 +301,7 @@ export default Vue.extend({
 
   &__side {
     @apply p-6 bg-gray-100 bg-opacity-100;
-    max-width: 30%;
+    max-width: 32.5%;
   }
 
   &__name {
@@ -285,11 +332,15 @@ export default Vue.extend({
 
   &__icon-wrapper {
     @apply flex flex-row font-light;
-    display: -webkit-box;
     align-items: center;
+
+    & + & {
+      margin-top: 5px;
+    }
   }
+
   &__icon {
-    @apply flex mr-1 fill-current;
+    @apply flex mr-1 fill-current rounded;
     width: 1.25rem;
     height: 1.25rem;
     align-items: center;
