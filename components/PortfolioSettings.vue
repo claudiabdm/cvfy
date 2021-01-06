@@ -236,7 +236,13 @@
             @change="uploadCV"
           />
         </label>
-        <button class="form__btn">Download PDF</button>
+        <a
+          href="/.netlify/functions/download-cv"
+          target="_blank"
+          class="form__btn flex justify-center"
+        >
+          Download PDF
+        </a>
         <a
           :href="formSettingsHref"
           download="cv.json"
@@ -357,13 +363,16 @@ export default Vue.extend({
     }): void {
       this.$emit('updateSection', e)
     },
-    uploadCV(e: any) {
+    uploadCV(e: any): void {
       const fr = new FileReader()
       fr.onload = (e: any) => {
         const data = JSON.parse(e.target.result)
         this.$emit('uploadCv', data)
       }
       fr.readAsText(e.target.files[0])
+    },
+    downloadPdf() {
+      window.open('http://localhost:8888/.netlify/functions/download-cv')
     },
   },
 })

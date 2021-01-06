@@ -34,6 +34,7 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/pwa
     '@nuxtjs/pwa',
+    '@nuxtjs/axios',
   ],
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)

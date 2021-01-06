@@ -1,0 +1,14 @@
+[build]
+  command = "npm run generate"
+  functions = "functions"
+  publish = "dist"
+
+[dev]
+  command = "npm run dev"
+
+# The following redirect is intended for use with most SPAs that handle
+# routing internally.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
