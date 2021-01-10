@@ -1,7 +1,15 @@
-const puppeteer = require('puppeteer')
+const chromium = require('chrome-aws-lambda')
+const puppeteer = require('puppeteer-core')
 
 exports.handler = async function (event, context) {
-  const browser = await puppeteer.launch({ headless: true })
+  let browser = null
+  console.log('spawning chrome headless')
+  const executablePath = await chromium.executablePath
+  browser = await puppeteer.launch({
+    args: chromium.args,
+    headless: true,
+    executablePath,
+  })
   const page = await browser.newPage()
   await page.goto('https://unruffled-mccarthy-8ee9c2.netlify.app')
   const pdf = await page.pdf({

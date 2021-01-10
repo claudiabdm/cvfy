@@ -14,9 +14,10 @@
     "@nuxt/typescript-runtime": "^2.0.0",
     "@nuxtjs/axios": "^5.12.5",
     "@nuxtjs/pwa": "^3.0.2",
+    "chrome-aws-lambda": "^5.5.0",
     "core-js": "^3.6.5",
     "nuxt": "^2.14.6",
-    "puppeteer": "^5.5.0"
+    "puppeteer-core": "^5.5.0"
   },
   "devDependencies": {
     "@nuxt/types": "^2.14.6",
@@ -32,6 +33,7 @@
     "eslint-plugin-prettier": "^3.1.4",
     "postcss": "7.0.34",
     "postcss-nested": "4.2.3",
-    "prettier": "^2.1.2"
+    "prettier": "^2.1.2",
+    "puppeteer": "^5.5.0"
   }
 }
