@@ -372,7 +372,7 @@ export default Vue.extend({
       fr.readAsText(e.target.files[0])
     },
     downloadPdf() {
-      window.open('http://localhost:8888/.netlify/functions/download-cv')
+      window.open('https://unruffled-mccarthy-8ee9c2.netlify.app/.netlify/functions/download-cv')
     },
   },
 })
