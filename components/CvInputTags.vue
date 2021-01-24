@@ -1,5 +1,5 @@
 <template>
-  <div class="form__group mb-3">
+  <div class="form__group mb-10">
     <label class="form__label" :for="tagListName">{{ tagListLabel }}</label>
     <div class="flex gap-3">
       <template v-if="tagListName === 'languages'">

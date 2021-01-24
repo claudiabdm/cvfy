@@ -9,10 +9,9 @@
           <button
             v-for="color in colors"
             :key="color"
-            class="form__btn"
-            :style="{ 'background-color': color.color }"
+            :class="['form__btn', `form__btn--${color.name}`, 'capitalize']"
             type="button"
-            @click="changeColor(color.color)"
+            @click="changeColor(color.color, color.darker)"
           >
             {{ color.name }}
           </button>
@@ -27,7 +26,7 @@
             <legend class="form__legend">Personal Details</legend>
           </template>
           <template v-slot:content>
-            <div class="grid grid-cols-2 gap-x-3 gap-y-4">
+            <div class="grid grid-cols-2 gap-x-3 gap-y-10">
               <div class="form__group col-span-full">
                 <label class="form__label" for="job-pos"
                   >💼 Job Title / Current Position</label
@@ -145,7 +144,7 @@
             <legend class="form__legend">Social</legend>
           </template>
           <template v-slot:content>
-            <div class="grid grid-cols-2 gap-x-3 gap-y-4">
+            <div class="grid grid-cols-2 gap-x-3 gap-y-10">
               <div class="form__group col-span-full">
                 <label class="form__label flex" for="linkedin">
                   <svg class="form__icon rounded mr-1">
@@ -355,14 +354,14 @@ export default Vue.extend({
     return {
       jobSkill: '',
       colors: [
-        { name: 'Pink', color: '#9D174D' },
-        { name: 'Purple', color: '#5B21B6' },
-        { name: 'Indigo', color: '#3730A3' },
-        { name: 'Blue', color: '#1E40AF' },
-        { name: 'Green', color: '#065F46' },
-        { name: 'Yellow', color: '#F59E0B' },
-        { name: 'Red', color: '#DC2626' },
-        { name: 'Black', color: '#1F2937' },
+        { name: 'pink', color: '#9D174D', darker: '#831843' },
+        { name: 'purple', color: '#5B21B6', darker: '#4C1D95' },
+        { name: 'indigo', color: '#3730A3', darker: '#312E81' },
+        { name: 'blue', color: '#1E40AF', darker: '#1E3A8A' },
+        { name: 'green', color: '#065F46', darker: '#064E3B' },
+        { name: 'yellow', color: '#F59E0B', darker: '#D97706' },
+        { name: 'red', color: '#DC2626', darker: '#B91C1C' },
+        { name: 'black', color: '#1F2937', darker: '#111827' },
       ],
     }
   },
@@ -406,8 +405,9 @@ export default Vue.extend({
     downloadPdf() {
       window.print()
     },
-    changeColor(color: string): void {
+    changeColor(color: string, darker: string): void {
       document.documentElement.style.setProperty('--primary', color)
+      document.documentElement.style.setProperty('--primary-darker', darker)
     },
   },
 })
@@ -462,9 +462,58 @@ export default Vue.extend({
     @apply text-white p-2 rounded shadow font-light justify-center items-center text-center;
     transition: all 0.1s linear;
     &:hover {
-      background-color: darken(#{var(--primary)}, 10%);
+      background-color: var(--primary-darker);
       cursor: pointer;
     }
+    &--pink {
+      background-color: var(--pink);
+      &:hover {
+        background-color: var(--pink-darker);
+      }
+    }
+    &--purple {
+      background-color: var(--purple);
+      &:hover {
+        background-color: var(--purple-darker);
+      }
+    }
+    &--indigo {
+      background-color: var(--indigo);
+      &:hover {
+        background-color: var(--indigo-darker);
+      }
+    }
+    &--blue {
+      background-color: var(--blue);
+      &:hover {
+        background-color: var(--blue-darker);
+      }
+    }
+    &--green {
+      background-color: var(--green);
+      &:hover {
+        background-color: var(--green-darker);
+      }
+    }
+    &--yellow {
+      background-color: var(--yellow);
+      &:hover {
+        background-color: var(--yellow-darker);
+      }
+    }
+    &--red {
+      background-color: var(--red);
+      &:hover {
+        background-color: var(--red-darker);
+      }
+    }
+    &--black {
+      background-color: var(--black);
+      &:hover {
+        background-color: var(--black-darker);
+      }
+    }
+
     &--tag {
       @apply flex gap-2 py-1;
       align-items: center;
