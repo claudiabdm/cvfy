@@ -1,6 +1,8 @@
 <template>
   <div class="bg-gray-100 bg-opacity-100 shadow font-bold">
-    <h2 class="text-2xl my-3 mx-6 tracking-wide">CV Settings</h2>
+    <h2 class="text-2xl mt-8 mx-6 mb-6 tracking-wide uppercase">
+      {{ $t('cv-settings') }}
+    </h2>
     <form class="form mb-10">
       <!-- Language-->
       <fieldset class="form__section px-6 py-3">

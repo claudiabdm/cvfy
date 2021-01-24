@@ -10,6 +10,7 @@ export default {
   languages: 'Idiomas',
   current: 'Presente',
   'cv-language': 'Idioma del CV',
+  'cv-settings': 'Ajustes CV',
   'color-theme': 'Color del tema',
   pink: 'rosa',
   purple: 'morado',

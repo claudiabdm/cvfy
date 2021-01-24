@@ -1,4 +1,4 @@
-# cv-generator
+# cvfy
 
 ## Build Setup
 
