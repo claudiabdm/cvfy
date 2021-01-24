@@ -426,9 +426,6 @@ export default Vue.extend({
     color: #fff;
     @apply bg-purple-700 text-white p-2 rounded shadow font-light justify-center items-center text-center;
     transition: all 0.1s linear;
-    & + & {
-      margin-top: 10px;
-    }
     &:hover {
       @apply bg-purple-800;
       cursor: pointer;
