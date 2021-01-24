@@ -5,7 +5,7 @@
       <!-- COLOR THEME -->
       <fieldset class="form__section px-6 py-3">
         <legend class="form__legend">Color theme</legend>
-        <div class="flex flex-wrap gap-2 justify-between">
+        <div class="flex flex-wrap gap-2 justify-start">
           <button
             v-for="color in colors"
             :key="color"
