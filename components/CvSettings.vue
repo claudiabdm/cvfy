@@ -2,18 +2,34 @@
   <div class="bg-gray-100 bg-opacity-100 shadow font-bold">
     <h2 class="text-2xl my-3 mx-6 tracking-wide">CV Settings</h2>
     <form class="form mb-10">
+      <!-- Language-->
+      <fieldset class="form__section px-6 py-3">
+        <legend class="form__legend">{{ $t('cv-language') }}</legend>
+        <div class="flex flex-wrap gap-2 justify-start">
+          <nuxt-link
+            v-for="locale in availableLocales"
+            :key="locale.code"
+            class="form__btn"
+            :to="switchLocalePath(locale.code)"
+          >
+            {{ $t(`${locale.code}-name`) }}
+          </nuxt-link>
+        </div>
+      </fieldset>
+      <!-- COLOR THEME -->
+
       <!-- COLOR THEME -->
       <fieldset class="form__section px-6 py-3">
-        <legend class="form__legend">Color theme</legend>
+        <legend class="form__legend">{{ $t('color-theme') }}</legend>
         <div class="flex flex-wrap gap-2 justify-start">
           <button
             v-for="color in colors"
-            :key="color"
+            :key="color.color"
             :class="['form__btn', `form__btn--${color.name}`, 'capitalize']"
             type="button"
             @click="changeColor(color.color, color.darker)"
           >
-            {{ color.name }}
+            {{ $t(color.name) }}
           </button>
         </div>
       </fieldset>
@@ -23,7 +39,7 @@
       <fieldset class="form__section">
         <expansion-panel>
           <template v-slot:title>
-            <legend class="form__legend">Personal Details</legend>
+            <legend class="form__legend">{{ $t('personal-details') }}</legend>
           </template>
           <template v-slot:content>
             <div class="grid grid-cols-2 gap-x-3 gap-y-10">
@@ -106,7 +122,7 @@
       <fieldset class="form__section grid gap-3">
         <expansion-panel>
           <template v-slot:title>
-            <legend class="form__legend">Skills</legend>
+            <legend class="form__legend">{{ $t('skills') }}</legend>
           </template>
           <template v-slot:content>
             <div>
@@ -211,7 +227,7 @@
       <fieldset class="form__section grid gap-3">
         <expansion-panel>
           <template v-slot:title>
-            <legend class="form__legend">Education</legend>
+            <legend class="form__legend">{{ $t('education') }}</legend>
           </template>
           <template v-slot:content>
             <cv-dynamic-section
@@ -229,7 +245,7 @@
       <fieldset class="form__section grid gap-3">
         <expansion-panel>
           <template v-slot:title>
-            <legend class="form__legend">Work Experience</legend>
+            <legend class="form__legend">{{ $t('experience') }}</legend>
           </template>
           <template v-slot:content>
             <cv-dynamic-section
@@ -246,7 +262,7 @@
       <!-- CAB -->
       <div class="form__section flex flex-col p-6 gap-3">
         <label class="form__btn flex justify-center">
-          Upload CV Settings (JSON)
+          {{ $t('upload-cv') }} (JSON)
           <input
             type="file"
             accept=".json"
@@ -259,15 +275,15 @@
           :href="formSettingsHref"
           download="cv.json"
           class="form__btn flex justify-center"
-          >Download CV Settings (JSON)</a
+          >{{ $t('download-cv-settings') }} (JSON)</a
         >
         <button
           type="button"
           class="form__btn flex flex-col justify-center"
           @click="downloadPdf"
         >
-          <span>Download your CV as PDF</span>
-          <span>(Chrome recommended)</span>
+          <span>{{ $t('download-cv-pdf') }}</span>
+          <span>({{ $t('chrome-recommended') }})</span>
         </button>
       </div>
       <!-- CAB -->
@@ -363,6 +379,10 @@ export default Vue.extend({
         { name: 'red', color: '#DC2626', darker: '#B91C1C' },
         { name: 'black', color: '#1F2937', darker: '#111827' },
       ],
+      languages: [
+        { name: 'es-name', code: 'es' },
+        { name: 'en-name', code: 'en' },
+      ],
     }
   },
   computed: {
@@ -370,6 +390,11 @@ export default Vue.extend({
       return `data:text/json;charset=utf-8,${encodeURIComponent(
         JSON.stringify(this.formSettings)
       )}`
+    },
+    availableLocales(): { locale: string; code: string }[] {
+      return this.$i18n.locales?.filter(
+        (locale: any) => !locale.code.includes('-')
+      ) as { locale: string; code: string }[]
     },
   },
   methods: {

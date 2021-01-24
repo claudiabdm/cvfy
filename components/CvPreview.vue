@@ -8,7 +8,7 @@
         <h3 class="cv__job-title">{{ formSettings.jobTitle }}</h3>
         <!-- CONTACT -->
         <section class="cv__section">
-          <h4 class="cv__section-title">Contact</h4>
+          <h4 class="cv__section-title">{{ $t('contact') }}</h4>
           <div class="flex flex-col">
             <div class="cv__icon-wrapper">
               <svg class="cv__icon">
@@ -33,7 +33,7 @@
         <!-- //CONTACT -->
         <!-- PROFESIONAL SKILLS -->
         <section class="cv__section">
-          <h4 class="cv__section-title">Professional Skills</h4>
+          <h4 class="cv__section-title">{{ $t('professional-skills') }}</h4>
           <ul class="cv__tags">
             <li
               v-for="skill in formSettings.jobSkills"
@@ -47,7 +47,7 @@
         <!-- //PROFESIONAL SKILLS -->
         <!-- SOFT SKILLS -->
         <section class="cv__section">
-          <h4 class="cv__section-title">Soft Skills</h4>
+          <h4 class="cv__section-title">{{ $t('soft-skills') }}</h4>
           <ul class="cv__list">
             <li
               v-for="skill in formSettings.softSkills"
@@ -61,7 +61,7 @@
         <!-- // SOFT SKILLS -->
         <!-- LANGUAGES -->
         <section class="cv__section">
-          <h4 class="cv__section-title">Languages</h4>
+          <h4 class="cv__section-title">{{ $t('languages') }}</h4>
           <ul class="cv__bar">
             <li
               v-for="lang in formSettings.languages"
@@ -127,14 +127,18 @@
       <div class="cv__main">
         <!-- ABOUT ME -->
         <section class="cv__section cv__section--main w-full">
-          <h4 class="cv__section-title cv__section-title--main">About me</h4>
+          <h4 class="cv__section-title cv__section-title--main">
+            {{ $t('about-me') }}
+          </h4>
           <p class="font-light">{{ formSettings.aboutme }}</p>
         </section>
         <!-- // ABOUT ME -->
         <hr class="my-5 border-gray-100 border-2" />
         <!-- EXPERIENCE -->
         <section class="cv__section cv__section--main w-full">
-          <h4 class="cv__section-title cv__section-title--main">Experience</h4>
+          <h4 class="cv__section-title cv__section-title--main">
+            {{ $t('experience') }}
+          </h4>
           <ul class="mt-3">
             <li
               v-for="job in workSortedByDate"
@@ -148,7 +152,7 @@
                 <span>{{ job.location }} | </span>
                 <span>
                   {{ formatDate(job.from) }} -
-                  <template v-if="job.current">Current</template>
+                  <template v-if="job.current">{{ $t('current') }}</template>
                   <template v-else>{{ formatDate(job.to) }}</template>
                 </span>
               </div>
@@ -160,7 +164,9 @@
         <hr class="my-5 border-gray-100 border-2" />
         <!-- EDUCATION -->
         <section class="cv__section cv__section--main w-full">
-          <h4 class="cv__section-title cv__section-title--main">Education</h4>
+          <h4 class="cv__section-title cv__section-title--main">
+            {{ $t('education') }}
+          </h4>
           <ul class="mt-3">
             <li
               v-for="edu in educationSortedByDate"
@@ -174,7 +180,7 @@
                 <span>{{ edu.location }} | </span>
                 <span>
                   {{ formatDate(edu.from) }} -
-                  <template v-if="edu.current">Current</template>
+                  <template v-if="edu.current">{{ $t('current') }}</template>
                   <template v-else>{{ formatDate(edu.to) }}</template>
                 </span>
               </div>
@@ -294,9 +300,9 @@ export default Vue.extend({
     },
     formatDate(date: Date): string {
       // const locale = process.browser ? navigator.language : 'en-GB'
-      const options = { year: 'numeric', month: 'long' }
+      const options = { year: 'numeric', month: 'short' }
       const dateObj = new Date(date)
-      return dateObj.toLocaleDateString('en-GB', options)
+      return dateObj.toLocaleDateString(this.$i18n.locale, options)
     },
   },
 })

@@ -35,6 +35,7 @@ export default {
     // https://go.nuxtjs.dev/pwa
     '@nuxtjs/pwa',
     '@nuxtjs/axios',
+    'nuxt-i18n',
   ],
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
@@ -49,5 +50,33 @@ export default {
   },
   tailwindcss: {
     configPath: '~/tailwind.config.js',
+  },
+  i18n: {
+    strategy: 'prefix',
+    locales: [
+      {
+        code: 'en',
+        file: 'en.js',
+        name: 'English',
+      },
+      {
+        code: 'es',
+        file: 'es.js',
+        name: 'Español',
+      },
+      {
+        code: 'es-ES',
+        file: 'es.js',
+        name: 'Español',
+      },
+    ],
+    lazy: true,
+    langDir: 'lang/',
+    defaultLocale: 'en',
+    detectBrowserLanguage: {
+      useCookie: true,
+      cookieKey: 'i18n_redirected',
+      onlyOnRoot: true,
+    },
   },
 }
