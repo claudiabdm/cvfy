@@ -313,7 +313,6 @@ p {
 
   &__side {
     @apply px-6 py-10 bg-gray-100 bg-opacity-100;
-    max-width: 32.5%;
   }
 
   &__name {
@@ -355,6 +354,7 @@ p {
     @apply flex mr-1 fill-current rounded;
     width: 1.25rem;
     height: 1.25rem;
+    min-width: 1.25rem;
     align-items: center;
   }
 
@@ -405,7 +405,7 @@ p {
   }
 
   &__main {
-    @apply px-6 py-10;
+    @apply px-10 py-10;
   }
 
   &__list-elem {

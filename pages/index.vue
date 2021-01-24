@@ -36,12 +36,12 @@ export default Vue.extend({
         website: 'www.MsKnope.com',
         education: [
           {
-            title: 'A Environmental and Public Affairs (Summa cum Laude)',
+            title: 'A Environmental and Public Affairs',
             location: 'Indiana University, Bloomington, Indiana',
             from: new Date('1993-09-01'),
             to: new Date('1993-04-01'),
             current: false,
-            summary: '',
+            summary: 'Summa cum Laude',
           },
         ],
         work: [
