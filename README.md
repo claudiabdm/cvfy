@@ -1,4 +1,4 @@
-# portfolio-generator
+# cv-generator
 
 ## Build Setup
 

@@ -1,29 +1,29 @@
 <template>
-  <div id="portfolio" class="font-normal w-full overflow-auto">
-    <div class="portfolio bg-white">
-      <div class="portfolio__side">
-        <h2 class="portfolio__name">
+  <div id="cv" class="font-normal flex justify-center w-full overflow-auto">
+    <div class="cv bg-white">
+      <div class="cv__side">
+        <h2 class="cv__name">
           {{ formSettings.name }} {{ formSettings.lastName }}
         </h2>
-        <h3 class="portfolio__job-title">{{ formSettings.jobTitle }}</h3>
+        <h3 class="cv__job-title">{{ formSettings.jobTitle }}</h3>
         <!-- CONTACT -->
-        <section class="portfolio__section">
-          <h4 class="portfolio__section-title">Contact</h4>
+        <section class="cv__section">
+          <h4 class="cv__section-title">Contact</h4>
           <div class="flex flex-col">
-            <div class="portfolio__icon-wrapper">
-              <svg class="portfolio__icon">
+            <div class="cv__icon-wrapper">
+              <svg class="cv__icon">
                 <use href="@/assets/sprite.svg#phone"></use>
               </svg>
               <a :href="phoneNumberHref">{{ formSettings.phoneNumber }}</a>
             </div>
-            <div class="portfolio__icon-wrapper">
-              <svg class="portfolio__icon">
+            <div class="cv__icon-wrapper">
+              <svg class="cv__icon">
                 <use href="@/assets/sprite.svg#email"></use>
               </svg>
               <a :href="emailHref">{{ formSettings.email }}</a>
             </div>
-            <div class="portfolio__icon-wrapper">
-              <svg class="portfolio__icon">
+            <div class="cv__icon-wrapper">
+              <svg class="cv__icon">
                 <use href="@/assets/sprite.svg#location"></use>
               </svg>
               <span>{{ formSettings.location }}</span>
@@ -32,13 +32,13 @@
         </section>
         <!-- //CONTACT -->
         <!-- PROFESIONAL SKILLS -->
-        <section class="portfolio__section">
-          <h4 class="portfolio__section-title">Professional Skills</h4>
-          <ul class="portfolio__tags">
+        <section class="cv__section">
+          <h4 class="cv__section-title">Professional Skills</h4>
+          <ul class="cv__tags">
             <li
               v-for="skill in formSettings.jobSkills"
               :key="`preview${skill}`"
-              class="portfolio__tag"
+              class="cv__tag"
             >
               {{ skill }}
             </li>
@@ -46,9 +46,9 @@
         </section>
         <!-- //PROFESIONAL SKILLS -->
         <!-- SOFT SKILLS -->
-        <section class="portfolio__section">
-          <h4 class="portfolio__section-title">Soft Skills</h4>
-          <ul class="portfolio__list">
+        <section class="cv__section">
+          <h4 class="cv__section-title">Soft Skills</h4>
+          <ul class="cv__list">
             <li
               v-for="skill in formSettings.softSkills"
               :key="`preview${skill}`"
@@ -60,20 +60,17 @@
         </section>
         <!-- // SOFT SKILLS -->
         <!-- LANGUAGES -->
-        <section class="portfolio__section">
-          <h4 class="portfolio__section-title">Languages</h4>
-          <ul class="portfolio__bar">
+        <section class="cv__section">
+          <h4 class="cv__section-title">Languages</h4>
+          <ul class="cv__bar">
             <li
               v-for="lang in formSettings.languages"
               :key="`preview${lang.lang}`"
             >
               {{ lang.lang }}
-              <div
-                class="portfolio__bar-level bg-gray-300"
-                :style="{ width: '100%' }"
-              >
+              <div class="cv__bar-level bg-gray-300" :style="{ width: '100%' }">
                 <span
-                  class="portfolio__bar-level portfolio__bar-level--in"
+                  class="cv__bar-level cv__bar-level--in"
                   :style="{ width: lang.level }"
                 ></span>
               </div>
@@ -82,11 +79,11 @@
         </section>
         <!-- // LANGUAGES -->
         <!-- SOCIAL -->
-        <section class="portfolio__section">
-          <h4 class="portfolio__section-title">SOCIAL</h4>
+        <section class="cv__section">
+          <h4 class="cv__section-title">SOCIAL</h4>
           <div class="flex flex-col">
-            <div v-if="formSettings.linkedin" class="portfolio__icon-wrapper">
-              <svg class="portfolio__icon">
+            <div v-if="formSettings.linkedin" class="cv__icon-wrapper">
+              <svg class="cv__icon">
                 <use href="@/assets/sprite.svg#linkedin-color"></use>
               </svg>
               <a
@@ -95,8 +92,8 @@
                 >{{ formSettings.linkedin }}</a
               >
             </div>
-            <div v-if="formSettings.twitter" class="portfolio__icon-wrapper">
-              <svg class="portfolio__icon">
+            <div v-if="formSettings.twitter" class="cv__icon-wrapper">
+              <svg class="cv__icon">
                 <use href="@/assets/sprite.svg#twitter-color"></use>
               </svg>
               <a
@@ -105,8 +102,8 @@
                 >{{ formSettings.twitter }}</a
               >
             </div>
-            <div v-if="formSettings.github" class="portfolio__icon-wrapper">
-              <svg class="portfolio__icon">
+            <div v-if="formSettings.github" class="cv__icon-wrapper">
+              <svg class="cv__icon">
                 <use href="@/assets/sprite.svg#github-color"></use>
               </svg>
               <a
@@ -115,8 +112,8 @@
                 >{{ formSettings.github }}</a
               >
             </div>
-            <div v-if="formSettings.website" class="portfolio__icon-wrapper">
-              <svg class="portfolio__icon">
+            <div v-if="formSettings.website" class="cv__icon-wrapper">
+              <svg class="cv__icon">
                 <use href="@/assets/sprite.svg#website"></use>
               </svg>
               <a target="_blank" :href="formSettings.website">{{
@@ -127,24 +124,24 @@
         </section>
         <!-- // SOCIAL -->
       </div>
-      <div class="portfolio__main">
+      <div class="cv__main">
         <!-- ABOUT ME -->
-        <section class="portfolio__section portfolio__section--main w-full">
-          <h4 class="portfolio__section-title portfolio__section-title--main">
-            About me
-          </h4>
+        <section class="cv__section cv__section--main w-full">
+          <h4 class="cv__section-title cv__section-title--main">About me</h4>
           <p class="font-light">{{ formSettings.aboutme }}</p>
         </section>
         <!-- // ABOUT ME -->
         <hr class="my-5 border-gray-100 border-2" />
         <!-- EXPERIENCE -->
-        <section class="portfolio__section portfolio__section--main w-full">
-          <h4 class="portfolio__section-title portfolio__section-title--main">
-            Experience
-          </h4>
+        <section class="cv__section cv__section--main w-full">
+          <h4 class="cv__section-title cv__section-title--main">Experience</h4>
           <ul class="mt-3">
-            <li v-for="job in formSettings.work" :key="job.title">
-              <h5 class="portfolio__section-title portfolio__section-title--sm">
+            <li
+              v-for="job in workSortedByDate"
+              :key="job.title"
+              class="cv__list-elem"
+            >
+              <h5 class="cv__section-title cv__section-title--sm">
                 {{ job.title }}
               </h5>
               <div class="font-normal">
@@ -162,13 +159,15 @@
         <!-- // EXPERIENCE -->
         <hr class="my-5 border-gray-100 border-2" />
         <!-- EDUCATION -->
-        <section class="portfolio__section portfolio__section--main w-full">
-          <h4 class="portfolio__section-title portfolio__section-title--main">
-            Education
-          </h4>
+        <section class="cv__section cv__section--main w-full">
+          <h4 class="cv__section-title cv__section-title--main">Education</h4>
           <ul class="mt-3">
-            <li v-for="edu in formSettings.education" :key="edu.title">
-              <h5 class="portfolio__section-title portfolio__section-title--sm">
+            <li
+              v-for="edu in educationSortedByDate"
+              :key="edu.title"
+              class="cv__list-elem"
+            >
+              <h5 class="cv__section-title cv__section-title--sm">
                 {{ edu.title }}
               </h5>
               <div class="font-normal">
@@ -192,7 +191,7 @@
 <script lang="ts">
 import Vue from 'vue'
 export default Vue.extend({
-  name: 'PortfolioPreview',
+  name: 'CvPreview',
   props: {
     formSettings: {
       type: Object as () => {
@@ -266,6 +265,16 @@ export default Vue.extend({
     },
   },
   computed: {
+    workSortedByDate() {
+      return [...this.formSettings.work].sort(
+        (a, b) => new Date(b.from).getTime() - new Date(a.from).getTime()
+      )
+    },
+    educationSortedByDate() {
+      return [...this.formSettings.education].sort(
+        (a, b) => new Date(b.from).getTime() - new Date(a.from).getTime()
+      )
+    },
     phoneNumberHref(): string {
       return `tel:${this.formSettings.phoneNumber}`
     },
@@ -284,23 +293,26 @@ export default Vue.extend({
       }
     },
     formatDate(date: Date): string {
-      const locale = process.browser ? navigator.language : 'en-GB'
+      // const locale = process.browser ? navigator.language : 'en-GB'
       const options = { year: 'numeric', month: 'long' }
       const dateObj = new Date(date)
-      return dateObj.toLocaleDateString(locale, options)
+      return dateObj.toLocaleDateString('en-GB', options)
     },
   },
 })
 </script>
 <style lang="postcss" scoped>
-.portfolio {
+p {
+  @apply leading-relaxed;
+}
+.cv {
   @apply flex m-10 text-gray-700 shadow;
   width: 21cm;
   height: 29.7cm;
   overflow-y: auto;
 
   &__side {
-    @apply p-6 bg-gray-100 bg-opacity-100;
+    @apply px-6 py-10 bg-gray-100 bg-opacity-100;
     max-width: 32.5%;
   }
 
@@ -393,7 +405,13 @@ export default Vue.extend({
   }
 
   &__main {
-    @apply p-6;
+    @apply px-6 py-10;
+  }
+
+  &__list-elem {
+    & + & {
+      @apply mt-3;
+    }
   }
 }
 </style>

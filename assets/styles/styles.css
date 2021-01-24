@@ -4,13 +4,13 @@
   #settings {
     display: none;
   }
-  #portfolio {
+  #cv {
     display: block;
     width: 100%;
     padding: 0;
   }
 
-  #portfolio .portfolio {
+  #cv .cv {
     margin: 0;
   }
 }

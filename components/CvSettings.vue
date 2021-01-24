@@ -1,6 +1,6 @@
 <template>
   <div class="bg-gray-100 bg-opacity-100 shadow font-bold">
-    <h2 class="text-2xl my-3 mx-6 tracking-wide">Portfolio Settings</h2>
+    <h2 class="text-2xl my-3 mx-6 tracking-wide">CV Settings</h2>
     <form class="form mb-10">
       <!-- PERSONAL DETAILS -->
       <fieldset class="form__section">
@@ -93,27 +93,27 @@
           </template>
           <template v-slot:content>
             <div>
-              <portfolio-input-tags
+              <cv-input-tags
                 tag-list-name="jobSkills"
                 tag-list-label="🛠 Technical Skills"
                 :tag-list="formSettings.jobSkills"
                 @addTag="addSkill($event)"
                 @removeTag="removeSkill($event)"
-              ></portfolio-input-tags>
-              <portfolio-input-tags
+              ></cv-input-tags>
+              <cv-input-tags
                 tag-list-name="softSkills"
                 tag-list-label="🧸 Soft Skills"
                 :tag-list="formSettings.softSkills"
                 @addTag="addSkill($event)"
                 @removeTag="removeSkill($event)"
-              ></portfolio-input-tags>
-              <portfolio-input-tags
+              ></cv-input-tags>
+              <cv-input-tags
                 tag-list-name="languages"
                 tag-list-label="🌎 Languages"
                 :tag-list-lang="formSettings.languages"
                 @addTag="addSkill($event)"
                 @removeTag="removeSkill($event)"
-              ></portfolio-input-tags>
+              ></cv-input-tags>
             </div>
           </template>
         </expansion-panel>
@@ -197,12 +197,12 @@
             <legend class="form__legend">Education</legend>
           </template>
           <template v-slot:content>
-            <portfolio-dynamic-section
+            <cv-dynamic-section
               section-name="education"
               :entries="formSettings.education"
               @addEntry="onUpdateSection"
               @removeEntry="onUpdateSection"
-            ></portfolio-dynamic-section>
+            ></cv-dynamic-section>
           </template>
         </expansion-panel>
       </fieldset>
@@ -215,12 +215,12 @@
             <legend class="form__legend">Work Experience</legend>
           </template>
           <template v-slot:content>
-            <portfolio-dynamic-section
+            <cv-dynamic-section
               section-name="work"
               :entries="formSettings.work"
               @addEntry="onUpdateSection"
               @removeEntry="onUpdateSection"
-            ></portfolio-dynamic-section>
+            ></cv-dynamic-section>
           </template>
         </expansion-panel>
       </fieldset>
@@ -237,18 +237,19 @@
           />
         </label>
         <a
-          href="/.netlify/functions/download-cv"
-          target="_blank"
-          class="form__btn flex justify-center"
-        >
-          Download PDF
-        </a>
-        <a
           :href="formSettingsHref"
           download="cv.json"
           class="form__btn flex justify-center"
           >Download CV Settings (JSON)</a
         >
+        <button
+          type="button"
+          class="form__btn flex flex-col justify-center"
+          @click="downloadPdf"
+        >
+          <span>Download your CV as PDF</span>
+          <span>(Chrome recommended)</span>
+        </button>
       </div>
     </form>
   </div>
@@ -257,7 +258,7 @@
 import Vue from 'vue'
 
 export default Vue.extend({
-  name: 'PortfolioSettings',
+  name: 'CvSettings',
   props: {
     formSettings: {
       type: Object as () => {
@@ -372,7 +373,7 @@ export default Vue.extend({
       fr.readAsText(e.target.files[0])
     },
     downloadPdf() {
-      window.open('https://unruffled-mccarthy-8ee9c2.netlify.app/.netlify/functions/download-cv')
+      window.print()
     },
   },
 })
@@ -423,8 +424,11 @@ export default Vue.extend({
 
   &__btn {
     color: #fff;
-    @apply bg-purple-700 text-white p-2 rounded shadow font-light;
+    @apply bg-purple-700 text-white p-2 rounded shadow font-light justify-center items-center text-center;
     transition: all 0.1s linear;
+    & + & {
+      margin-top: 10px;
+    }
     &:hover {
       @apply bg-purple-800;
       cursor: pointer;

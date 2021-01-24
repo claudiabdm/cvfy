@@ -98,7 +98,7 @@
 <script lang="ts">
 import Vue from 'vue'
 export default Vue.extend({
-  name: 'PortfolioDynamicEntry',
+  name: 'CvDynamicEntry',
   props: {
     sectionName: {
       type: String,
