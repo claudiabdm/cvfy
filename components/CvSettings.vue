@@ -2,6 +2,24 @@
   <div class="bg-gray-100 bg-opacity-100 shadow font-bold">
     <h2 class="text-2xl my-3 mx-6 tracking-wide">CV Settings</h2>
     <form class="form mb-10">
+      <!-- COLOR THEME -->
+      <fieldset class="form__section px-6 py-3">
+        <legend class="form__legend">Color theme</legend>
+        <div class="flex flex-wrap gap-2 justify-between">
+          <button
+            v-for="color in colors"
+            :key="color"
+            class="form__btn"
+            :style="{ 'background-color': color.color }"
+            type="button"
+            @click="changeColor(color.color)"
+          >
+            {{ color.name }}
+          </button>
+        </div>
+      </fieldset>
+      <!-- COLOR THEME -->
+
       <!-- PERSONAL DETAILS -->
       <fieldset class="form__section">
         <expansion-panel>
@@ -225,6 +243,8 @@
         </expansion-panel>
       </fieldset>
       <!-- WORK EXPERIENCE -->
+
+      <!-- CAB -->
       <div class="form__section flex flex-col p-6 gap-3">
         <label class="form__btn flex justify-center">
           Upload CV Settings (JSON)
@@ -251,6 +271,7 @@
           <span>(Chrome recommended)</span>
         </button>
       </div>
+      <!-- CAB -->
     </form>
   </div>
 </template>
@@ -333,6 +354,16 @@ export default Vue.extend({
   data() {
     return {
       jobSkill: '',
+      colors: [
+        { name: 'Pink', color: '#9D174D' },
+        { name: 'Purple', color: '#5B21B6' },
+        { name: 'Indigo', color: '#3730A3' },
+        { name: 'Blue', color: '#1E40AF' },
+        { name: 'Green', color: '#065F46' },
+        { name: 'Yellow', color: '#F59E0B' },
+        { name: 'Red', color: '#DC2626' },
+        { name: 'Black', color: '#1F2937' },
+      ],
     }
   },
   computed: {
@@ -374,6 +405,9 @@ export default Vue.extend({
     },
     downloadPdf() {
       window.print()
+    },
+    changeColor(color: string): void {
+      document.documentElement.style.setProperty('--primary', color)
     },
   },
 })
@@ -424,10 +458,11 @@ export default Vue.extend({
 
   &__btn {
     color: #fff;
-    @apply bg-purple-700 text-white p-2 rounded shadow font-light justify-center items-center text-center;
+    background-color: var(--primary);
+    @apply text-white p-2 rounded shadow font-light justify-center items-center text-center;
     transition: all 0.1s linear;
     &:hover {
-      @apply bg-purple-800;
+      background-color: darken(#{var(--primary)}, 10%);
       cursor: pointer;
     }
     &--tag {
