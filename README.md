@@ -1,4 +1,6 @@
-# cvfy
+# CvFy
+
+Demo: https://cvfy.netlify.app/
 
 ## Build Setup
 
