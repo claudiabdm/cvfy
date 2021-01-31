@@ -4,12 +4,16 @@
       id="settings"
       :form-settings="formSettings"
       class="settings"
-      @addSkill="onAddSkill"
-      @removeSkill="onRemoveSkill"
-      @updateSection="onUpdateSection"
-      @uploadCv="onUploadCv"
+      @add-skill="onAddSkill"
+      @remove-skill="onRemoveSkill"
+      @update-section="onUpdateSection"
+      @upload-cv="onUploadCv"
+      @reset-form="onResetForm"
     ></cv-settings>
-    <cv-preview :form-settings="formSettings"></cv-preview>
+    <cv-preview
+      :form-settings="formSettings"
+      :class="[{ blur: isLoading }]"
+    ></cv-preview>
   </div>
 </template>
 
@@ -18,6 +22,7 @@ import Vue from 'vue'
 export default Vue.extend({
   data() {
     return {
+      isLoading: true,
       formSettings: {
         jobTitle: 'Deputy Director Parks Department',
         name: 'Leslie',
@@ -73,6 +78,45 @@ export default Vue.extend({
       },
     }
   },
+  watch: {
+    formSettings: {
+      // eslint-disable-next-line object-shorthand
+      handler: function (updated, _) {
+        localStorage.setItem(
+          `cvSettings-${this.$i18n.locale}`,
+          JSON.stringify(updated)
+        )
+      },
+      deep: true,
+    },
+  },
+  mounted() {
+    if (process.browser) {
+      const cvEs = localStorage.getItem('cvSettings-es') || '{}'
+      const cvEn = localStorage.getItem('cvSettings-en') || '{}'
+      const isCvEsEmpty = this.isCvSettingsFromLocalStorageEmpty(
+        JSON.parse(cvEs)
+      )
+      const isCvEnEmpty = this.isCvSettingsFromLocalStorageEmpty(
+        JSON.parse(cvEn)
+      )
+      if (this.$i18n.locale.includes('es') && !isCvEsEmpty) {
+        this.formSettings = JSON.parse(cvEs)
+      }
+      if (this.$i18n.locale.includes('en') && !isCvEnEmpty) {
+        this.formSettings = JSON.parse(cvEn)
+      }
+      if (this.$i18n.locale.includes('es') && isCvEsEmpty && !isCvEnEmpty) {
+        this.formSettings = JSON.parse(cvEn)
+        localStorage.setItem('cvSettings-es', cvEn)
+      }
+      if (this.$i18n.locale.includes('en') && isCvEnEmpty && !isCvEsEmpty) {
+        this.formSettings = JSON.parse(cvEs)
+        localStorage.setItem('cvSettings-en', cvEs)
+      }
+      this.isLoading = false
+    }
+  },
   methods: {
     onAddSkill(e: {
       skill: string | { lang: string; level: string }
@@ -125,6 +169,35 @@ export default Vue.extend({
     onUploadCv(e: any) {
       this.formSettings = { ...e.formSettings }
     },
+    onResetForm(): void {
+      this.formSettings = {
+        jobTitle: '',
+        name: '',
+        lastName: '',
+        email: '',
+        location: '',
+        phoneNumber: '',
+        aboutme: '',
+        jobSkills: [],
+        softSkills: [],
+        languages: [],
+        linkedin: '',
+        twitter: '',
+        github: '',
+        website: '',
+        education: [],
+        work: [],
+      }
+      localStorage.removeItem('cvSettings-es')
+      localStorage.removeItem('cvSettings-en')
+    },
+    isCvSettingsFromLocalStorageEmpty(item: any): boolean {
+      const keys = Object.keys(item)
+      if (keys.length < 1) {
+        return true
+      }
+      return keys.every((key) => item[key] === '' || item[key].length < 1)
+    },
   },
 })
 </script>
@@ -135,6 +208,9 @@ export default Vue.extend({
   }
   .settings {
     @apply overflow-y-auto w-5/12;
+  }
+  .blur {
+    filter: blur(5px);
   }
 }
 </style>

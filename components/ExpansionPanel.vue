@@ -77,7 +77,7 @@ export default Vue.extend({
     @apply p-1;
   }
   &__title {
-    @apply flex items-center justify-between w-full bg-gray-100 bg-opacity-100  relative z-10 mb-10;
+    @apply flex items-center justify-between w-full bg-gray-100 bg-opacity-100  relative z-10 mb-10 capitalize;
     &:hover {
       cursor: pointer;
     }

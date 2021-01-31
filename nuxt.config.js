@@ -89,4 +89,7 @@ export default {
       onlyOnRoot: true,
     },
   },
+  router: {
+    linkActiveClass: 'form__btn--active',
+  },
 }

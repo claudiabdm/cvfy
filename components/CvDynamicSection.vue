@@ -1,7 +1,7 @@
 <template>
   <div class="grid grid-cols-2 gap-x-3 gap-y-4">
     <button class="form__btn col-span-full" type="button" @click="addEntry">
-      Add {{ sectionName }}
+      {{ $t('add') }} {{ $t(sectionName) }}
     </button>
     <ul class="col-span-full">
       <li v-for="(entryItem, index) in entries" :key="index">

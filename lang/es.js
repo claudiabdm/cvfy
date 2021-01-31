@@ -3,7 +3,7 @@ export default {
   'en-name': 'Inglés',
   'about-me': 'Sobre mí',
   experience: 'Experiencia',
-  education: 'Educación',
+  education: 'educación',
   contact: 'Contacto',
   'professional-skills': 'Habilidades profesionales',
   'soft-skills': 'Habilidades Personales',
@@ -38,4 +38,6 @@ export default {
   from: 'Desde',
   to: 'Hasta',
   summary: 'Resumen',
+  work: 'trabajo',
+  'clear-settings': 'Limpiar CV settings',
 }

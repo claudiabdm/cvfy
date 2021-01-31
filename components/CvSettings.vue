@@ -3,7 +3,14 @@
     <h2 class="text-2xl pt-8 px-6 pb-6 tracking-wide uppercase">
       {{ $t('cv-settings') }}
     </h2>
-    <form class="form mb-10">
+    <form class="form mb-10" autocomplete="true">
+      <button
+        class="form__section form__btn form__btn--ghost mx-6"
+        type="button"
+        @click="resetForm"
+      >
+        {{ $t('clear-settings') }}
+      </button>
       <!-- Language-->
       <fieldset class="form__section px-6 py-3">
         <legend class="form__legend">{{ $t('cv-language') }}</legend>
@@ -11,7 +18,7 @@
           <nuxt-link
             v-for="locale in availableLocales"
             :key="locale.code"
-            class="form__btn"
+            class="form__btn form__btn--ghost"
             :to="switchLocalePath(locale.code)"
           >
             {{ $t(`${locale.code}-name`) }}
@@ -27,7 +34,12 @@
           <button
             v-for="color in colors"
             :key="color.color"
-            :class="['form__btn', `form__btn--${color.name}`, 'capitalize']"
+            :class="[
+              'form__btn',
+              `form__btn--${color.name}`,
+              'capitalize',
+              { 'form__btn--color-selected': color.color === activeColor },
+            ]"
             type="button"
             @click="changeColor(color.color, color.darker)"
           >
@@ -243,7 +255,7 @@
           </template>
           <template v-slot:content>
             <cv-dynamic-section
-              :section-name="`${$t('education')}`"
+              section-name="education"
               :entries="formSettings.education"
               @addEntry="onUpdateSection"
               @removeEntry="onUpdateSection"
@@ -261,7 +273,7 @@
           </template>
           <template v-slot:content>
             <cv-dynamic-section
-              section-name="`${$t('work')}`"
+              section-name="work"
               :entries="formSettings.work"
               @addEntry="onUpdateSection"
               @removeEntry="onUpdateSection"
@@ -271,7 +283,7 @@
       </fieldset>
       <!-- WORK EXPERIENCE -->
 
-      <!-- CAB -->
+      <!-- CTA -->
       <div class="form__section flex flex-col p-6 gap-3">
         <label class="form__btn flex justify-center">
           {{ $t('upload-cv') }} (JSON)
@@ -298,7 +310,7 @@
           <span>({{ $t('chrome-recommended') }})</span>
         </button>
       </div>
-      <!-- CAB -->
+      <!-- CTA -->
     </form>
   </div>
 </template>
@@ -381,12 +393,12 @@ export default Vue.extend({
   data() {
     return {
       jobSkill: '',
+      activeColor: '#5B21B6',
       colors: [
         { name: 'pink', color: '#9D174D', darker: '#831843' },
         { name: 'purple', color: '#5B21B6', darker: '#4C1D95' },
         { name: 'blue', color: '#1E40AF', darker: '#1E3A8A' },
         { name: 'green', color: '#065F46', darker: '#064E3B' },
-        { name: 'red', color: '#DC2626', darker: '#B91C1C' },
         { name: 'black', color: '#1F2937', darker: '#111827' },
       ],
       languages: [
@@ -409,11 +421,11 @@ export default Vue.extend({
   },
   methods: {
     addSkill(e: { tag: string; tagType: string }): void {
-      this.$emit('addSkill', { skill: e.tag, skillType: e.tagType })
+      this.$emit('add-skill', { skill: e.tag, skillType: e.tagType })
       this.jobSkill = ''
     },
     removeSkill(e: { tag: string; tagType: string }): void {
-      this.$emit('removeSkill', { skill: e.tag, skillType: e.tagType })
+      this.$emit('remove-skill', { skill: e.tag, skillType: e.tagType })
     },
     onUpdateSection(e: {
       eventType: string
@@ -433,7 +445,7 @@ export default Vue.extend({
       const fr = new FileReader()
       fr.onload = (e: any) => {
         const data = JSON.parse(e.target.result)
-        this.$emit('uploadCv', data)
+        this.$emit('upload-cv', data)
       }
       fr.readAsText(e.target.files[0])
     },
@@ -441,8 +453,12 @@ export default Vue.extend({
       window.print()
     },
     changeColor(color: string, darker: string): void {
+      this.activeColor = color
       document.documentElement.style.setProperty('--primary', color)
       document.documentElement.style.setProperty('--primary-darker', darker)
+    },
+    resetForm(e: any): void {
+      this.$emit('reset-form', e)
     },
   },
 })
@@ -479,7 +495,8 @@ export default Vue.extend({
     transition: all 0.1s linear;
     outline: none;
     &:focus {
-      @apply border border-purple-700;
+      @apply border;
+      border-color: var(--primary);
     }
 
     &--checkbox {
@@ -495,56 +512,55 @@ export default Vue.extend({
     color: #fff;
     background-color: var(--primary);
     @apply text-white p-2 rounded shadow font-light justify-center items-center text-center;
-    transition: all 0.1s linear;
+    transition: background-color 0.1s linear, color 0.1s linear;
     &:hover {
       background-color: var(--primary-darker);
       cursor: pointer;
     }
     &--pink {
-      background-color: var(--pink);
+      color: var(--pink);
+      background-color: #fff;
       &:hover {
-        background-color: var(--pink-darker);
+        background-color: var(--pink);
+        color: #fff;
       }
     }
     &--purple {
-      background-color: var(--purple);
+      color: var(--purple);
+      background-color: #fff;
       &:hover {
-        background-color: var(--purple-darker);
+        color: #fff;
+        background-color: var(--purple);
       }
     }
     &--indigo {
-      background-color: var(--indigo);
+      color: var(--indigo);
+      background-color: #fff;
       &:hover {
         background-color: var(--indigo-darker);
       }
     }
     &--blue {
-      background-color: var(--blue);
+      color: var(--blue);
+      background-color: #fff;
       &:hover {
+        color: #fff;
         background-color: var(--blue-darker);
       }
     }
     &--green {
-      background-color: var(--green);
+      color: var(--green);
+      background-color: #fff;
       &:hover {
+        color: #fff;
         background-color: var(--green-darker);
       }
     }
-    &--yellow {
-      background-color: var(--yellow);
-      &:hover {
-        background-color: var(--yellow-darker);
-      }
-    }
-    &--red {
-      background-color: var(--red);
-      &:hover {
-        background-color: var(--red-darker);
-      }
-    }
     &--black {
-      background-color: var(--black);
+      color: var(--black);
+      background-color: #fff;
       &:hover {
+        color: #fff;
         background-color: var(--black-darker);
       }
     }
@@ -561,6 +577,23 @@ export default Vue.extend({
       &:hover {
         @apply bg-red-500;
       }
+    }
+
+    &--ghost {
+      @apply bg-white text-gray-700;
+      &:hover {
+        @apply bg-gray-700 text-white;
+      }
+    }
+
+    &--color-selected {
+      background-color: var(--primary);
+      color: #fff;
+    }
+
+    &--active {
+      @apply bg-gray-700 text-white;
+      box-shadow: none;
     }
   }
 
