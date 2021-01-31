@@ -11,7 +11,8 @@
       >
         {{ $t('clear-settings') }}
       </button>
-      <!-- Language-->
+
+      <!-- LANGUAGE-->
       <fieldset class="form__section px-6 py-3">
         <legend class="form__legend">{{ $t('cv-language') }}</legend>
         <div class="flex flex-wrap gap-2 justify-start">
@@ -25,7 +26,7 @@
           </nuxt-link>
         </div>
       </fieldset>
-      <!-- COLOR THEME -->
+      <!-- LANGUAGE-->
 
       <!-- COLOR THEME -->
       <fieldset class="form__section px-6 py-3">
@@ -36,6 +37,7 @@
             :key="color.color"
             :class="[
               'form__btn',
+              'form__btn--color-theme',
               `form__btn--${color.name}`,
               'capitalize',
               { 'form__btn--color-selected': color.color === activeColor },
@@ -517,50 +519,45 @@ export default Vue.extend({
       background-color: var(--primary-darker);
       cursor: pointer;
     }
-    &--pink {
-      color: var(--pink);
+    &--color-theme {
       background-color: #fff;
       &:hover {
-        background-color: var(--pink);
         color: #fff;
+      }
+    }
+    &--pink {
+      color: var(--pink);
+      &:hover {
+        background-color: var(--pink);
       }
     }
     &--purple {
       color: var(--purple);
-      background-color: #fff;
       &:hover {
-        color: #fff;
         background-color: var(--purple);
       }
     }
     &--indigo {
       color: var(--indigo);
-      background-color: #fff;
       &:hover {
         background-color: var(--indigo-darker);
       }
     }
     &--blue {
       color: var(--blue);
-      background-color: #fff;
       &:hover {
-        color: #fff;
         background-color: var(--blue-darker);
       }
     }
     &--green {
       color: var(--green);
-      background-color: #fff;
       &:hover {
-        color: #fff;
         background-color: var(--green-darker);
       }
     }
     &--black {
       color: var(--black);
-      background-color: #fff;
       &:hover {
-        color: #fff;
         background-color: var(--black-darker);
       }
     }
