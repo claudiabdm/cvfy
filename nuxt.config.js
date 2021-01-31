@@ -74,11 +74,6 @@ export default {
         file: 'es.js',
         name: 'Español',
       },
-      {
-        code: 'es-ES',
-        file: 'es.js',
-        name: 'Español',
-      },
     ],
     lazy: true,
     langDir: 'lang/',
