@@ -192,11 +192,10 @@ export default Vue.extend({
       localStorage.removeItem('cvSettings-en')
     },
     isCvSettingsFromLocalStorageEmpty(item: any): boolean {
-      const keys = Object.keys(item)
-      if (keys.length < 1) {
-        return true
-      }
-      return keys.every((key) => item[key] === '' || item[key].length < 1)
+      if (!item || Object.keys(item).length < 1) return true
+      return Object.keys(item).every(
+        (key) => item[key] === '' || item[key].length < 1
+      )
     },
   },
 })
