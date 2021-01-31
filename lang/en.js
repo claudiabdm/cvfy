@@ -25,7 +25,7 @@ export default {
   'upload-cv': 'Upload CV settings',
   'download-cv-settings': 'Download CV settings',
   'download-cv-pdf': 'Download your CV as PDF',
-  'chrome-recommended': 'Chrome recommended',
+  'chrome-recommended': 'Chrome Desktop recommended',
   'job-title': 'Job Title / Current Position',
   'first-name': 'First name',
   'last-name': 'Last name',

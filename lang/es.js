@@ -26,7 +26,7 @@ export default {
   'upload-cv': 'Subir ajustes del CV',
   'download-cv-settings': 'Descargar ajustes del CV',
   'download-cv-pdf': 'Descargar CV como PDF',
-  'chrome-recommended': 'Chrome recomendado',
+  'chrome-recommended': 'Chrome Desktop recomendado',
   'job-title': 'Puesto / Ocupación',
   'first-name': 'Nombre',
   'last-name': 'Apellido/s',
