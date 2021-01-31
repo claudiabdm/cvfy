@@ -139,7 +139,7 @@ export default Vue.extend({
         current: false,
         summary: '',
       }
-      this.$emit('addEntry', {
+      this.$emit('add-entry', {
         eventType: 'addEntry',
         entry,
         sectionName: this.sectionName,
@@ -153,7 +153,7 @@ export default Vue.extend({
       current: boolean
       summary: string
     }): void {
-      this.$emit('removeEntry', {
+      this.$emit('remove-entry', {
         eventType: 'removeEntry',
         entry,
         sectionName: this.sectionName,

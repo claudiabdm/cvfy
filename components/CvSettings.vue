@@ -259,8 +259,8 @@
             <cv-dynamic-section
               section-name="education"
               :entries="formSettings.education"
-              @addEntry="onUpdateSection"
-              @removeEntry="onUpdateSection"
+              @add-entry="onUpdateSection"
+              @remove-entry="onUpdateSection"
             ></cv-dynamic-section>
           </template>
         </expansion-panel>
@@ -277,8 +277,8 @@
             <cv-dynamic-section
               section-name="work"
               :entries="formSettings.work"
-              @addEntry="onUpdateSection"
-              @removeEntry="onUpdateSection"
+              @add-entry="onUpdateSection"
+              @remove-entry="onUpdateSection"
             ></cv-dynamic-section>
           </template>
         </expansion-panel>
@@ -412,7 +412,7 @@ export default Vue.extend({
   computed: {
     formSettingsHref() {
       return `data:text/json;charset=utf-8,${encodeURIComponent(
-        JSON.stringify(this.formSettings)
+        JSON.stringify({ formSettings: this.formSettings })
       )}`
     },
     availableLocales(): { locale: string; code: string }[] {
@@ -441,7 +441,7 @@ export default Vue.extend({
         summary: string
       }
     }): void {
-      this.$emit('updateSection', e)
+      this.$emit('update-section', e)
     },
     uploadCV(e: any): void {
       const fr = new FileReader()
@@ -515,12 +515,20 @@ export default Vue.extend({
     background-color: var(--primary);
     @apply text-white p-2 rounded shadow font-light justify-center items-center text-center;
     transition: background-color 0.1s linear, color 0.1s linear;
+    & + & {
+      margin-top: 0.5rem;
+    }
+
     &:hover {
       background-color: var(--primary-darker);
       cursor: pointer;
     }
     &--color-theme {
       background-color: #fff;
+      & + & {
+        margin-left: 0.5rem;
+        margin-top: 0;
+      }
       &:hover {
         color: #fff;
       }
@@ -564,7 +572,12 @@ export default Vue.extend({
 
     &--tag {
       @apply flex gap-2 py-1;
+      margin-top: 0.5rem;
       align-items: center;
+
+      & + & {
+        margin-left: 0.5rem;
+      }
       &:hover {
         @appy bg-purple-700;
       }
@@ -580,6 +593,10 @@ export default Vue.extend({
       @apply bg-white text-gray-700;
       &:hover {
         @apply bg-gray-700 text-white;
+      }
+      & + & {
+        margin-left: 0.5rem;
+        margin-top: 0;
       }
     }
 
