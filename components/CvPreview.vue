@@ -1,5 +1,5 @@
 <template>
-  <div id="cv" class="font-normal flex justify-center w-full overflow-auto">
+  <div id="cv" class="font-normal flex justify-center w-full bg-white">
     <div class="cv bg-white">
       <div class="cv__side">
         <h2 class="cv__name">
@@ -312,11 +312,27 @@ p {
   @apply leading-relaxed;
 }
 .cv {
-  @apply flex m-10 text-gray-700 shadow;
+  @apply flex text-gray-700 shadow-lg;
   width: 21cm;
-  height: 29.7cm;
-  overflow-y: auto;
+  height: 29.69cm;
+  min-width: 21cm;
+  min-height: 29.69cm;
+  max-width: 21cm;
+  max-height: 29.69cm;
+  margin: 0;
+  align-self: center;
+  transform: scale(0.4);
+  overflow-y: hidden;
 
+  @media screen and (min-width: 425px) {
+    transform: scale(0.5);
+  }
+  @media screen and (min-width: 768px) {
+    transform: scale(0.9);
+  }
+  @media screen and (min-width: 1024px) {
+    transform: scale(0.59);
+  }
   &__side {
     @apply px-6 py-10 bg-gray-100 bg-opacity-100;
   }

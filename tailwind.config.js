@@ -11,5 +11,11 @@ module.exports = {
         primary: defaultTheme.colors.purple,
       },
     },
+    future: {
+      purgeLayersByDefault: true,
+    },
+    purge: {
+      layers: ['utilities'],
+    },
   },
 }

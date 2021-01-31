@@ -32,7 +32,7 @@
           type="button"
           @click="addTag(tagInputLang, tagListName)"
         >
-          Add
+          {{ $t('add') }}
         </button>
       </template>
 
@@ -49,7 +49,7 @@
           type="button"
           @click="addTag(tagInput, tagListName)"
         >
-          Add
+          {{ $t('add') }}
         </button>
       </template>
     </div>

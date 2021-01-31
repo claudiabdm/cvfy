@@ -71,10 +71,10 @@ export default Vue.extend({
 
 .expansion-panel {
   overflow: hidden;
-  @apply bg-gray-100 bg-opacity-100  relative px-6 py-3;
+  @apply bg-gray-100 bg-opacity-100 relative px-6 py-3;
 
   & & {
-    padding: 0;
+    @apply p-1;
   }
   &__title {
     @apply flex items-center justify-between w-full bg-gray-100 bg-opacity-100  relative z-10 mb-10;

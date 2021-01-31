@@ -1,9 +1,9 @@
 <template>
-  <div class="flex bg-gray-50 h-full">
+  <div class="main">
     <cv-settings
       id="settings"
       :form-settings="formSettings"
-      class="overflow-y-auto w-4/12"
+      class="settings"
       @addSkill="onAddSkill"
       @removeSkill="onRemoveSkill"
       @updateSection="onUpdateSection"
@@ -128,3 +128,13 @@ export default Vue.extend({
   },
 })
 </script>
+<style lang="postcss" scoped>
+@media screen and (min-width: 1024px) {
+  .main {
+    @apply flex h-full;
+  }
+  .settings {
+    @apply overflow-y-auto w-5/12;
+  }
+}
+</style>

@@ -5,7 +5,7 @@
     </button>
     <ul class="col-span-full">
       <li v-for="(entryItem, index) in entries" :key="index">
-        <expansion-panel class="p-0 mb-3">
+        <expansion-panel class="mb-3">
           <template v-slot:title>
             <h3 class="form__legend form__legend--small flex items-center">
               <button
@@ -28,7 +28,7 @@
                 <label class="form__label" for="entryTitle">
                   <template v-if="sectionName === 'education'">🎓</template>
                   <template v-else>💼</template>
-                  Title
+                  {{ $t('title') }}
                 </label>
                 <input
                   id="entryTitle"
@@ -39,7 +39,7 @@
               </div>
               <div class="form__group col-span-full">
                 <label class="form__label" for="entryLocation"
-                  >📍 Location</label
+                  >📍 {{ $t('location') }}</label
                 >
                 <input
                   id="entryLocation"
@@ -49,7 +49,9 @@
                 />
               </div>
               <div class="form__group col-span-full">
-                <label class="form__label" for="entryFrom">📆 From</label>
+                <label class="form__label" for="entryFrom"
+                  >📆 {{ $t('from') }}</label
+                >
                 <input
                   id="entryFrom"
                   v-model="entryItem.from"
@@ -59,14 +61,14 @@
               </div>
               <div class="form__group col-span-full">
                 <label class="form__label flex justify-between" for="entryTo">
-                  📆 To
+                  📆 {{ $t('to') }}
                   <label class="form__label flex items-center">
                     <input
                       v-model="entryItem.current"
                       class="form__control form__control--checkbox"
                       type="checkbox"
                     />
-                    Current
+                    {{ $t('current') }}
                   </label>
                 </label>
                 <input
@@ -78,7 +80,9 @@
                 />
               </div>
               <div class="form__group col-span-full">
-                <label class="form__label" for="entrySummary">📝 Summary</label>
+                <label class="form__label" for="entrySummary"
+                  >📝 {{ $t('summary') }}</label
+                >
                 <textarea
                   id="entrySummary"
                   v-model="entryItem.summary"

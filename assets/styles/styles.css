@@ -1,17 +1,22 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
-
 @media print {
   #settings {
     display: none;
+    box-shadow: none;
+    z-index: 0;
   }
   #cv {
     display: block;
     width: 100%;
+    margin: 0;
     padding: 0;
   }
 
   #cv .cv {
     margin: 0;
+    border: none;
+    padding: 0;
+    transform: none;
+    box-shadow: none;
   }
 }
 

@@ -1,9 +1,12 @@
 <template>
-  <div class="font-sans">
-    <header></header>
-    <main class="h-screen overflow-hidden">
-      <nuxt />
-    </main>
-    <footer></footer>
-  </div>
+  <main class="main-wrapper font-sans">
+    <nuxt />
+  </main>
 </template>
+<style lang="postcss" scoped>
+@media screen and (min-width: 1024px) {
+  .main-wrapper {
+    @apply h-screen overflow-hidden;
+  }
+}
+</style>

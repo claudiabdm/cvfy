@@ -1,6 +1,6 @@
 <template>
-  <div class="bg-gray-100 bg-opacity-100 shadow font-bold">
-    <h2 class="text-2xl mt-8 mx-6 mb-6 tracking-wide uppercase">
+  <div class="bg-gray-100 bg-opacity-100 shadow-lg font-bold z-10">
+    <h2 class="text-2xl pt-8 px-6 pb-6 tracking-wide uppercase">
       {{ $t('cv-settings') }}
     </h2>
     <form class="form mb-10">
@@ -47,7 +47,7 @@
             <div class="grid grid-cols-2 gap-x-3 gap-y-10">
               <div class="form__group col-span-full">
                 <label class="form__label" for="job-pos"
-                  >💼 Job Title / Current Position</label
+                  >💼 {{ $t('job-title') }}</label
                 >
                 <input
                   id="job-pos"
@@ -58,7 +58,7 @@
               </div>
               <div class="form__group">
                 <label class="form__label" for="first-name"
-                  >👤 First Name</label
+                  >👤 {{ $t('first-name') }}</label
                 >
                 <input
                   id="first-name"
@@ -68,7 +68,9 @@
                 />
               </div>
               <div class="form__group">
-                <label class="form__label" for="last-name">👤 Last Name</label>
+                <label class="form__label" for="last-name"
+                  >👤 {{ $t('last-name') }}</label
+                >
                 <input
                   id="last-name"
                   v-model="formSettings.lastName"
@@ -77,7 +79,9 @@
                 />
               </div>
               <div class="form__group col-span-full">
-                <label class="form__label" for="email">✉️ Email</label>
+                <label class="form__label" for="email"
+                  >✉️ {{ $t('email') }}</label
+                >
                 <input
                   id="email"
                   v-model="formSettings.email"
@@ -86,7 +90,9 @@
                 />
               </div>
               <div class="form__group">
-                <label class="form__label" for="location">📍 Location</label>
+                <label class="form__label" for="location"
+                  >📍 {{ $t('location') }}</label
+                >
                 <input
                   id="location"
                   v-model="formSettings.location"
@@ -95,7 +101,9 @@
                 />
               </div>
               <div class="form__group">
-                <label class="form__label" for="phone">📱 Phone Number</label>
+                <label class="form__label" for="phone"
+                  >📱 {{ $t('phone-number') }}</label
+                >
                 <input
                   id="phone"
                   v-model="formSettings.phoneNumber"
@@ -104,7 +112,9 @@
                 />
               </div>
               <div class="form__group col-span-full">
-                <label class="form__label" for="aboutme">🌟 About Me</label>
+                <label class="form__label" for="aboutme"
+                  >🌟 {{ $t('about-me') }}</label
+                >
                 <textarea
                   id="aboutme"
                   v-model="formSettings.aboutme"
@@ -130,21 +140,21 @@
             <div>
               <cv-input-tags
                 tag-list-name="jobSkills"
-                tag-list-label="🛠 Technical Skills"
+                :tag-list-label="`🛠 ${$t('technical-skills')}`"
                 :tag-list="formSettings.jobSkills"
                 @addTag="addSkill($event)"
                 @removeTag="removeSkill($event)"
               ></cv-input-tags>
               <cv-input-tags
                 tag-list-name="softSkills"
-                tag-list-label="🧸 Soft Skills"
+                :tag-list-label="`🧸 ${$t('soft-skills')}`"
                 :tag-list="formSettings.softSkills"
                 @addTag="addSkill($event)"
                 @removeTag="removeSkill($event)"
               ></cv-input-tags>
               <cv-input-tags
                 tag-list-name="languages"
-                tag-list-label="🌎 Languages"
+                :tag-list-label="`🌎 ${$t('languages')}`"
                 :tag-list-lang="formSettings.languages"
                 @addTag="addSkill($event)"
                 @removeTag="removeSkill($event)"
@@ -233,7 +243,7 @@
           </template>
           <template v-slot:content>
             <cv-dynamic-section
-              section-name="education"
+              :section-name="`${$t('education')}`"
               :entries="formSettings.education"
               @addEntry="onUpdateSection"
               @removeEntry="onUpdateSection"
@@ -251,7 +261,7 @@
           </template>
           <template v-slot:content>
             <cv-dynamic-section
-              section-name="work"
+              section-name="`${$t('work')}`"
               :entries="formSettings.work"
               @addEntry="onUpdateSection"
               @removeEntry="onUpdateSection"
@@ -467,7 +477,7 @@ export default Vue.extend({
   }
 
   &__control {
-    @apply shadow rounded px-2 py-1 border border-transparent font-light w-full;
+    @apply shadow rounded px-2 py-1 border border-transparent font-light w-full bg-white;
     transition: all 0.1s linear;
     outline: none;
     &:focus {
