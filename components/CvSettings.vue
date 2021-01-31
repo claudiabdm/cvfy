@@ -384,10 +384,8 @@ export default Vue.extend({
       colors: [
         { name: 'pink', color: '#9D174D', darker: '#831843' },
         { name: 'purple', color: '#5B21B6', darker: '#4C1D95' },
-        { name: 'indigo', color: '#3730A3', darker: '#312E81' },
         { name: 'blue', color: '#1E40AF', darker: '#1E3A8A' },
         { name: 'green', color: '#065F46', darker: '#064E3B' },
-        { name: 'yellow', color: '#F59E0B', darker: '#D97706' },
         { name: 'red', color: '#DC2626', darker: '#B91C1C' },
         { name: 'black', color: '#1F2937', darker: '#111827' },
       ],
