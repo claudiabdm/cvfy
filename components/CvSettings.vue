@@ -3,7 +3,7 @@
     <h2 class="text-2xl pt-8 px-6 pb-6 tracking-wide uppercase">
       {{ $t('cv-settings') }}
     </h2>
-    <form class="form mb-10" autocomplete="true">
+    <form class="form mb-10" autocomplete="on">
       <button
         class="form__section form__btn form__btn--ghost mx-6"
         type="button"
