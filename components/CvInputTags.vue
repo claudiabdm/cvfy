@@ -132,7 +132,7 @@ export default Vue.extend({
 </script>
 <style lang="postcss" scoped>
 .tags {
-  @apply flex flex-wrap gap-3 mt-3 text-xs;
+  @apply flex flex-wrap gap-3 mt-3 text-xs justify-start w-full;
 }
 
 .percentage {

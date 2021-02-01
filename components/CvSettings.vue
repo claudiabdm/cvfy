@@ -4,18 +4,20 @@
       {{ $t('cv-settings') }}
     </h2>
     <form class="form mb-10" autocomplete="on">
-      <button
-        class="form__section form__btn form__btn--ghost mx-6"
-        type="button"
-        @click="resetForm"
-      >
-        {{ $t('clear-settings') }}
-      </button>
+      <div class="form__section px-6 py-3">
+        <button
+          class="form__btn form__btn--ghost"
+          type="button"
+          @click="resetForm"
+        >
+          {{ $t('clear-settings') }}
+        </button>
+      </div>
 
       <!-- LANGUAGE-->
       <fieldset class="form__section px-6 py-3">
         <legend class="form__legend">{{ $t('cv-language') }}</legend>
-        <div class="flex flex-wrap gap-2 justify-start">
+        <div class="flex flex-wrap gap-2 justify-start w-full">
           <nuxt-link
             v-for="locale in availableLocales"
             :key="locale.code"
@@ -511,6 +513,7 @@ export default Vue.extend({
   }
 
   &__btn {
+    margin: 0.5rem 0.2rem 0.25rem;
     color: #fff;
     background-color: var(--primary);
     @apply text-white p-2 rounded shadow font-light justify-center items-center text-center;
@@ -525,10 +528,6 @@ export default Vue.extend({
     }
     &--color-theme {
       background-color: #fff;
-      & + & {
-        margin-left: 0.5rem;
-        margin-top: 0;
-      }
       &:hover {
         color: #fff;
       }
@@ -572,12 +571,8 @@ export default Vue.extend({
 
     &--tag {
       @apply flex gap-2 py-1;
-      margin-top: 0.5rem;
       align-items: center;
 
-      & + & {
-        margin-left: 0.5rem;
-      }
       &:hover {
         @appy bg-purple-700;
       }
@@ -593,10 +588,6 @@ export default Vue.extend({
       @apply bg-white text-gray-700;
       &:hover {
         @apply bg-gray-700 text-white;
-      }
-      & + & {
-        margin-left: 0.5rem;
-        margin-top: 0;
       }
     }
 

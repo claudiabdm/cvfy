@@ -347,7 +347,7 @@ p {
   }
 
   &__section {
-    @apply mt-10;
+    @apply mt-6;
     &--main {
       margin-top: 0;
     }
