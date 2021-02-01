@@ -1,5 +1,20 @@
 <template>
-  <div id="cv" class="font-normal flex justify-center w-full bg-white">
+  <div id="cv" class="font-normal relative flex justify-center w-full bg-white">
+    <div
+      id="credit"
+      class="p-3 text-gray-700 absolute bottom-0 text-center w-full text-xs"
+    >
+      Made with ♥️ by
+      <a
+        class="underline"
+        :style="{ color: 'var(--primary)' }"
+        href="https://github.com/claudiabdm"
+        rel="noopener"
+        target="_blank"
+        >claudiabdm</a
+      >
+      using <b>Nuxt.js</b> + <b>TailwindCSS</b>
+    </div>
     <div class="cv bg-white">
       <div class="cv__side">
         <h2 class="cv__name">
@@ -331,7 +346,7 @@ p {
     transform: scale(0.9);
   }
   @media screen and (min-width: 1024px) {
-    transform: scale(0.59);
+    transform: scale(0.52);
   }
   &__side {
     @apply px-6 py-10 bg-gray-100 bg-opacity-100;

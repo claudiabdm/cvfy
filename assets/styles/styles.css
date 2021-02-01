@@ -18,6 +18,10 @@
     transform: none;
     box-shadow: none;
   }
+
+  #cv #credit {
+    display: none;
+  }
 }
 
 :root {
