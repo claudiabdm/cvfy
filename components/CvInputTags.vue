@@ -7,16 +7,16 @@
           <input
             id="language"
             v-model="tagInputLang.lang"
-            class="form__control"
+            class="form__control mt-2 mb-1"
             type="text"
             placeholder="Spanish"
             @keyup.enter="addTag(tagInputLang, tagListName)"
           />
-          <div class="flex items-center relative">
+          <div class="flex relative">
             <input
               id="level"
               v-model="tagInputLang.level"
-              class="form__control"
+              class="form__control mt-2 mb-1"
               type="number"
               min="0"
               max="100"
@@ -24,7 +24,7 @@
               placeholder="80"
               @keyup.enter="addTag(tagInputLang, tagListName)"
             />
-            <span class="percentage">%</span>
+            <span class="percentage top-1 mt-2 mb-1">%</span>
           </div>
         </div>
         <button
@@ -40,7 +40,7 @@
         <input
           id="tagListName"
           v-model="tagInput"
-          class="form__control"
+          class="form__control mt-2 mb-1"
           type="text"
           @keyup.enter="addTag(tagInput, tagListName)"
         />
@@ -137,6 +137,7 @@ export default Vue.extend({
 
 .percentage {
   position: absolute;
+  top: 0.5rem;
   right: 25%;
 }
 </style>
