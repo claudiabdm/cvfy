@@ -16,7 +16,7 @@
       using <b>Nuxt.js</b> + <b>TailwindCSS</b>
     </div>
     <div class="cv bg-white">
-      <div class="cv__side">
+      <div class="cv__side w-1/3">
         <h2 class="cv__name">
           {{ formSettings.name }} {{ formSettings.lastName }}
         </h2>
@@ -144,7 +144,7 @@
         </section>
         <!-- // SOCIAL -->
       </div>
-      <div class="cv__main">
+      <div class="cv__main w-2/3">
         <!-- ABOUT ME -->
         <section class="cv__section cv__section--main w-full">
           <h4 class="cv__section-title cv__section-title--main">
@@ -332,7 +332,7 @@ p {
   @apply leading-relaxed;
 }
 .cv {
-  @apply flex text-gray-700 shadow-lg;
+  @apply flex text-gray-700 shadow-lg text-sm;
   width: 21cm;
   height: 29.69cm;
   min-width: 21cm;
@@ -341,6 +341,7 @@ p {
   max-height: 29.69cm;
   margin: 0;
   align-self: center;
+  word-break: break-word;
   transform: scale(0.4);
   overflow-y: hidden;
 
@@ -369,7 +370,7 @@ p {
   &__section {
     @apply mt-6;
     &--main {
-      margin-top: 0;
+      @apply mt-0 text-base;
     }
   }
 
@@ -401,11 +402,12 @@ p {
   }
 
   &__tags {
-    @apply flex flex-wrap gap-3 mt-3;
+    @apply flex flex-wrap;
   }
 
   &__tag {
-    @apply px-2 py-1 rounded text-sm text-white;
+    @apply px-2 py-1 rounded text-white;
+    margin: 0.5rem 0.2rem 0.25rem;
     background-color: var(--primary);
   }
 
@@ -414,7 +416,7 @@ p {
     padding: 0;
     margin: 0;
     li {
-      @apply flex items-center text-base;
+      @apply flex items-center;
     }
     li::before {
       content: '';
@@ -428,7 +430,7 @@ p {
     padding: 0;
     margin: 0;
     li {
-      @apply flex flex-col text-base;
+      @apply flex flex-col;
     }
     li + li {
       @apply mt-3;
