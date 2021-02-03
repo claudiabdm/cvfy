@@ -301,6 +301,7 @@
         </label>
         <a
           :href="formSettingsHref"
+          rel="noopener"
           download="cv.json"
           class="form__btn flex justify-center"
           >{{ $t('download-cv-settings') }} (JSON)</a

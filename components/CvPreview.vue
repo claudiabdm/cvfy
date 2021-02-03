@@ -29,13 +29,15 @@
               <svg class="cv__icon">
                 <use href="@/assets/sprite.svg#phone"></use>
               </svg>
-              <a :href="phoneNumberHref">{{ formSettings.phoneNumber }}</a>
+              <a :href="phoneNumberHref" rel="noopener">{{
+                formSettings.phoneNumber
+              }}</a>
             </div>
             <div class="cv__icon-wrapper">
               <svg class="cv__icon">
                 <use href="@/assets/sprite.svg#email"></use>
               </svg>
-              <a :href="emailHref">{{ formSettings.email }}</a>
+              <a :href="emailHref" rel="noopener">{{ formSettings.email }}</a>
             </div>
             <div class="cv__icon-wrapper">
               <svg class="cv__icon">
@@ -103,6 +105,7 @@
               </svg>
               <a
                 target="_blank"
+                rel="noopener"
                 :href="`https://linkedin.com/in/${formSettings.github}`"
                 >{{ formSettings.linkedin }}</a
               >
@@ -113,6 +116,7 @@
               </svg>
               <a
                 target="_blank"
+                rel="noopener"
                 :href="`https://twitter.com/${formSettings.twitter}`"
                 >{{ formSettings.twitter }}</a
               >
@@ -123,6 +127,7 @@
               </svg>
               <a
                 target="_blank"
+                rel="noopener"
                 :href="`https://github.com/${formSettings.github}`"
                 >{{ formSettings.github }}</a
               >
@@ -131,7 +136,7 @@
               <svg class="cv__icon">
                 <use href="@/assets/sprite.svg#website"></use>
               </svg>
-              <a target="_blank" :href="formSettings.website">{{
+              <a target="_blank" rel="noopener" :href="formSettings.website">{{
                 formSettings.website
               }}</a>
             </div>
