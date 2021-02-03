@@ -18,6 +18,7 @@
 </template>
 
 <script lang="ts">
+import { NuxtOptionsHead } from '@nuxt/types/config/head'
 import Vue from 'vue'
 export default Vue.extend({
   data() {
@@ -197,6 +198,44 @@ export default Vue.extend({
         (key) => item[key] === '' || item[key].length < 1
       )
     },
+  },
+  head(): NuxtOptionsHead {
+    return {
+      htmlAttrs: {
+        lang: this.$i18n.locale,
+      },
+      title: this.$t('title-tag') as string,
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: this.$t('description') as string,
+        },
+        {
+          name: 'description',
+          content: this.$t('description') as string,
+        },
+        {
+          name: 'author',
+          content: 'claudiabdm',
+        },
+        {
+          name: 'keywords',
+          content:
+            'cv, curriculum, resume, curriculum vitae, cv maker, cv generator, nuxt, vue, tailwindcss',
+        },
+        {
+          hid: 'twitter:title',
+          name: 'twitter:title',
+          content: this.$t('title-tag') as string,
+        },
+        {
+          hid: 'twitter:description',
+          name: 'twitter:description',
+          content: this.$t('description') as string,
+        },
+      ],
+    }
   },
 })
 </script>

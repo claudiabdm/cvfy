@@ -40,4 +40,7 @@ export default {
   summary: 'Resumen',
   work: 'trabajo',
   'clear-settings': 'Limpiar CV settings',
+  description:
+    'Con CvFy puedes crear, visualizar y guardar tu CV fácilmente. Disponible en Inglés y Español. Hecho con Nuxt + TailwindCSS.',
+  'title-tag': 'CvFy - Crea tu CV en cuestión de minutos',
 }

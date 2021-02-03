@@ -2,25 +2,40 @@ export default {
   // Target (https://go.nuxtjs.dev/config-target)
   target: 'static',
 
-    server: {
+  server: {
     port: 3000, // default: 3000
-    host: '192.168.68.101' // default: localhost
+    host: '192.168.68.101', // default: localhost
   },
 
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
-    title: 'cvfy',
+    title: 'CvFy - Create, visulize and save your CV as PDF in a few minutes!',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       {
-        hid: 'description',
-        name: 'description',
-        content: 'CV maker built with Nuxt + TailwindCSS',
+        name: 'author',
+        content: 'claudiabdm',
       },
       {
-        name: 'description',
-        content: 'CV maker built with Nuxt + TailwindCSS',
+        name: 'keywords',
+        content:
+          'cv, curriculum, resume, curriculum vitae, nuxt, vue, tailwindcss',
+      },
+      {
+        hid: 'twitter:card',
+        name: 'twitter:card',
+        content: 'summary_large_image',
+      },
+      {
+        hid: 'twitter:url',
+        name: 'twitter:url',
+        content: 'https://cvfy.netlify.app/',
+      },
+      {
+        hid: 'twitter:image',
+        name: 'twitter:image',
+        content: 'icon.png',
       },
     ],
     htmlAttrs: {
@@ -43,6 +58,12 @@ export default {
     '@nuxt/typescript-build',
     // https://go.nuxtjs.dev/tailwindcss
     '@nuxtjs/tailwindcss',
+    [
+      '@nuxtjs/google-analytics',
+      {
+        id: 'G-XYHLF8G2C3',
+      },
+    ],
   ],
 
   // Modules (https://go.nuxtjs.dev/config-modules)
