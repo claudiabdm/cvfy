@@ -25,42 +25,50 @@
           <template v-slot:content>
             <div class="grid grid-cols-2 gap-x-3 gap-y-4">
               <div class="form__group col-span-full">
-                <label class="form__label" for="entryTitle">
+                <label
+                  class="form__label"
+                  :for="`entryTitle--${entryItem.title}`"
+                >
                   <template v-if="sectionName === 'education'">🎓</template>
                   <template v-else>💼</template>
                   {{ $t('title') }}
                 </label>
                 <input
-                  id="entryTitle"
+                  :id="`entryTitle--${entryItem.title}`"
                   v-model="entryItem.title"
                   class="form__control"
                   type="text"
                 />
               </div>
               <div class="form__group col-span-full">
-                <label class="form__label" for="entryLocation"
+                <label
+                  class="form__label"
+                  :for="`entryLocation-${entryItem.title}`"
                   >📍 {{ $t('location') }}</label
                 >
                 <input
-                  id="entryLocation"
+                  :id="`entryLocation-${entryItem.title}`"
                   v-model="entryItem.location"
                   class="form__control"
                   type="text"
                 />
               </div>
               <div class="form__group col-span-full">
-                <label class="form__label" for="entryFrom"
+                <label class="form__label" :for="`entryFrom-${entryItem.title}`"
                   >📆 {{ $t('from') }}</label
                 >
                 <input
-                  id="entryFrom"
+                  :id="`entryFrom-${entryItem.title}`"
                   v-model="entryItem.from"
                   class="form__control"
                   type="date"
                 />
               </div>
               <div class="form__group col-span-full">
-                <label class="form__label flex justify-between" for="entryTo">
+                <label
+                  class="form__label flex justify-between"
+                  :for="`entryTo-${entryItem.title}`"
+                >
                   📆 {{ $t('to') }}
                   <label class="form__label flex items-center">
                     <input
@@ -73,18 +81,20 @@
                 </label>
                 <input
                   v-if="!entryItem.current"
-                  id="entryTo"
+                  :id="`entryTo-${entryItem.title}`"
                   v-model="entryItem.to"
                   class="form__control"
                   type="date"
                 />
               </div>
               <div class="form__group col-span-full">
-                <label class="form__label" for="entrySummary"
+                <label
+                  class="form__label"
+                  :for="`entrySummary-${entryItem.title}`"
                   >📝 {{ $t('summary') }}</label
                 >
                 <textarea
-                  id="entrySummary"
+                  :id="`entrySummary-${entryItem.title}`"
                   v-model="entryItem.summary"
                   class="form__control"
                   name="entrySummary"

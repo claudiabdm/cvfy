@@ -5,7 +5,7 @@
       <template v-if="tagListName === 'languages'">
         <div class="grid grid-cols-2 gap-3">
           <input
-            id="language"
+            id="languages"
             v-model="tagInputLang.lang"
             class="form__control mt-2 mb-1"
             type="text"
@@ -38,7 +38,7 @@
 
       <template v-else>
         <input
-          id="tagListName"
+          :id="tagListName"
           v-model="tagInput"
           class="form__control mt-2 mb-1"
           type="text"
