@@ -4,7 +4,6 @@ export default {
 
   server: {
     port: 3000, // default: 3000
-    host: '192.168.68.101', // default: localhost
   },
 
   // Global page headers (https://go.nuxtjs.dev/config-head)
@@ -106,5 +105,10 @@ export default {
   },
   router: {
     linkActiveClass: 'form__btn--active',
+  },
+  pwa: {
+    meta: {
+      theme_color: '#5B21B6',
+    },
   },
 }
