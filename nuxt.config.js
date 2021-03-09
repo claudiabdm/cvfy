@@ -111,4 +111,4 @@ export default {
       theme_color: '#5B21B6',
     },
   },
-}
+};

@@ -225,6 +225,22 @@ export default Vue.extend({
             'cv, curriculum, resume, curriculum vitae, cv maker, cv generator, nuxt, vue, tailwindcss',
         },
         {
+          hid: 'og:image',
+          name: 'og:image',
+          content:
+            'https://repository-images.githubusercontent.com/315020727/e23c6200-8110-11eb-87b8-e9e5757bd827',
+        },
+        {
+          hid: 'og:title',
+          name: 'og:title',
+          content: this.$t('title-tag') as string,
+        },
+        {
+          hid: 'og:description',
+          name: 'og:description',
+          content: this.$t('description') as string,
+        },
+        {
           hid: 'twitter:creator',
           name: 'twitter:creator',
           content: '@claudiabdm',
