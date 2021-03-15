@@ -6,7 +6,7 @@ It's built with NuxtJs and deployed in Netlify.
 
 I usually enjoy styling from scratch but this time I've used TailwindCSS for the first time to see what all the fuss was about. 
 
-PDF creation is client-side only, so results may differ among  browsers. Chrome desktop gives has the best print as the PDF created is exactly as the preview one.
+PDF creation is client-side only, so results may differ among  browsers. Chrome desktop has the best print as the PDF created is exactly as the preview one.
 
 It's also a PWA so it can be used offline.
 
