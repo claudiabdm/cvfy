@@ -320,43 +320,30 @@
   </div>
 </template>
 <script lang="ts">
-import Vue from 'vue'
+import Vue from 'vue';
+import { CvEvent } from '~/models/cvEvent';
 
 export default Vue.extend({
   name: 'CvSettings',
   props: {
     formSettings: {
       type: Object as () => {
-        jobTtitle: string
-        name: string
-        lastName: string
-        email: string
-        location: string
-        phoneNumber: string
-        aboutme: string
-        jobSkills: string[]
-        softSkills: string[]
-        languages: { lang: string; level: string }[]
-        linkedin: string
-        twitter: string
-        github: string
-        website: string
-        education: {
-          title: string
-          location: string
-          from: Date
-          to: Date
-          current: boolean
-          summary: string
-        }[]
-        work: {
-          title: string
-          location: string
-          from: Date
-          to: Date
-          current: boolean
-          summary: string
-        }[]
+        jobTtitle: string;
+        name: string;
+        lastName: string;
+        email: string;
+        location: string;
+        phoneNumber: string;
+        aboutme: string;
+        jobSkills: string[];
+        softSkills: string[];
+        languages: { lang: string; level: string }[];
+        linkedin: string;
+        twitter: string;
+        github: string;
+        website: string;
+        education: CvEvent[];
+        work: CvEvent[];
       },
       default: {
         jobTtitle: '',
@@ -410,63 +397,63 @@ export default Vue.extend({
         { name: 'es-name', code: 'es' },
         { name: 'en-name', code: 'en' },
       ],
-    }
+    };
   },
   computed: {
     formSettingsHref() {
       return `data:text/json;charset=utf-8,${encodeURIComponent(
         JSON.stringify({ formSettings: this.formSettings })
-      )}`
+      )}`;
     },
     availableLocales(): { locale: string; code: string }[] {
       return this.$i18n.locales?.filter(
         (locale: any) => !locale.code.includes('-')
-      ) as { locale: string; code: string }[]
+      ) as { locale: string; code: string }[];
     },
   },
   methods: {
     addSkill(e: { tag: string; tagType: string }): void {
-      this.$emit('add-skill', { skill: e.tag, skillType: e.tagType })
-      this.jobSkill = ''
+      this.$emit('add-skill', { skill: e.tag, skillType: e.tagType });
+      this.jobSkill = '';
     },
     removeSkill(e: { tag: string; tagType: string }): void {
-      this.$emit('remove-skill', { skill: e.tag, skillType: e.tagType })
+      this.$emit('remove-skill', { skill: e.tag, skillType: e.tagType });
     },
     onUpdateSection(e: {
-      eventType: string
-      sectionName: string
+      eventType: string;
+      sectionName: string;
       entry: {
-        title: string
-        location: string
-        from: Date
-        to: Date
-        current: boolean
-        summary: string
-      }
+        title: string;
+        location: string;
+        from: Date;
+        to: Date;
+        current: boolean;
+        summary: string;
+      };
     }): void {
-      this.$emit('update-section', e)
+      this.$emit('update-section', e);
     },
     uploadCV(e: any): void {
-      const fr = new FileReader()
+      const fr = new FileReader();
       fr.onload = (e: any) => {
-        const data = JSON.parse(e.target.result)
-        this.$emit('upload-cv', data)
-      }
-      fr.readAsText(e.target.files[0])
+        const data = JSON.parse(e.target.result);
+        this.$emit('upload-cv', data);
+      };
+      fr.readAsText(e.target.files[0]);
     },
     downloadPdf() {
-      window.print()
+      window.print();
     },
     changeColor(color: string, darker: string): void {
-      this.activeColor = color
-      document.documentElement.style.setProperty('--primary', color)
-      document.documentElement.style.setProperty('--primary-darker', darker)
+      this.activeColor = color;
+      document.documentElement.style.setProperty('--primary', color);
+      document.documentElement.style.setProperty('--primary-darker', darker);
     },
     resetForm(e: any): void {
-      this.$emit('reset-form', e)
+      this.$emit('reset-form', e);
     },
   },
-})
+});
 </script>
 <style lang="postcss">
 .form {

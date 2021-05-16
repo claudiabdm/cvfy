@@ -69,7 +69,6 @@
             <li
               v-for="skill in formSettings.softSkills"
               :key="`preview${skill}`"
-              class="font-light"
             >
               {{ skill }}
             </li>
@@ -159,16 +158,12 @@
           <h4 class="cv__section-title cv__section-title--main">
             {{ $t('experience') }}
           </h4>
-          <ul class="mt-3">
-            <li
-              v-for="job in workSortedByDate"
-              :key="job.title"
-              class="cv__list-elem"
-            >
+          <ul class="cv__event mt-3">
+            <li v-for="job in work" :key="job.title" class="cv__event-elem">
               <h5 class="cv__section-title cv__section-title--sm">
                 {{ job.title }}
               </h5>
-              <div class="font-normal">
+              <div>
                 <span>{{ job.location }} | </span>
                 <span>
                   {{ formatDate(job.from) }} -
@@ -176,7 +171,12 @@
                   <template v-else>{{ formatDate(job.to) }}</template>
                 </span>
               </div>
-              <p class="font-light">{{ job.summary }}</p>
+              <ul v-if="job.summaryArr.length > 1" class="cv__list">
+                <li v-for="line in job.summaryArr" :key="line">{{ line }}</li>
+              </ul>
+              <p v-else>
+                {{ job.summaryArr }}
+              </p>
             </li>
           </ul>
         </section>
@@ -187,16 +187,16 @@
           <h4 class="cv__section-title cv__section-title--main">
             {{ $t('education') }}
           </h4>
-          <ul class="mt-3">
+          <ul class="cv__event mt-3">
             <li
               v-for="edu in educationSortedByDate"
               :key="edu.title"
-              class="cv__list-elem"
+              class="cv__event-elem"
             >
               <h5 class="cv__section-title cv__section-title--sm">
                 {{ edu.title }}
               </h5>
-              <div class="font-normal">
+              <div>
                 <span>{{ edu.location }} | </span>
                 <span>
                   {{ formatDate(edu.from) }} -
@@ -215,42 +215,30 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
+import Vue from 'vue';
+import { CvEvent } from '~/models/cvEvent';
+
 export default Vue.extend({
   name: 'CvPreview',
   props: {
     formSettings: {
       type: Object as () => {
-        jobTtitle: string
-        name: string
-        lastName: string
-        email: string
-        location: string
-        phoneNumber: string
-        aboutme: string
-        jobSkills: string[]
-        softSkills: string[]
-        languages: { lang: string; level: string }[]
-        linkedin: string
-        twitter: string
-        github: string
-        website: string
-        education: {
-          title: string
-          location: string
-          from: Date
-          to: Date
-          current: boolean
-          summary: string
-        }[]
-        work: {
-          title: string
-          location: string
-          from: Date
-          to: Date
-          current: boolean
-          summary: string
-        }[]
+        jobTtitle: string;
+        name: string;
+        lastName: string;
+        email: string;
+        location: string;
+        phoneNumber: string;
+        aboutme: string;
+        jobSkills: string[];
+        softSkills: string[];
+        languages: { lang: string; level: string }[];
+        linkedin: string;
+        twitter: string;
+        github: string;
+        website: string;
+        education: CvEvent[];
+        work: CvEvent[];
       },
       default: {
         jobTtitle: '',
@@ -275,6 +263,7 @@ export default Vue.extend({
             to: new Date(),
             current: false,
             summary: '',
+            summaryArr: [''],
           },
         ],
         work: [
@@ -285,27 +274,39 @@ export default Vue.extend({
             to: new Date(),
             current: false,
             summary: '',
+            summaryArr: [''],
           },
         ],
       },
     },
   },
   computed: {
-    workSortedByDate() {
-      return [...this.formSettings.work].sort(
-        (a, b) => new Date(b.from).getTime() - new Date(a.from).getTime()
-      )
-    },
     educationSortedByDate() {
       return [...this.formSettings.education].sort(
         (a, b) => new Date(b.from).getTime() - new Date(a.from).getTime()
-      )
+      );
     },
     phoneNumberHref(): string {
-      return `tel:${this.formSettings.phoneNumber}`
+      return `tel:${this.formSettings.phoneNumber}`;
     },
     emailHref(): string {
-      return `mailto:${this.formSettings.email}`
+      return `mailto:${this.formSettings.email}`;
+    },
+    work(): CvEvent[] {
+      return this.formSettings.work
+        .map((event) => {
+          event.summaryArr = this.getSummaryLines(event.summary);
+          return event;
+        })
+        .sort(
+          (a, b) => new Date(b.from).getTime() - new Date(a.from).getTime()
+        );
+    },
+    education(): CvEvent[] {
+      return this.formSettings.education.map((event) => {
+        event.summaryArr = this.getSummaryLines(event.summary);
+        return event;
+      });
     },
   },
   methods: {
@@ -313,26 +314,38 @@ export default Vue.extend({
       if (
         document.documentElement.style.getPropertyValue('--bg-color') === '#fff'
       ) {
-        document.documentElement.style.setProperty('--bg-color', '#f3f4f6')
+        document.documentElement.style.setProperty('--bg-color', '#f3f4f6');
       } else {
-        document.documentElement.style.setProperty('--bg-color', '#fff')
+        document.documentElement.style.setProperty('--bg-color', '#fff');
       }
     },
     formatDate(date: Date): string {
-      // const locale = process.browser ? navigator.language : 'en-GB'
-      const options = { year: 'numeric', month: 'short' }
-      const dateObj = new Date(date)
-      return dateObj.toLocaleDateString(this.$i18n.locale, options)
+      const locale = process.browser ? navigator.language : 'en-GB';
+      const options: Intl.DateTimeFormatOptions = {
+        year: 'numeric',
+        month: 'short',
+      };
+      const dateObj = new Date(date);
+      return dateObj.toLocaleDateString(locale, options);
+    },
+    getSummaryLines(summary: string): string[] {
+      const lines = summary.split('\n').map((line) => {
+        if (line[0] === '-') {
+          line = line.slice(1).trim();
+        }
+        return line;
+      });
+      return lines;
     },
   },
-})
+});
 </script>
 <style lang="postcss" scoped>
 p {
   @apply leading-relaxed;
 }
 .cv {
-  @apply flex text-gray-700 shadow-lg text-sm;
+  @apply flex text-gray-800 shadow-lg text-sm font-normal;
   width: 21cm;
   height: 29.69cm;
   min-width: 21cm;
@@ -354,6 +367,10 @@ p {
   @media screen and (min-width: 1024px) {
     transform: scale(0.52);
   }
+
+  @media screen and (min-width: 1400px) {
+    transform: scale(0.75);
+  }
   &__side {
     @apply px-6 py-10 bg-gray-100 bg-opacity-100;
   }
@@ -370,14 +387,14 @@ p {
   &__section {
     @apply mt-6;
     &--main {
-      @apply mt-0 text-base;
+      @apply mt-0 text-sm;
     }
   }
 
   &__section-title {
     @apply text-lg uppercase mb-2 font-bold tracking-wide;
     &--sm {
-      @apply text-base;
+      @apply text-sm;
     }
     &--main {
       color: var(--primary);
@@ -406,22 +423,27 @@ p {
   }
 
   &__tag {
-    @apply px-2 py-1 rounded text-white;
+    @apply px-2 py-1 rounded text-white text-xs;
     margin: 0.5rem 0.2rem 0.25rem;
     background-color: var(--primary);
   }
 
   &__list {
+    @apply font-light mt-1;
     list-style: none;
     padding: 0;
     margin: 0;
     li {
-      @apply flex items-center;
+      padding-left: 1em;
+      text-indent: -1em;
+    }
+    li:first-child {
+      @apply mt-1;
     }
     li::before {
-      content: '';
-      @apply w-2 h-2 rounded-full mr-2;
-      background-color: var(--primary);
+      content: '\2022';
+      padding-right: 0.5em;
+      color: var(--primary);
     }
   }
 
@@ -449,12 +471,12 @@ p {
   }
 
   &__main {
-    @apply px-10 py-10;
+    @apply px-8 py-10;
   }
 
-  &__list-elem {
-    & + & {
-      @apply mt-3;
+  &__event {
+    &-elem + &-elem {
+      @apply mt-6;
     }
   }
 }
