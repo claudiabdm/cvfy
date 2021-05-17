@@ -175,7 +175,7 @@
                 <li v-for="line in job.summaryArr" :key="line">{{ line }}</li>
               </ul>
               <p v-else>
-                {{ job.summaryArr }}
+                {{ job.summaryArr[0] }}
               </p>
             </li>
           </ul>
@@ -189,7 +189,7 @@
           </h4>
           <ul class="cv__event mt-3">
             <li
-              v-for="edu in educationSortedByDate"
+              v-for="edu in education"
               :key="edu.title"
               class="cv__event-elem"
             >
@@ -204,7 +204,12 @@
                   <template v-else>{{ formatDate(edu.to) }}</template>
                 </span>
               </div>
-              <p class="font-light">{{ edu.summary }}</p>
+              <ul v-if="edu.summaryArr.length > 1" class="cv__list">
+                <li v-for="line in edu.summaryArr" :key="line">{{ line }}</li>
+              </ul>
+              <p v-else>
+                {{ edu.summaryArr[0] }}
+              </p>
             </li>
           </ul>
         </section>
@@ -281,11 +286,6 @@ export default Vue.extend({
     },
   },
   computed: {
-    educationSortedByDate() {
-      return [...this.formSettings.education].sort(
-        (a, b) => new Date(b.from).getTime() - new Date(a.from).getTime()
-      );
-    },
     phoneNumberHref(): string {
       return `tel:${this.formSettings.phoneNumber}`;
     },
@@ -303,10 +303,14 @@ export default Vue.extend({
         );
     },
     education(): CvEvent[] {
-      return this.formSettings.education.map((event) => {
-        event.summaryArr = this.getSummaryLines(event.summary);
-        return event;
-      });
+      return this.formSettings.education
+        .map((event) => {
+          event.summaryArr = this.getSummaryLines(event.summary);
+          return event;
+        })
+        .sort(
+          (a, b) => new Date(b.from).getTime() - new Date(a.from).getTime()
+        );
     },
   },
   methods: {
@@ -320,13 +324,12 @@ export default Vue.extend({
       }
     },
     formatDate(date: Date): string {
-      const locale = process.browser ? navigator.language : 'en-GB';
       const options: Intl.DateTimeFormatOptions = {
         year: 'numeric',
         month: 'short',
       };
       const dateObj = new Date(date);
-      return dateObj.toLocaleDateString(locale, options);
+      return dateObj.toLocaleDateString(this.$i18n.locale, options);
     },
     getSummaryLines(summary: string): string[] {
       const lines = summary.split('\n').map((line) => {
