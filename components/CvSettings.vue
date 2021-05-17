@@ -302,7 +302,7 @@
         <a
           :href="formSettingsHref"
           rel="noopener"
-          download="cv.json"
+          :download="`CV_${formSettings.name}_${formSettings.lastName}_${$i18n.locale}.json`"
           class="form__btn flex justify-center"
           >{{ $t('download-cv-settings') }} (JSON)</a
         >
@@ -442,7 +442,10 @@ export default Vue.extend({
       fr.readAsText(e.target.files[0]);
     },
     downloadPdf() {
+      const oldTitle = document.title;
+      document.title = `CV_${this.formSettings.name}_${this.formSettings.lastName}_${this.$i18n.locale}`;
       window.print();
+      document.title = oldTitle;
     },
     changeColor(color: string, darker: string): void {
       this.activeColor = color;
