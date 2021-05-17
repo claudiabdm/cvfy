@@ -105,8 +105,8 @@
               <a
                 target="_blank"
                 rel="noopener"
-                :href="`https://linkedin.com/in/${formSettings.github}`"
-                >{{ formSettings.linkedin }}</a
+                :href="`https://linkedin.com/in/${formSettings.linkedin}`"
+                >{{ `linkedin.com/in/${formSettings.linkedin}` }}</a
               >
             </div>
             <div v-if="formSettings.twitter" class="cv__icon-wrapper">
@@ -117,7 +117,7 @@
                 target="_blank"
                 rel="noopener"
                 :href="`https://twitter.com/${formSettings.twitter}`"
-                >{{ formSettings.twitter }}</a
+                >{{ `twitter.com/${formSettings.twitter}` }}</a
               >
             </div>
             <div v-if="formSettings.github" class="cv__icon-wrapper">
@@ -128,7 +128,7 @@
                 target="_blank"
                 rel="noopener"
                 :href="`https://github.com/${formSettings.github}`"
-                >{{ formSettings.github }}</a
+                >{{ `github.com/${formSettings.github}` }}</a
               >
             </div>
             <div v-if="formSettings.website" class="cv__icon-wrapper">
