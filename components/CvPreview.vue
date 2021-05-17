@@ -174,7 +174,7 @@
               <ul v-if="job.summaryArr.length > 1" class="cv__list">
                 <li v-for="line in job.summaryArr" :key="line">{{ line }}</li>
               </ul>
-              <p v-else>
+              <p v-else class="font-light">
                 {{ job.summaryArr[0] }}
               </p>
             </li>
@@ -207,7 +207,7 @@
               <ul v-if="edu.summaryArr.length > 1" class="cv__list">
                 <li v-for="line in edu.summaryArr" :key="line">{{ line }}</li>
               </ul>
-              <p v-else>
+              <p v-else class="font-light">
                 {{ edu.summaryArr[0] }}
               </p>
             </li>
