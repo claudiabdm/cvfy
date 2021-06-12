@@ -1,5 +1,8 @@
 # CvFy
 
+![CvFy](https://user-images.githubusercontent.com/44007726/121782940-67219680-cbac-11eb-98b1-646ab35d90ad.png)
+
+
 CvFy is a simple CV maker that makes CV creation faster and easier in both English and Spanish. 
 
 It's built with NuxtJs and deployed in Netlify. 
