@@ -25,7 +25,7 @@
         <section class="cv__section">
           <h4 class="cv__section-title">{{ $t('contact') }}</h4>
           <div class="flex flex-col">
-            <div class="cv__icon-wrapper">
+            <div v-if="formSettings.phoneNumber" class="cv__icon-wrapper">
               <svg class="cv__icon">
                 <use href="@/assets/sprite.svg#phone"></use>
               </svg>
@@ -33,13 +33,13 @@
                 formSettings.phoneNumber
               }}</a>
             </div>
-            <div class="cv__icon-wrapper">
+            <div v-if="formSettings.email" class="cv__icon-wrapper">
               <svg class="cv__icon">
                 <use href="@/assets/sprite.svg#email"></use>
               </svg>
               <a :href="emailHref" rel="noopener">{{ formSettings.email }}</a>
             </div>
-            <div class="cv__icon-wrapper">
+            <div v-if="formSettings.location" class="cv__icon-wrapper">
               <svg class="cv__icon">
                 <use href="@/assets/sprite.svg#location"></use>
               </svg>
