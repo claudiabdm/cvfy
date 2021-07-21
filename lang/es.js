@@ -26,7 +26,7 @@ export default {
   'upload-cv': 'Subir ajustes del CV',
   'download-cv-settings': 'Descargar ajustes del CV',
   'download-cv-pdf': 'Descargar CV como PDF',
-  'chrome-recommended': 'Chrome Desktop recomendado',
+  'chrome-recommended': 'Firefox recomendado para ATSs',
   'job-title': 'Puesto / Ocupación',
   'first-name': 'Nombre',
   'last-name': 'Apellido/s',
@@ -43,4 +43,4 @@ export default {
   description:
     'Con CvFy puedes crear, visualizar y guardar tu CV fácilmente. Disponible en Inglés y Español. Hecho con Nuxt + TailwindCSS.',
   'title-tag': 'CvFy - Crea tu CV en cuestión de minutos',
-}
+};
