@@ -43,4 +43,5 @@ export default {
   description:
     'With CvFy you can create, preview and save your CV as PDF easily! Available in English and Spanish. Built with Nuxt + TailwindCSS.',
   'title-tag': 'CvFy - Create your CV as PDF in a few minutes!',
+  projects: 'projects',
 };
