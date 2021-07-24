@@ -9,10 +9,11 @@
       @update-section="onUpdateSection"
       @upload-cv="onUploadCv"
       @reset-form="onResetForm"
+      @display-section-changed="onDisplayChanged"
     ></cv-settings>
     <cv-preview
       :form-settings="formSettings"
-      :class="[{ blur: isLoading }]"
+      :is-loading="isLoading"
     ></cv-preview>
   </div>
 </template>
@@ -20,69 +21,25 @@
 <script lang="ts">
 import { NuxtOptionsHead } from '@nuxt/types/config/head';
 import Vue from 'vue';
+import {
+  cvSettingTemplate,
+  cvSettingsEmptyTemplate,
+} from '@/data/example-cv-settings';
+import CvSettings from '@/components/CvSettings.vue';
+import CvPreview from '@/components/CvPreview.vue';
+
 export default Vue.extend({
+  name: 'Index',
+  components: { CvSettings, CvPreview },
   data() {
     return {
       isLoading: true,
-      formSettings: {
-        jobTitle: 'Deputy Director Parks Department',
-        name: 'Leslie',
-        lastName: 'Knope',
-        email: 'lknope@parksdept.com',
-        location: 'Pawnee, Indiana',
-        phoneNumber: '317-660-2160',
-        aboutme:
-          "My name is Leslie Knope. I am a passionate, over-achieving government employee who believes the government's #1 job is serving the people. By pairing the right people with the right messaging at the right time, the parks department and your local government can make the world a better place for everyone! I have met Joe Biden, and one day I will become the first female President of the United States.",
-        jobSkills: ['Microsoft', 'Word', 'Excel', 'PerfectMind'],
-        softSkills: ['Positivity', 'Leadership', 'Public Speaking'],
-        languages: [{ lang: 'English', level: '100%' }],
-        linkedin: '',
-        twitter: '',
-        github: '',
-        website: 'www.MsKnope.com',
-        education: [
-          {
-            title: 'A Environmental and Public Affairs',
-            location: 'Indiana University, Bloomington, Indiana',
-            from: new Date('1993-09-01'),
-            to: new Date('1993-04-01'),
-            current: false,
-            summary: 'Summa cum Laude',
-          },
-        ],
-        work: [
-          {
-            title: 'Deputy Director Parks Department',
-            location: 'City of Pawnee, Indiana',
-            from: new Date('2009-01-01'),
-            to: new Date('2012-01-01'),
-            current: true,
-            summary: `- Sed ut lorem viverra urna malesuada interdum in ut risus.
-- Duis at sem non justo aliquam iaculis.
-- Quisque lobortis nibh non turpis interdum ornare.
-- Sed et diam nec arcu tempor suscipit sit amet at tellus.
-- Duis quis diam imperdiet, pharetra lacus eget, fringilla odio.`,
-          },
-          {
-            title: 'City Councilor',
-            location: 'City of Pawnee, Indiana',
-            from: new Date('2012-01-01'),
-            to: new Date(),
-            current: true,
-            summary: `- In placerat nisi pellentesque felis blandit, vel varius justo eleifend.
-- Etiam porttitor tortor vel lobortis ultricies.
-- Nam non libero accumsan, sagittis nibh vitae, auctor ligula.
-- Sed hendrerit dui a ante porttitor, vitae tristique ipsum laoreet.
-- Suspendisse interdum mauris a lectus dignissim, vitae aliquet ante tempor.`,
-          },
-        ],
-      },
+      formSettings: cvSettingTemplate,
     };
   },
   watch: {
     formSettings: {
-      // eslint-disable-next-line object-shorthand
-      handler: function (updated, _) {
+      handler(updated, _) {
         localStorage.setItem(
           `cvSettings-${this.$i18n.locale}`,
           JSON.stringify(updated)
@@ -93,6 +50,11 @@ export default Vue.extend({
   },
   mounted() {
     if (process.browser) {
+      this.setUpCvSettings();
+    }
+  },
+  methods: {
+    setUpCvSettings(): void {
       const cvEs = localStorage.getItem('cvSettings-es') || '{}';
       const cvEn = localStorage.getItem('cvSettings-en') || '{}';
       const isCvEsEmpty = this.isCvSettingsFromLocalStorageEmpty(
@@ -101,24 +63,43 @@ export default Vue.extend({
       const isCvEnEmpty = this.isCvSettingsFromLocalStorageEmpty(
         JSON.parse(cvEn)
       );
+      if (isCvEsEmpty && isCvEnEmpty) {
+        this.formSettings = { ...cvSettingTemplate };
+      }
       if (this.$i18n.locale.includes('es') && !isCvEsEmpty) {
-        this.formSettings = JSON.parse(cvEs);
+        this.formSettings = {
+          ...cvSettingsEmptyTemplate,
+          ...JSON.parse(cvEs),
+        };
       }
       if (this.$i18n.locale.includes('en') && !isCvEnEmpty) {
-        this.formSettings = JSON.parse(cvEn);
+        this.formSettings = {
+          ...cvSettingsEmptyTemplate,
+          ...JSON.parse(cvEn),
+        };
       }
       if (this.$i18n.locale.includes('es') && isCvEsEmpty && !isCvEnEmpty) {
-        this.formSettings = JSON.parse(cvEn);
-        localStorage.setItem('cvSettings-es', cvEn);
+        this.formSettings = {
+          ...cvSettingsEmptyTemplate,
+          ...JSON.parse(cvEn),
+        };
+        localStorage.setItem(
+          'cvSettings-es',
+          JSON.stringify(this.formSettings)
+        );
       }
       if (this.$i18n.locale.includes('en') && isCvEnEmpty && !isCvEsEmpty) {
-        this.formSettings = JSON.parse(cvEs);
-        localStorage.setItem('cvSettings-en', cvEs);
+        this.formSettings = {
+          ...cvSettingsEmptyTemplate,
+          ...JSON.parse(cvEs),
+        };
+        localStorage.setItem(
+          'cvSettings-en',
+          JSON.stringify(this.formSettings)
+        );
       }
       this.isLoading = false;
-    }
-  },
-  methods: {
+    },
     onAddSkill(e: {
       skill: string | { lang: string; level: string };
       skillType: 'jobSkills' | 'softSkills' | 'languages';
@@ -168,29 +149,20 @@ export default Vue.extend({
       }
     },
     onUploadCv(e: any) {
-      this.formSettings = { ...e.formSettings };
+      this.formSettings = { ...cvSettingsEmptyTemplate, ...e.formSettings };
     },
     onResetForm(): void {
-      this.formSettings = {
-        jobTitle: '',
-        name: '',
-        lastName: '',
-        email: '',
-        location: '',
-        phoneNumber: '',
-        aboutme: '',
-        jobSkills: [],
-        softSkills: [],
-        languages: [],
-        linkedin: '',
-        twitter: '',
-        github: '',
-        website: '',
-        education: [],
-        work: [],
-      };
+      this.formSettings = cvSettingsEmptyTemplate;
       localStorage.removeItem('cvSettings-es');
       localStorage.removeItem('cvSettings-en');
+    },
+    onDisplayChanged(e: { sectionName: string; status: boolean }): void {
+      const propName = `display${e.sectionName
+        .slice(0, 1)
+        .toUpperCase()}${e.sectionName.slice(1)}` as
+        | 'displayEducation'
+        | 'displayProjects';
+      this.formSettings[propName] = e.status;
     },
     isCvSettingsFromLocalStorageEmpty(item: any): boolean {
       if (!item || Object.keys(item).length < 1) return true;
@@ -288,9 +260,6 @@ export default Vue.extend({
   }
   .settings {
     @apply overflow-y-auto w-5/12;
-  }
-  .blur {
-    filter: blur(5px);
   }
 }
 </style>
