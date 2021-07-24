@@ -1,6 +1,6 @@
 import { Cv } from '~/types/cvfy';
 
-export const formSettings: Cv = {
+export const cvSettingTemplate: Cv = {
   jobTitle: 'Deputy Director Parks Department',
   name: 'Leslie',
   lastName: 'Knope',
@@ -52,4 +52,42 @@ export const formSettings: Cv = {
 - Suspendisse interdum mauris a lectus dignissim, vitae aliquet ante tempor.`,
     },
   ],
+  projects: [
+    {
+      title: 'Lot 48',
+      location: 'City of Pawnee, Indiana',
+      from: new Date('2009-01-01'),
+      to: new Date('2012-01-01'),
+      current: true,
+      summary: `- Sed ut lorem viverra urna malesuada interdum in ut risus.
+- Duis at sem non justo aliquam iaculis.
+- Quisque lobortis nibh non turpis interdum ornare.
+- Sed et diam nec arcu tempor suscipit sit amet at tellus.
+- Duis quis diam imperdiet, pharetra lacus eget, fringilla odio.`,
+    },
+  ],
+  displayEducation: true,
+  displayProjects: false,
+};
+
+export const cvSettingsEmptyTemplate: Cv = {
+  jobTitle: '',
+  name: '',
+  lastName: '',
+  email: '',
+  location: '',
+  phoneNumber: '',
+  aboutme: '',
+  jobSkills: [],
+  softSkills: [],
+  languages: [],
+  linkedin: '',
+  twitter: '',
+  github: '',
+  website: '',
+  education: [],
+  work: [],
+  projects: [],
+  displayEducation: true,
+  displayProjects: false,
 };

@@ -30,6 +30,7 @@
                   :for="`entryTitle--${entryItem.title}`"
                 >
                   <template v-if="sectionName === 'education'">🎓</template>
+                  <template v-else-if="sectionName === 'projects'">✨</template>
                   <template v-else>💼</template>
                   {{ $t('title') }}
                 </label>
@@ -110,33 +111,31 @@
   </div>
 </template>
 <script lang="ts">
-import Vue from 'vue'
+import Vue from 'vue';
+import { CvEvent } from '~/types/cvfy';
+import ExpansionPanel from '~/components/ExpansionPanel.vue';
 export default Vue.extend({
   name: 'CvDynamicEntry',
+  components: { ExpansionPanel },
   props: {
     sectionName: {
       type: String,
       default: 'Section name',
     },
     entries: {
-      type: Array as () => {
-        title: string
-        location: string
-        from: Date
-        to: Date
-        current: boolean
-        summary: string
-      }[],
-      default: [
-        {
-          title: '',
-          location: '',
-          from: new Date(),
-          to: new Date(),
-          current: false,
-          summary: '',
-        },
-      ],
+      type: Array as () => CvEvent[],
+      default: () => {
+        return [
+          {
+            title: '',
+            location: '',
+            from: new Date(),
+            to: new Date(),
+            current: false,
+            summary: '',
+          },
+        ];
+      },
     },
   },
   methods: {
@@ -148,27 +147,20 @@ export default Vue.extend({
         to: new Date(),
         current: false,
         summary: '',
-      }
+      };
       this.$emit('add-entry', {
         eventType: 'addEntry',
         entry,
         sectionName: this.sectionName,
-      })
+      });
     },
-    removeEntry(entry: {
-      title: string
-      location: string
-      from: Date
-      to: Date
-      current: boolean
-      summary: string
-    }): void {
+    removeEntry(entry: CvEvent): void {
       this.$emit('remove-entry', {
         eventType: 'removeEntry',
         entry,
         sectionName: this.sectionName,
-      })
+      });
     },
   },
-})
+});
 </script>

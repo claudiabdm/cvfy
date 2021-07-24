@@ -251,24 +251,6 @@
       </fieldset>
       <!-- SOCIAL -->
 
-      <!-- EDUCATION -->
-      <fieldset class="form__section grid gap-3">
-        <expansion-panel>
-          <template v-slot:title>
-            <legend class="form__legend">{{ $t('education') }}</legend>
-          </template>
-          <template v-slot:content>
-            <cv-dynamic-section
-              section-name="education"
-              :entries="formSettings.education"
-              @add-entry="onUpdateSection"
-              @remove-entry="onUpdateSection"
-            ></cv-dynamic-section>
-          </template>
-        </expansion-panel>
-      </fieldset>
-      <!-- EDUCATION -->
-
       <!-- WORK EXPERIENCE -->
       <fieldset class="form__section grid gap-3">
         <expansion-panel>
@@ -286,6 +268,58 @@
         </expansion-panel>
       </fieldset>
       <!-- WORK EXPERIENCE -->
+
+      <!-- EDUCATION -->
+      <fieldset class="form__section grid gap-3">
+        <expansion-panel>
+          <template v-slot:title>
+            <legend class="form__legend">{{ $t('education') }}</legend>
+          </template>
+          <template v-slot:content>
+            <div>
+              <cv-display-checkbox
+                class="form__display-checkbox"
+                :display-section="formSettings.displayEducation"
+                @display-checkbox-changed="
+                  onDisplayChanged('education', $event)
+                "
+              ></cv-display-checkbox>
+              <cv-dynamic-section
+                section-name="education"
+                :entries="formSettings.education"
+                @add-entry="onUpdateSection"
+                @remove-entry="onUpdateSection"
+              ></cv-dynamic-section>
+            </div>
+          </template>
+        </expansion-panel>
+      </fieldset>
+      <!-- EDUCATION -->
+
+      <!-- PROJECTS -->
+      <fieldset class="form__section grid gap-3">
+        <expansion-panel>
+          <template v-slot:title>
+            <legend class="form__legend">{{ $t('projects') }}</legend>
+          </template>
+          <template v-slot:content>
+            <div>
+              <cv-display-checkbox
+                class="form__display-checkbox"
+                :display-section="formSettings.displayProjects"
+                @display-checkbox-changed="onDisplayChanged('projects', $event)"
+              ></cv-display-checkbox>
+              <cv-dynamic-section
+                section-name="projects"
+                :entries="formSettings.projects"
+                @add-entry="onUpdateSection"
+                @remove-entry="onUpdateSection"
+              ></cv-dynamic-section>
+            </div>
+          </template>
+        </expansion-panel>
+      </fieldset>
+      <!-- PROJECTS -->
 
       <!-- CTA -->
       <div class="form__section flex flex-col p-6 gap-3">
@@ -321,15 +355,25 @@
 </template>
 <script lang="ts">
 import Vue from 'vue';
-import { Cv } from '~/types/cvfy';
-import { formSettings } from '~/data/example-cv-settings';
+import { Cv, CvEvent } from '~/types/cvfy';
+import { cvSettingTemplate } from '~/data/example-cv-settings';
+import CvDynamicSection from '~/components/CvDynamicSection.vue';
+import CvDisplayCheckbox from '~/components/CvDisplayCheckbox.vue';
+import CvInputTags from '~/components/CvInputTags.vue';
+import ExpansionPanel from '~/components/ExpansionPanel.vue';
 
 export default Vue.extend({
   name: 'CvSettings',
+  components: {
+    CvDynamicSection,
+    CvDisplayCheckbox,
+    CvInputTags,
+    ExpansionPanel,
+  },
   props: {
     formSettings: {
       type: Object as () => Cv,
-      default: () => formSettings,
+      default: () => cvSettingTemplate,
     },
   },
   data() {
@@ -372,14 +416,7 @@ export default Vue.extend({
     onUpdateSection(e: {
       eventType: string;
       sectionName: string;
-      entry: {
-        title: string;
-        location: string;
-        from: Date;
-        to: Date;
-        current: boolean;
-        summary: string;
-      };
+      entry: CvEvent;
     }): void {
       this.$emit('update-section', e);
     },
@@ -391,7 +428,7 @@ export default Vue.extend({
       };
       fr.readAsText(e.target.files[0]);
     },
-    downloadPdf() {
+    downloadPdf(): void {
       const oldTitle = document.title;
       document.title = `CV_${this.formSettings.name}_${this.formSettings.lastName}_${this.$i18n.locale}`;
       window.print();
@@ -404,6 +441,9 @@ export default Vue.extend({
     },
     resetForm(e: any): void {
       this.$emit('reset-form', e);
+    },
+    onDisplayChanged(sectionName: string, status: boolean): void {
+      this.$emit('display-section-changed', { sectionName, status });
     },
   },
 });
@@ -550,6 +590,10 @@ export default Vue.extend({
     &:hover {
       opacity: 0.6;
     }
+  }
+
+  &__display-checkbox {
+    @apply mb-6;
   }
 }
 </style>
