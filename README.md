@@ -11,7 +11,7 @@ I usually enjoy styling from scratch but this time I've used TailwindCSS for the
 
 PDF creation is client-side only, so results may differ among  browsers:
 - Chrome desktop has the best print as the PDF created is exactly as the preview one but it is not good for ATSs. 
-- Firefox print is exactly as the preview except for svg icons which are bit pixelated but it gives the best result for ATSs as it codifies text better. 
+- Firefox print is exactly as the preview except for svg icons which are bit pixelated but it gives the best result for ATSs. 
 - I used https://www.jobscan.co/ for checking ATSs.
 
 It's also a PWA so it can be used offline.
