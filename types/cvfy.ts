@@ -15,6 +15,9 @@ export interface Cv {
   website: string;
   education: CvEvent[];
   work: CvEvent[];
+  projects: CvEvent[];
+  displayEducation: boolean;
+  displayProjects: boolean;
 }
 export interface CvEvent {
   title: string;
