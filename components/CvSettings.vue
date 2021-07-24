@@ -321,65 +321,15 @@
 </template>
 <script lang="ts">
 import Vue from 'vue';
-import { CvEvent } from '~/models/cvEvent';
+import { Cv } from '~/types/cvfy';
+import { formSettings } from '~/data/example-cv-settings';
 
 export default Vue.extend({
   name: 'CvSettings',
   props: {
     formSettings: {
-      type: Object as () => {
-        jobTtitle: string;
-        name: string;
-        lastName: string;
-        email: string;
-        location: string;
-        phoneNumber: string;
-        aboutme: string;
-        jobSkills: string[];
-        softSkills: string[];
-        languages: { lang: string; level: string }[];
-        linkedin: string;
-        twitter: string;
-        github: string;
-        website: string;
-        education: CvEvent[];
-        work: CvEvent[];
-      },
-      default: {
-        jobTtitle: '',
-        name: '',
-        lastName: '',
-        email: '',
-        location: '',
-        phoneNumber: '',
-        aboutme: '',
-        jobSkills: [''],
-        softSkills: [''],
-        languages: [{ lang: '', level: '' }],
-        linkedin: '',
-        twitter: '',
-        github: '',
-        education: [
-          {
-            title: '',
-            location: '',
-            from: new Date(),
-            to: new Date(),
-            current: false,
-            summary: '',
-          },
-        ],
-        work: [
-          {
-            title: '',
-            location: '',
-            from: new Date(),
-            to: new Date(),
-            current: false,
-            summary: '',
-          },
-        ],
-      },
+      type: Object as () => Cv,
+      default: () => formSettings,
     },
   },
   data() {

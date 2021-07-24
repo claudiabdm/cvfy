@@ -221,68 +221,15 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import { CvEvent } from '~/models/cvEvent';
+import { Cv, CvEvent } from '~/types/cvfy';
+import { formSettings } from '~/data/example-cv-settings';
 
 export default Vue.extend({
   name: 'CvPreview',
   props: {
     formSettings: {
-      type: Object as () => {
-        jobTtitle: string;
-        name: string;
-        lastName: string;
-        email: string;
-        location: string;
-        phoneNumber: string;
-        aboutme: string;
-        jobSkills: string[];
-        softSkills: string[];
-        languages: { lang: string; level: string }[];
-        linkedin: string;
-        twitter: string;
-        github: string;
-        website: string;
-        education: CvEvent[];
-        work: CvEvent[];
-      },
-      default: {
-        jobTtitle: '',
-        name: '',
-        lastName: '',
-        email: '',
-        location: '',
-        phoneNumber: '',
-        aboutme: '',
-        jobSkills: [''],
-        softSkills: [''],
-        languages: [{ lang: '', level: '' }],
-        linkedin: '',
-        twitter: '',
-        github: '',
-        website: '',
-        education: [
-          {
-            title: '',
-            location: '',
-            from: new Date(),
-            to: new Date(),
-            current: false,
-            summary: '',
-            summaryArr: [''],
-          },
-        ],
-        work: [
-          {
-            title: '',
-            location: '',
-            from: new Date(),
-            to: new Date(),
-            current: false,
-            summary: '',
-            summaryArr: [''],
-          },
-        ],
-      },
+      type: Object as () => Cv,
+      default: () => formSettings,
     },
   },
   computed: {
