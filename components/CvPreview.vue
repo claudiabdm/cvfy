@@ -15,7 +15,7 @@
       >
       using <b>Nuxt.js</b> + <b>TailwindCSS</b>
     </div>
-    <div class="cv bg-white">
+    <div :class="['cv', 'bg-white', { blur: isLoading }]">
       <div class="cv__side w-1/3">
         <h2 class="cv__name">
           {{ formSettings.name }} {{ formSettings.lastName }}
@@ -152,7 +152,9 @@
           <p class="font-light">{{ formSettings.aboutme }}</p>
         </section>
         <!-- // ABOUT ME -->
-        <hr class="my-5 border-gray-100 border-2" />
+
+        <hr class="cv__bar" />
+
         <!-- EXPERIENCE -->
         <section class="cv__section cv__section--main w-full">
           <h4 class="cv__section-title cv__section-title--main">
@@ -181,9 +183,14 @@
           </ul>
         </section>
         <!-- // EXPERIENCE -->
-        <hr class="my-5 border-gray-100 border-2" />
+
+        <hr v-if="formSettings.displayEducation" class="cv__bar" />
+
         <!-- EDUCATION -->
-        <section class="cv__section cv__section--main w-full">
+        <section
+          v-if="formSettings.displayEducation"
+          class="cv__section cv__section--main w-full"
+        >
           <h4 class="cv__section-title cv__section-title--main">
             {{ $t('education') }}
           </h4>
@@ -214,6 +221,48 @@
           </ul>
         </section>
         <!-- // EDUCATION -->
+
+        <hr v-if="formSettings.displayProjects" class="cv__bar" />
+
+        <!-- PROJECTS -->
+        <section
+          v-if="formSettings.displayProjects"
+          class="cv__section cv__section--main w-full"
+        >
+          <h4 class="cv__section-title cv__section-title--main">
+            {{ $t('projects') }}
+          </h4>
+          <ul class="cv__event mt-3">
+            <li
+              v-for="project in projects"
+              :key="project.title"
+              class="cv__event-elem"
+            >
+              <h5 class="cv__section-title cv__section-title--sm">
+                {{ project.title }}
+              </h5>
+              <div>
+                <span>{{ project.location }} | </span>
+                <span>
+                  {{ formatDate(project.from) }} -
+                  <template v-if="project.current">{{
+                    $t('current')
+                  }}</template>
+                  <template v-else>{{ formatDate(project.to) }}</template>
+                </span>
+              </div>
+              <ul v-if="project.summaryArr.length > 1" class="cv__list">
+                <li v-for="line in project.summaryArr" :key="line">
+                  {{ line }}
+                </li>
+              </ul>
+              <p v-else class="font-light">
+                {{ project.summaryArr[0] }}
+              </p>
+            </li>
+          </ul>
+        </section>
+        <!-- // PROJECTS -->
       </div>
     </div>
   </div>
@@ -222,14 +271,18 @@
 <script lang="ts">
 import Vue from 'vue';
 import { Cv, CvEvent } from '~/types/cvfy';
-import { formSettings } from '~/data/example-cv-settings';
+import { cvSettingTemplate } from '~/data/example-cv-settings';
 
 export default Vue.extend({
   name: 'CvPreview',
   props: {
     formSettings: {
       type: Object as () => Cv,
-      default: () => formSettings,
+      default: () => cvSettingTemplate,
+    },
+    isLoading: {
+      type: Boolean,
+      default: true,
     },
   },
   computed: {
@@ -240,24 +293,13 @@ export default Vue.extend({
       return `mailto:${this.formSettings.email}`;
     },
     work(): CvEvent[] {
-      return this.formSettings.work
-        .map((event) => {
-          event.summaryArr = this.getSummaryLines(event.summary);
-          return event;
-        })
-        .sort(
-          (a, b) => new Date(b.from).getTime() - new Date(a.from).getTime()
-        );
+      return this.orderEvents(this.formSettings.work);
     },
     education(): CvEvent[] {
-      return this.formSettings.education
-        .map((event) => {
-          event.summaryArr = this.getSummaryLines(event.summary);
-          return event;
-        })
-        .sort(
-          (a, b) => new Date(b.from).getTime() - new Date(a.from).getTime()
-        );
+      return this.orderEvents(this.formSettings.education);
+    },
+    projects(): CvEvent[] {
+      return this.orderEvents(this.formSettings.projects);
     },
   },
   methods: {
@@ -286,6 +328,16 @@ export default Vue.extend({
         return line;
       });
       return lines;
+    },
+    orderEvents(arr: CvEvent[]): CvEvent[] {
+      return arr
+        .map((event) => {
+          event.summaryArr = this.getSummaryLines(event.summary);
+          return event;
+        })
+        .sort(
+          (a, b) => new Date(b.from).getTime() - new Date(a.from).getTime()
+        );
     },
   },
 });
@@ -429,5 +481,13 @@ p {
       @apply mt-6;
     }
   }
+
+  &__bar {
+    @apply my-5 border-gray-100 border-2;
+  }
+}
+
+.blur {
+  filter: blur(5px);
 }
 </style>
