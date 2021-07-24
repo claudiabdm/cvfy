@@ -1,6 +1,6 @@
 import { Cv } from '~/types/cvfy';
 
-export const formSettings: Cv = {
+export const cvSettingTemplate: Cv = {
   jobTitle: 'Deputy Director Parks Department',
   name: 'Leslie',
   lastName: 'Knope',
@@ -66,6 +66,28 @@ export const formSettings: Cv = {
 - Duis quis diam imperdiet, pharetra lacus eget, fringilla odio.`,
     },
   ],
+  displayEducation: true,
+  displayProjects: false,
+};
+
+export const cvSettingsEmptyTemplate: Cv = {
+  jobTitle: '',
+  name: '',
+  lastName: '',
+  email: '',
+  location: '',
+  phoneNumber: '',
+  aboutme: '',
+  jobSkills: [],
+  softSkills: [],
+  languages: [],
+  linkedin: '',
+  twitter: '',
+  github: '',
+  website: '',
+  education: [],
+  work: [],
+  projects: [],
   displayEducation: true,
   displayProjects: false,
 };
