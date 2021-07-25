@@ -184,17 +184,9 @@ export default Vue.extend({
           content: this.$t('description') as string,
         },
         {
-          name: 'description',
-          content: this.$t('description') as string,
-        },
-        {
+          hid: 'author',
           name: 'author',
           content: 'claudiabdm',
-        },
-        {
-          name: 'keywords',
-          content:
-            'cv, curriculum, resume, curriculum vitae, cv maker, cv generator, nuxt, vue, tailwindcss',
         },
         {
           hid: 'og:image',

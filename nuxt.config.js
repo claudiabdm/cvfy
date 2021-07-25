@@ -13,13 +13,14 @@ export default {
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       {
+        hid: 'author',
         name: 'author',
         content: 'claudiabdm',
       },
       {
-        name: 'keywords',
-        content:
-          'cv, curriculum, resume, curriculum vitae, nuxt, vue, tailwindcss',
+        hid: 'google-site-verification',
+        name: 'google-site-verification',
+        content: 'hMvPTPU_1B3OvsDWBBV0g0ySj9V0sIrZPASB',
       },
       {
         hid: 'twitter:card',
