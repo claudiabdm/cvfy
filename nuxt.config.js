@@ -20,7 +20,7 @@ export default {
       {
         hid: 'google-site-verification',
         name: 'google-site-verification',
-        content: 'hMvPTPU_1B3OvsDWBBV0g0ySj9V0sIrZPASB',
+        content: 'hMvPTPU_1B3OvsDWBBV0g0ySj9V0sIrZPASB-6BWDmk',
       },
       {
         hid: 'twitter:card',
