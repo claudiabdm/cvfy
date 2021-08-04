@@ -30,6 +30,9 @@
         <button
           class="form__btn"
           type="button"
+          :disabled="tagInputLangEmpty"
+          :aria-disabled="tagInputLangEmpty"
+          aria-live="assertive"
           @click="addTag(tagInputLang, tagListName)"
         >
           {{ $t('add') }}
@@ -47,6 +50,9 @@
         <button
           class="form__btn"
           type="button"
+          :disabled="tagInputEmpty"
+          :aria-disabled="tagInputEmpty"
+          aria-live="assertive"
           @click="addTag(tagInput, tagListName)"
         >
           {{ $t('add') }}
@@ -82,7 +88,7 @@
   </div>
 </template>
 <script lang="ts">
-import Vue from 'vue'
+import Vue from 'vue';
 export default Vue.extend({
   name: 'CvInputTags',
   props: {
@@ -107,7 +113,15 @@ export default Vue.extend({
     return {
       tagInput: '',
       tagInputLang: { lang: '', level: '' },
-    }
+    };
+  },
+  computed: {
+    tagInputLangEmpty(): boolean {
+      return this.tagInputLang.lang === '' || this.tagInputLang.level === '';
+    },
+    tagInputEmpty(): boolean {
+      return this.tagInput === '';
+    },
   },
   methods: {
     addTag(
@@ -115,20 +129,20 @@ export default Vue.extend({
       tagType: string
     ): void {
       if (typeof tag !== 'string') {
-        tag.level = `${tag.level}%`
+        tag.level = `${tag.level}%`;
       }
-      this.$emit('addTag', { tag, tagType })
-      this.tagInput = ''
-      this.tagInputLang = { lang: '', level: '' }
+      this.$emit('addTag', { tag, tagType });
+      this.tagInput = '';
+      this.tagInputLang = { lang: '', level: '' };
     },
     removeTag(
       tag: string | { lang: string; level: string },
       tagType: string
     ): void {
-      this.$emit('removeTag', { tag, tagType })
+      this.$emit('removeTag', { tag, tagType });
     },
   },
-})
+});
 </script>
 <style lang="postcss" scoped>
 .tags {
