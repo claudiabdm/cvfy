@@ -1,15 +1,27 @@
 <template>
   <div class="expansion-panel">
-    <div class="expansion-panel__title" @click="togglePanel">
-      <slot name="title">Título</slot>
-      <svg
-        :class="[
-          'expansion-panel__arrow',
-          { 'expansion-panel__arrow--open': isOpen },
-        ]"
-      >
-        <use href="@/assets/sprite.svg#panel-arrow"></use>
-      </svg>
+    <div class="expansion-panel__header" @click.prevent="togglePanel">
+      <div class="expansion-panel__title">
+        <slot name="title">Título</slot>
+        <button
+          :id="`expansionPanel${panelName}`"
+          type="button"
+          :aria-label="`Expansion panel ${panelName}`"
+          :aria-expanded="`${isOpen}`"
+          :aria-controls="panelName"
+          @click.stop="togglePanel"
+        >
+          <svg
+            :class="[
+              'expansion-panel__arrow',
+              { 'expansion-panel__arrow--open': isOpen },
+            ]"
+          >
+            <use href="@/assets/sprite.svg#panel-arrow"></use>
+          </svg>
+        </button>
+      </div>
+      <slot name="action-button"></slot>
     </div>
     <transition
       name="expand"
@@ -17,49 +29,61 @@
       @after-enter="afterEnter"
       @leave="leave"
     >
-      <slot v-if="isOpen" class="expansion-panel__panel" name="content"
+      <slot
+        v-if="isOpen"
+        :id="panelName"
+        class="expansion-panel__panel"
+        name="content"
+        role="region"
+        :aria-labelledby="`expansionPanel${panelName}`"
         >Contenido</slot
       >
     </transition>
   </div>
 </template>
 <script lang="ts">
-import Vue from 'vue'
+import Vue from 'vue';
 export default Vue.extend({
   name: 'ExpansionPanel',
+  props: {
+    panelName: {
+      type: String,
+      default: () => '',
+    },
+  },
   data() {
     return {
       isOpen: false,
-    }
+    };
   },
   methods: {
     togglePanel() {
-      this.isOpen = !this.isOpen
+      this.isOpen = !this.isOpen;
     },
     enter(element: HTMLElement) {
-      element.style.height = 'auto'
-      const height = getComputedStyle(element).height
-      element.style.height = '0'
+      element.style.height = 'auto';
+      const height = getComputedStyle(element).height;
+      element.style.height = '0';
       // eslint-disable-next-line no-unused-expressions
-      getComputedStyle(element).height
+      getComputedStyle(element).height;
       requestAnimationFrame(() => {
-        element.style.height = height
-      })
+        element.style.height = height;
+      });
     },
     afterEnter(element: HTMLElement) {
-      element.style.height = 'auto'
+      element.style.height = 'auto';
     },
     leave(element: HTMLElement) {
-      const height = getComputedStyle(element).height
-      element.style.height = height
+      const height = getComputedStyle(element).height;
+      element.style.height = height;
       // eslint-disable-next-line no-unused-expressions
-      getComputedStyle(element).height
+      getComputedStyle(element).height;
       requestAnimationFrame(() => {
-        element.style.height = '0'
-      })
+        element.style.height = '0';
+      });
     },
   },
-})
+});
 </script>
 <style lang="postcss" scoped>
 * {
@@ -76,8 +100,12 @@ export default Vue.extend({
   & & {
     @apply p-1;
   }
+
+  &__header {
+    @apply flex items-center justify-between w-full flex-row-reverse  mb-10;
+  }
   &__title {
-    @apply flex items-center justify-between w-full bg-gray-100 bg-opacity-100  relative z-10 mb-10 capitalize;
+    @apply flex items-center justify-between w-full bg-gray-100 bg-opacity-100 z-10 capitalize;
     &:hover {
       cursor: pointer;
     }
@@ -91,7 +119,7 @@ export default Vue.extend({
     width: 1.25rem;
     height: 1.25rem;
     transform: rotate(0);
-    transition: all 0.25s ease-in-out;
+    transition: transform 0.25s ease-in-out;
     &--open {
       transform: rotate(180deg);
     }
@@ -100,7 +128,7 @@ export default Vue.extend({
 
 .expand-enter-active,
 .expand-leave-active {
-  transition: all 0.35s ease-in-out;
+  transition: height 0.35s ease-in-out, opacity 0.35s ease-in-out;
   overflow: hidden;
 }
 

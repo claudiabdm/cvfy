@@ -55,7 +55,7 @@
 
       <!-- PERSONAL DETAILS -->
       <fieldset class="form__section">
-        <expansion-panel>
+        <expansion-panel :panel-name="$t('personal-details')">
           <template v-slot:title>
             <legend class="form__legend">{{ $t('personal-details') }}</legend>
           </template>
@@ -148,7 +148,7 @@
 
       <!-- SKILLS -->
       <fieldset class="form__section grid gap-3">
-        <expansion-panel>
+        <expansion-panel :panel-name="$t('skills')">
           <template v-slot:title>
             <legend class="form__legend">{{ $t('skills') }}</legend>
           </template>
@@ -183,7 +183,7 @@
 
       <!-- SOCIAL -->
       <fieldset class="form__section grid gap-3">
-        <expansion-panel>
+        <expansion-panel :panel-name="'Social'">
           <template v-slot:title>
             <legend class="form__legend">Social</legend>
           </template>
@@ -253,7 +253,7 @@
 
       <!-- WORK EXPERIENCE -->
       <fieldset class="form__section grid gap-3">
-        <expansion-panel>
+        <expansion-panel :panel-name="$t('experience')">
           <template v-slot:title>
             <legend class="form__legend">{{ $t('experience') }}</legend>
           </template>
@@ -271,7 +271,7 @@
 
       <!-- EDUCATION -->
       <fieldset class="form__section grid gap-3">
-        <expansion-panel>
+        <expansion-panel :panel-name="$t('education')">
           <template v-slot:title>
             <legend class="form__legend">{{ $t('education') }}</legend>
           </template>
@@ -298,7 +298,7 @@
 
       <!-- PROJECTS -->
       <fieldset class="form__section grid gap-3">
-        <expansion-panel>
+        <expansion-panel :panel-name="$t('projects')">
           <template v-slot:title>
             <legend class="form__legend">{{ $t('projects') }}</legend>
           </template>

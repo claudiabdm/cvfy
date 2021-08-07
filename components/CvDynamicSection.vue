@@ -1,29 +1,34 @@
 <template>
-  <div class="grid grid-cols-2 gap-x-3 gap-y-4">
+  <div class="dynamic-section">
     <button class="form__btn col-span-full" type="button" @click="addEntry">
       {{ $t('add') }} {{ $t(sectionName) }}
     </button>
     <ul class="col-span-full">
       <li v-for="(entryItem, index) in entries" :key="index">
-        <expansion-panel class="mb-3">
+        <expansion-panel :panel-name="`${entryItem.title}`" class="mb-3">
           <template v-slot:title>
-            <h3 class="form__legend form__legend--small flex items-center">
-              <button
-                type="button"
-                class="form__btn form__btn--delete mr-3"
-                @click.stop="removeEntry(entryItem)"
-              >
-                <svg class="form__icon">
-                  <use href="@/assets/sprite.svg#trash"></use>
-                </svg>
-              </button>
+            <h3 class="form__legend form__legend--small dynamic-section__title">
               <span>
                 {{ entryItem.title }}
               </span>
             </h3>
           </template>
+          <template v-slot:action-button>
+            <button
+              :aria-label="`Remove ${entryItem.title} ${$t(
+                sectionName
+              )} from CV`"
+              type="button"
+              class="form__btn form__btn--delete mr-3"
+              @click.stop="removeEntry(entryItem)"
+            >
+              <svg class="form__icon">
+                <use href="@/assets/sprite.svg#trash"></use>
+              </svg>
+            </button>
+          </template>
           <template v-slot:content>
-            <div class="grid grid-cols-2 gap-x-3 gap-y-4">
+            <div class="dynamic-section">
               <div class="form__group col-span-full">
                 <label
                   class="form__label"
@@ -164,3 +169,11 @@ export default Vue.extend({
   },
 });
 </script>
+<style lang="postcss" scoped>
+.dynamic-section {
+  @apply grid grid-cols-2 gap-x-3 gap-y-4;
+  &__title {
+    @apply flex items-center flex-row-reverse;
+  }
+}
+</style>
