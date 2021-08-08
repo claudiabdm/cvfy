@@ -45,6 +45,8 @@
               { 'form__btn--color-selected': color.color === activeColor },
             ]"
             type="button"
+            :aria-label="`Select color theme ${$t(color.name)}`"
+            :aria-checked="`${color.color === activeColor}`"
             @click="changeColor(color.color, color.darker)"
           >
             {{ $t(color.name) }}
