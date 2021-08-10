@@ -15,7 +15,11 @@
       >
       using <b>Nuxt.js</b> + <b>TailwindCSS</b>
     </div>
-    <div :class="['cv', 'bg-white', { blur: isLoading }]">
+    <div
+      tabindex="0"
+      aria-label="CV preview"
+      :class="['cv', 'bg-white', { blur: isLoading }]"
+    >
       <div class="cv__side w-1/3">
         <h2 class="cv__name">
           {{ formSettings.name }} {{ formSettings.lastName }}
@@ -43,7 +47,7 @@
               <svg class="cv__icon">
                 <use href="@/assets/sprite.svg#location"></use>
               </svg>
-              <span>{{ formSettings.location }}</span>
+              <span tabindex="0">{{ formSettings.location }}</span>
             </div>
           </div>
         </section>
