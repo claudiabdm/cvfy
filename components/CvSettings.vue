@@ -263,9 +263,8 @@
             <cv-dynamic-section
               section-name="work"
               :entries="formSettings.work"
-              @add-entry="onUpdateSection"
-              @remove-entry="onUpdateSection"
             ></cv-dynamic-section>
+            {{ formSettings.work }}
           </template>
         </expansion-panel>
       </fieldset>
@@ -282,15 +281,11 @@
               <cv-display-checkbox
                 class="form__display-checkbox"
                 :display-section="formSettings.displayEducation"
-                @display-checkbox-changed="
-                  onDisplayChanged('education', $event)
-                "
+                section-name="education"
               ></cv-display-checkbox>
               <cv-dynamic-section
                 section-name="education"
                 :entries="formSettings.education"
-                @add-entry="onUpdateSection"
-                @remove-entry="onUpdateSection"
               ></cv-dynamic-section>
             </div>
           </template>
@@ -309,13 +304,11 @@
               <cv-display-checkbox
                 class="form__display-checkbox"
                 :display-section="formSettings.displayProjects"
-                @display-checkbox-changed="onDisplayChanged('projects', $event)"
+                section-name="projects"
               ></cv-display-checkbox>
               <cv-dynamic-section
                 section-name="projects"
                 :entries="formSettings.projects"
-                @add-entry="onUpdateSection"
-                @remove-entry="onUpdateSection"
               ></cv-dynamic-section>
             </div>
           </template>
@@ -325,7 +318,7 @@
 
       <!-- CTA -->
       <div class="form__section flex flex-col p-6 gap-3">
-        <label class="form__btn flex justify-center">
+        <label tabindex="0" class="form__btn flex justify-center">
           {{ $t('upload-cv') }} (JSON)
           <input
             type="file"
@@ -357,12 +350,18 @@
 </template>
 <script lang="ts">
 import Vue from 'vue';
-import { Cv, CvEvent } from '~/types/cvfy';
-import { cvSettingTemplate } from '~/data/example-cv-settings';
+import {
+  computed,
+  onMounted,
+  ref,
+  useContext,
+  watch,
+} from '@nuxtjs/composition-api';
 import CvDynamicSection from '~/components/CvDynamicSection.vue';
 import CvDisplayCheckbox from '~/components/CvDisplayCheckbox.vue';
 import CvInputTags from '~/components/CvInputTags.vue';
 import ExpansionPanel from '~/components/ExpansionPanel.vue';
+import { useCvState } from '~/data/useCvState';
 
 export default Vue.extend({
   name: 'CvSettings',
@@ -372,16 +371,8 @@ export default Vue.extend({
     CvInputTags,
     ExpansionPanel,
   },
-  props: {
-    formSettings: {
-      type: Object as () => Cv,
-      default: () => cvSettingTemplate,
-    },
-  },
-  data() {
-    return {
-      jobSkill: '',
-      activeColor: '#5B21B6',
+  setup() {
+    const config = {
       colors: [
         { name: 'pink', color: '#9D174D', darker: '#831843' },
         { name: 'purple', color: '#5B21B6', darker: '#4C1D95' },
@@ -394,59 +385,61 @@ export default Vue.extend({
         { name: 'en-name', code: 'en' },
       ],
     };
-  },
-  computed: {
-    formSettingsHref() {
+
+    const activeColor = ref('#5B21B6');
+
+    const { formSettings, uploadCV, resetForm, setUpCvSettings } = useCvState();
+    const context = useContext();
+
+    onMounted(setUpCvSettings);
+
+    watch(
+      () => formSettings.value,
+      (newValue, _) => {
+        localStorage.setItem(
+          `cvSettings-${context.app.i18n.locale}`,
+          JSON.stringify(newValue)
+        );
+      },
+      { deep: true }
+    );
+
+    const formSettingsHref = computed(function getFormSettingsHref() {
       return `data:text/json;charset=utf-8,${encodeURIComponent(
-        JSON.stringify({ formSettings: this.formSettings })
+        JSON.stringify({ formSettings: formSettings.value })
       )}`;
-    },
-    availableLocales(): { locale: string; code: string }[] {
-      return this.$i18n.locales?.filter(
+    });
+
+    const availableLocales = computed(function getAvailableLocales() {
+      return context.app.i18n.locales?.filter(
         (locale: any) => !locale.code.includes('-')
       ) as { locale: string; code: string }[];
-    },
-  },
-  methods: {
-    addSkill(e: { tag: string; tagType: string }): void {
-      this.$emit('add-skill', { skill: e.tag, skillType: e.tagType });
-      this.jobSkill = '';
-    },
-    removeSkill(e: { tag: string; tagType: string }): void {
-      this.$emit('remove-skill', { skill: e.tag, skillType: e.tagType });
-    },
-    onUpdateSection(e: {
-      eventType: string;
-      sectionName: string;
-      entry: CvEvent;
-    }): void {
-      this.$emit('update-section', e);
-    },
-    uploadCV(e: any): void {
-      const fr = new FileReader();
-      fr.onload = (e: any) => {
-        const data = JSON.parse(e.target.result);
-        this.$emit('upload-cv', data);
-      };
-      fr.readAsText(e.target.files[0]);
-    },
-    downloadPdf(): void {
+    });
+
+    function downloadPdf(): void {
       const oldTitle = document.title;
-      document.title = `CV_${this.formSettings.name}_${this.formSettings.lastName}_${this.$i18n.locale}`;
+      document.title = `CV_${formSettings.value.name}_${formSettings.value.lastName}_${context.app.i18n.locale}`;
       window.print();
       document.title = oldTitle;
-    },
-    changeColor(color: string, darker: string): void {
-      this.activeColor = color;
+    }
+
+    function changeColor(color: string, darker: string): void {
+      activeColor.value = color;
       document.documentElement.style.setProperty('--primary', color);
       document.documentElement.style.setProperty('--primary-darker', darker);
-    },
-    resetForm(e: any): void {
-      this.$emit('reset-form', e);
-    },
-    onDisplayChanged(sectionName: string, status: boolean): void {
-      this.$emit('display-section-changed', { sectionName, status });
-    },
+    }
+
+    return {
+      ...config,
+      activeColor,
+      downloadPdf,
+      changeColor,
+      formSettings,
+      formSettingsHref,
+      availableLocales,
+      uploadCV,
+      resetForm,
+    };
   },
 });
 </script>

@@ -13,7 +13,9 @@
   "dependencies": {
     "@nuxt/typescript-runtime": "^2.0.0",
     "@nuxtjs/axios": "^5.12.5",
+    "@nuxtjs/composition-api": "^0.26.0",
     "@nuxtjs/pwa": "^3.3.3",
+    "@vue/composition-api": "^1.1.0",
     "chrome-aws-lambda": "^5.5.0",
     "core-js": "^3.6.5",
     "nuxt": "^2.15.7",

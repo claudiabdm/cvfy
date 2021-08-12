@@ -5,7 +5,9 @@
         class="checkbox__input"
         type="checkbox"
         :checked="displaySection"
-        @change="onChangeDisplay"
+        @change="
+          changeDisplaySection({ sectionName, status: $event.target.checked })
+        "
       />
       <span class="checkbox__text"> Display section on CV </span>
     </label>
@@ -14,19 +16,24 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import { useCvState } from '~/data/useCvState';
 
 export default Vue.extend({
   props: {
+    sectionName: {
+      type: String,
+      default: '',
+    },
     displaySection: {
       type: Boolean,
       default: true,
     },
   },
-  methods: {
-    onChangeDisplay(e: Event) {
-      const target = e.target as HTMLInputElement;
-      this.$emit('display-checkbox-changed', target.checked);
-    },
+  setup() {
+    const { changeDisplaySection } = useCvState();
+    return {
+      changeDisplaySection,
+    };
   },
 });
 </script>

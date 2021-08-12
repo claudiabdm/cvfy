@@ -178,7 +178,9 @@
                 </span>
               </div>
               <ul v-if="job.summaryArr.length > 1" class="cv__list">
-                <li v-for="line in job.summaryArr" :key="line">{{ line }}</li>
+                <li v-for="(line, index) in job.summaryArr" :key="index">
+                  {{ line }}
+                </li>
               </ul>
               <p v-else class="font-light">
                 {{ job.summaryArr[0] }}
@@ -216,7 +218,9 @@
                 </span>
               </div>
               <ul v-if="edu.summaryArr.length > 1" class="cv__list">
-                <li v-for="line in edu.summaryArr" :key="line">{{ line }}</li>
+                <li v-for="(line, index) in edu.summaryArr" :key="index">
+                  {{ line }}
+                </li>
               </ul>
               <p v-else class="font-light">
                 {{ edu.summaryArr[0] }}
@@ -256,7 +260,7 @@
                 </span>
               </div>
               <ul v-if="project.summaryArr.length > 1" class="cv__list">
-                <li v-for="line in project.summaryArr" :key="line">
+                <li v-for="(line, index) in project.summaryArr" :key="index">
                   {{ line }}
                 </li>
               </ul>
@@ -274,57 +278,45 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import { Cv, CvEvent } from '~/types/cvfy';
-import { cvSettingTemplate } from '~/data/example-cv-settings';
+import { computed } from '@vue/composition-api';
+import { useContext } from '@nuxtjs/composition-api';
+import { CvEvent } from '~/types/cvfy';
+import { useCvState } from '~/data/useCvState';
 
 export default Vue.extend({
   name: 'CvPreview',
-  props: {
-    formSettings: {
-      type: Object as () => Cv,
-      default: () => cvSettingTemplate,
-    },
-    isLoading: {
-      type: Boolean,
-      default: true,
-    },
-  },
-  computed: {
-    phoneNumberHref(): string {
-      return `tel:${this.formSettings.phoneNumber}`;
-    },
-    emailHref(): string {
-      return `mailto:${this.formSettings.email}`;
-    },
-    work(): CvEvent[] {
-      return this.orderEvents(this.formSettings.work);
-    },
-    education(): CvEvent[] {
-      return this.orderEvents(this.formSettings.education);
-    },
-    projects(): CvEvent[] {
-      return this.orderEvents(this.formSettings.projects);
-    },
-  },
-  methods: {
-    changeColor() {
-      if (
-        document.documentElement.style.getPropertyValue('--bg-color') === '#fff'
-      ) {
-        document.documentElement.style.setProperty('--bg-color', '#f3f4f6');
-      } else {
-        document.documentElement.style.setProperty('--bg-color', '#fff');
-      }
-    },
-    formatDate(date: Date): string {
-      const options: Intl.DateTimeFormatOptions = {
-        year: 'numeric',
-        month: 'short',
-      };
-      const dateObj = new Date(date);
-      return dateObj.toLocaleDateString(this.$i18n.locale, options);
-    },
-    getSummaryLines(summary: string): string[] {
+  setup() {
+    const { formSettings, isLoading } = useCvState();
+    const context = useContext();
+
+    const phoneNumberHref = computed(function getPhoneNumberHref() {
+      return `tel:${formSettings.value.phoneNumber}`;
+    });
+    const emailHref = computed(function getEmailHref() {
+      return `mailto:${formSettings.value.email}`;
+    });
+    const work = computed(function getWork() {
+      return orderEvents(formSettings.value.work);
+    });
+    const education = computed(function getEducation() {
+      return orderEvents(formSettings.value.education);
+    });
+    const projects = computed(function getProjects() {
+      return orderEvents(formSettings.value.projects);
+    });
+
+    function orderEvents(arr: CvEvent[]): CvEvent[] {
+      return arr
+        .map((event) => {
+          event.summaryArr = getSummaryLines(event.summary);
+          return event;
+        })
+        .sort(
+          (a, b) => new Date(b.from).getTime() - new Date(a.from).getTime()
+        );
+    }
+
+    function getSummaryLines(summary: string): string[] {
       const lines = summary.split('\n').map((line) => {
         if (line[0] === '-') {
           line = line.slice(1).trim();
@@ -332,17 +324,27 @@ export default Vue.extend({
         return line;
       });
       return lines;
-    },
-    orderEvents(arr: CvEvent[]): CvEvent[] {
-      return arr
-        .map((event) => {
-          event.summaryArr = this.getSummaryLines(event.summary);
-          return event;
-        })
-        .sort(
-          (a, b) => new Date(b.from).getTime() - new Date(a.from).getTime()
-        );
-    },
+    }
+
+    function formatDate(date: Date): string {
+      const options: Intl.DateTimeFormatOptions = {
+        year: 'numeric',
+        month: 'short',
+      };
+      const dateObj = new Date(date);
+      return dateObj.toLocaleDateString(context.app.i18n.locale, options);
+    }
+
+    return {
+      formSettings,
+      isLoading,
+      phoneNumberHref,
+      emailHref,
+      work,
+      education,
+      projects,
+      formatDate,
+    };
   },
 });
 </script>

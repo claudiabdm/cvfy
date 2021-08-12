@@ -6,11 +6,14 @@
         <div class="grid grid-cols-2 gap-3">
           <input
             id="languages"
-            v-model="tagInputLang.lang"
+            v-model.trim="tagInputLang.lang"
             class="form__control mt-2 mb-1"
             type="text"
             placeholder="Spanish"
-            @keyup.enter="addTag(tagInputLang, tagListName)"
+            @keyup.enter="
+              addSkill({ skill: tagInputLang, skillType: tagListName });
+              cleanInput();
+            "
           />
           <div class="flex relative">
             <input
@@ -22,7 +25,10 @@
               max="100"
               step="10"
               placeholder="80"
-              @keyup.enter="addTag(tagInputLang, tagListName)"
+              @keyup.enter="
+                addSkill({ skill: tagInputLang, skillType: tagListName });
+                cleanInput();
+              "
             />
             <span class="percentage top-1 mt-2 mb-1">%</span>
           </div>
@@ -33,7 +39,10 @@
           :disabled="tagInputLangEmpty"
           :aria-disabled="tagInputLangEmpty"
           aria-live="assertive"
-          @click="addTag(tagInputLang, tagListName)"
+          @click="
+            addSkill({ skill: tagInputLang, skillType: tagListName });
+            cleanInput();
+          "
         >
           {{ $t('add') }}
         </button>
@@ -45,7 +54,10 @@
           v-model="tagInput"
           class="form__control mt-2 mb-1"
           type="text"
-          @keyup.enter="addTag(tagInput, tagListName)"
+          @keyup.enter="
+            addSkill({ skill: tagInput, skillType: tagListName });
+            cleanInput();
+          "
         />
         <button
           class="form__btn"
@@ -53,7 +65,10 @@
           :disabled="tagInputEmpty"
           :aria-disabled="tagInputEmpty"
           aria-live="assertive"
-          @click="addTag(tagInput, tagListName)"
+          @click="
+            addSkill({ skill: tagInput, skillType: tagListName });
+            cleanInput();
+          "
         >
           {{ $t('add') }}
         </button>
@@ -63,7 +78,10 @@
       <template v-if="tagListName !== 'languages'">
         <li v-for="tag in tagList" :key="tag" class="form__btn form__btn--tag">
           {{ tag }}
-          <button type="button" @click="removeTag(tag, tagListName)">
+          <button
+            type="button"
+            @click="removeSkill({ skill: tag, skillType: tagListName })"
+          >
             <svg class="form__icon">
               <use href="@/assets/sprite.svg#close"></use>
             </svg>
@@ -77,7 +95,10 @@
           class="form__btn form__btn--tag"
         >
           {{ tag.lang }}: {{ tag.level }}
-          <button type="button" @click="removeTag(tag, tagListName)">
+          <button
+            type="button"
+            @click="removeSkill({ skill: tag, skillType: tagListName })"
+          >
             <svg class="form__icon">
               <use href="@/assets/sprite.svg#close"></use>
             </svg>
@@ -88,7 +109,9 @@
   </div>
 </template>
 <script lang="ts">
+import { computed, reactive, toRefs } from '@nuxtjs/composition-api';
 import Vue from 'vue';
+import { useCvState } from '~/data/useCvState';
 export default Vue.extend({
   name: 'CvInputTags',
   props: {
@@ -109,38 +132,35 @@ export default Vue.extend({
       default: '',
     },
   },
-  data() {
-    return {
+  setup() {
+    const state = reactive({
       tagInput: '',
       tagInputLang: { lang: '', level: '' },
+    });
+
+    const { addSkill, removeSkill } = useCvState();
+
+    const tagInputLangEmpty = computed(function getTagInputLangEmpty() {
+      return state.tagInputLang.lang === '' || state.tagInputLang.level === '';
+    });
+
+    const tagInputEmpty = computed(function getTagInputEmpty() {
+      return state.tagInput === '';
+    });
+
+    function cleanInput(): void {
+      state.tagInput = '';
+      state.tagInputLang = { lang: '', level: '' };
+    }
+
+    return {
+      ...toRefs(state),
+      tagInputLangEmpty,
+      tagInputEmpty,
+      cleanInput,
+      addSkill,
+      removeSkill,
     };
-  },
-  computed: {
-    tagInputLangEmpty(): boolean {
-      return this.tagInputLang.lang === '' || this.tagInputLang.level === '';
-    },
-    tagInputEmpty(): boolean {
-      return this.tagInput === '';
-    },
-  },
-  methods: {
-    addTag(
-      tag: string | { lang: string; level: string },
-      tagType: string
-    ): void {
-      if (typeof tag !== 'string') {
-        tag.level = `${tag.level}%`;
-      }
-      this.$emit('addTag', { tag, tagType });
-      this.tagInput = '';
-      this.tagInputLang = { lang: '', level: '' };
-    },
-    removeTag(
-      tag: string | { lang: string; level: string },
-      tagType: string
-    ): void {
-      this.$emit('removeTag', { tag, tagType });
-    },
   },
 });
 </script>
