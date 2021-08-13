@@ -6,7 +6,6 @@
 </template>
 
 <script lang="ts">
-import { NuxtOptionsHead } from '@nuxt/types/config/head';
 import Vue from 'vue';
 import CvSettings from '@/components/CvSettings.vue';
 import CvPreview from '@/components/CvPreview.vue';
@@ -14,7 +13,7 @@ import CvPreview from '@/components/CvPreview.vue';
 export default Vue.extend({
   name: 'Index',
   components: { CvSettings, CvPreview },
-  head(): NuxtOptionsHead {
+  head() {
     return {
       htmlAttrs: {
         lang: this.$i18n.locale,

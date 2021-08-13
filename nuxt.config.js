@@ -66,7 +66,7 @@ export default {
     // https://go.nuxtjs.dev/pwa
     '@nuxtjs/pwa',
     '@nuxtjs/axios',
-    'nuxt-i18n',
+    '@nuxtjs/i18n',
   ],
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)

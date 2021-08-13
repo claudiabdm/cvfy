@@ -20,11 +20,11 @@
         <div class="flex flex-wrap gap-2 justify-start w-full">
           <nuxt-link
             v-for="locale in availableLocales"
-            :key="locale.code"
+            :key="locale"
             class="form__btn form__btn--ghost"
-            :to="switchLocalePath(locale.code)"
+            :to="switchLocalePath(locale)"
           >
-            {{ $t(`${locale.code}-name`) }}
+            {{ $t(`${locale}-name`) }}
           </nuxt-link>
         </div>
       </fieldset>
@@ -397,7 +397,7 @@ export default Vue.extend({
       () => formSettings.value,
       (newValue, _) => {
         localStorage.setItem(
-          `cvSettings-${context.app.i18n.locale}`,
+          `cvSettings-${context.i18n.locale}`,
           JSON.stringify(newValue)
         );
       },
@@ -411,9 +411,9 @@ export default Vue.extend({
     });
 
     const availableLocales = computed(function getAvailableLocales() {
-      return context.app.i18n.locales?.filter(
-        (locale: any) => !locale.code.includes('-')
-      ) as { locale: string; code: string }[];
+      return context.i18n.localeCodes.filter(
+        (locale: any) => !locale.includes('-')
+      );
     });
 
     function downloadPdf(): void {

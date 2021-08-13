@@ -1,5 +1,4 @@
-import { useContext } from '@nuxtjs/composition-api';
-import { reactive, toRefs } from '@vue/composition-api';
+import { useContext, reactive, toRefs } from '@nuxtjs/composition-api';
 import {
   cvSettingsEmptyTemplate,
   cvSettingTemplate,
