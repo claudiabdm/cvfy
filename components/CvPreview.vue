@@ -449,7 +449,7 @@ p {
     }
     li::before {
       content: '\2022';
-      padding-right: 0.5em;
+      padding-right: 0.2em;
       color: var(--primary);
     }
   }
