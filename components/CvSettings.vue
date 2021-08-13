@@ -34,23 +34,31 @@
       <fieldset class="form__section px-6 py-3">
         <legend class="form__legend">{{ $t('color-theme') }}</legend>
         <div class="flex flex-wrap gap-2 justify-start">
-          <button
+          <label
             v-for="color in colors"
             :key="color.color"
+            tabindex="0"
             :class="[
               'form__btn',
               'form__btn--color-theme',
               `form__btn--${color.name}`,
               'capitalize',
-              { 'form__btn--color-selected': color.color === activeColor },
+              {
+                'form__btn--color-selected':
+                  color.color === formSettings.activeColor,
+              },
             ]"
-            type="button"
-            :aria-label="`Select color theme ${$t(color.name)}`"
-            :aria-checked="`${color.color === activeColor}`"
-            @click="changeColor(color.color, color.darker)"
+            @keydown.enter="changeColor(color.color, color.darker)"
           >
             {{ $t(color.name) }}
-          </button>
+            <input
+              v-model="formSettings.activeColor"
+              type="radio"
+              class="sr-only"
+              :value="color.color"
+              @change="changeColor(color.color, color.darker)"
+            />
+          </label>
         </div>
       </fieldset>
       <!-- COLOR THEME -->
@@ -353,7 +361,6 @@ import Vue from 'vue';
 import {
   computed,
   onMounted,
-  ref,
   useContext,
   watch,
 } from '@nuxtjs/composition-api';
@@ -386,8 +393,6 @@ export default Vue.extend({
       ],
     };
 
-    const activeColor = ref('#5B21B6');
-
     const { formSettings, uploadCV, resetForm, setUpCvSettings } = useCvState();
     const context = useContext();
 
@@ -395,11 +400,15 @@ export default Vue.extend({
 
     watch(
       () => formSettings.value,
-      (newValue, _) => {
+      (newValue, oldValue) => {
         localStorage.setItem(
           `cvSettings-${context.i18n.locale}`,
           JSON.stringify(newValue)
         );
+        if (newValue.activeColor !== oldValue.activeColor) {
+          const newColor = getCurrentColor(newValue.activeColor);
+          changeColor(newColor.color, newColor.darker);
+        }
       },
       { deep: true }
     );
@@ -424,14 +433,23 @@ export default Vue.extend({
     }
 
     function changeColor(color: string, darker: string): void {
-      activeColor.value = color;
+      formSettings.value.activeColor = color;
       document.documentElement.style.setProperty('--primary', color);
       document.documentElement.style.setProperty('--primary-darker', darker);
     }
 
+    function getCurrentColor(colorValue: string): {
+      color: string;
+      darker: string;
+    } {
+      return (
+        config.colors.find((color) => color.color === colorValue) ||
+        config.colors[1]
+      );
+    }
+
     return {
       ...config,
-      activeColor,
       downloadPdf,
       changeColor,
       formSettings,

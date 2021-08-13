@@ -68,6 +68,7 @@ export const cvSettingTemplate: Cv = {
   ],
   displayEducation: true,
   displayProjects: false,
+  activeColor: '#5B21B6',
 };
 
 export const cvSettingsEmptyTemplate: Cv = {
@@ -117,4 +118,5 @@ export const cvSettingsEmptyTemplate: Cv = {
   ],
   displayEducation: true,
   displayProjects: false,
+  activeColor: '#5B21B6',
 };
