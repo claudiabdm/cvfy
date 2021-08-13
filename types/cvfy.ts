@@ -18,13 +18,22 @@ export interface Cv {
   projects: CvEvent[];
   displayEducation: boolean;
   displayProjects: boolean;
+  activeColor: string;
 }
 export interface CvEvent {
   title: string;
   location: string;
-  from: Date;
-  to: Date;
+  from: Date | any;
+  to: Date | any;
   current: boolean;
   summary: string;
   summaryArr?: string[];
+}
+export interface languagesSkill {
+  skill: { lang: string; level: string };
+  skillType: 'languages';
+}
+export interface defaultSkill {
+  skill: string;
+  skillType: 'jobSkills' | 'softSkills';
 }

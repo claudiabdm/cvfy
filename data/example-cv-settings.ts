@@ -20,8 +20,8 @@ export const cvSettingTemplate: Cv = {
     {
       title: 'A Environmental and Public Affairs',
       location: 'Indiana University, Bloomington, Indiana',
-      from: new Date('1993-09-01'),
-      to: new Date('1993-04-01'),
+      from: new Date(1993, 9, 1),
+      to: new Date(1993, 4, 1),
       current: false,
       summary: 'Summa cum Laude',
     },
@@ -30,8 +30,8 @@ export const cvSettingTemplate: Cv = {
     {
       title: 'Deputy Director Parks Department',
       location: 'City of Pawnee, Indiana',
-      from: new Date('2009-01-01'),
-      to: new Date('2012-01-01'),
+      from: new Date(2009, 1, 1),
+      to: new Date(2012, 1, 1),
       current: true,
       summary: `- Sed ut lorem viverra urna malesuada interdum in ut risus.
 - Duis at sem non justo aliquam iaculis.
@@ -42,7 +42,7 @@ export const cvSettingTemplate: Cv = {
     {
       title: 'City Councilor',
       location: 'City of Pawnee, Indiana',
-      from: new Date('2012-01-01'),
+      from: new Date(2012, 1, 1),
       to: new Date(),
       current: true,
       summary: `- In placerat nisi pellentesque felis blandit, vel varius justo eleifend.
@@ -56,8 +56,8 @@ export const cvSettingTemplate: Cv = {
     {
       title: 'Lot 48',
       location: 'City of Pawnee, Indiana',
-      from: new Date('2009-01-01'),
-      to: new Date('2012-01-01'),
+      from: new Date(2009, 1, 1),
+      to: new Date(2012, 1, 1),
       current: true,
       summary: `- Sed ut lorem viverra urna malesuada interdum in ut risus.
 - Duis at sem non justo aliquam iaculis.
@@ -68,6 +68,7 @@ export const cvSettingTemplate: Cv = {
   ],
   displayEducation: true,
   displayProjects: false,
+  activeColor: '#5B21B6',
 };
 
 export const cvSettingsEmptyTemplate: Cv = {
@@ -85,9 +86,37 @@ export const cvSettingsEmptyTemplate: Cv = {
   twitter: '',
   github: '',
   website: '',
-  education: [],
-  work: [],
-  projects: [],
+  education: [
+    {
+      title: '',
+      location: '',
+      from: new Date(),
+      to: new Date(),
+      current: true,
+      summary: '',
+    },
+  ],
+  work: [
+    {
+      title: '',
+      location: '',
+      from: new Date(),
+      to: new Date(),
+      current: true,
+      summary: '',
+    },
+  ],
+  projects: [
+    {
+      title: '',
+      location: '',
+      from: new Date(),
+      to: new Date(),
+      current: true,
+      summary: '',
+    },
+  ],
   displayEducation: true,
   displayProjects: false,
+  activeColor: '#5B21B6',
 };
