@@ -1,7 +1,8 @@
 # CvFy
 
-![CvFy](https://user-images.githubusercontent.com/44007726/121782940-67219680-cbac-11eb-98b1-646ab35d90ad.png)
+[![MadeWithVueJs.com shield](https://madewithvuejs.com/storage/repo-shields/3280-shield.svg)](https://madewithvuejs.com/p/cvfy/shield-link)
 
+![CvFy](https://user-images.githubusercontent.com/44007726/121782940-67219680-cbac-11eb-98b1-646ab35d90ad.png)
 
 CvFy is a simple CV maker that makes CV creation faster and easier in both English and Spanish. 
 
