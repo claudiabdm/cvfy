@@ -470,7 +470,7 @@ export default Vue.extend({
   }
 
   &__legend {
-    @apply text-lg font-normal font-bold tracking-wide;
+    @apply text-lg font-bold tracking-wide;
 
     &--small {
       @apply text-sm;
