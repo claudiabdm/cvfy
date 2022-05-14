@@ -10,6 +10,8 @@ import Vue from 'vue';
 import CvSettings from '@/components/CvSettings.vue';
 import CvPreview from '@/components/CvPreview.vue';
 
+const CVFY_IMAGE = 'https://cvfy.xyz/CvFy-no-border.png';
+
 export default Vue.extend({
   name: 'Index',
   components: { CvSettings, CvPreview },
@@ -33,8 +35,7 @@ export default Vue.extend({
         {
           hid: 'og:image',
           property: 'og:image',
-          content:
-            'https://repository-images.githubusercontent.com/315020727/e23c6200-8110-11eb-87b8-e9e5757bd827',
+          content: CVFY_IMAGE,
         },
         {
           hid: 'og:author',
@@ -74,8 +75,7 @@ export default Vue.extend({
         {
           hid: 'twitter:image',
           name: 'twitter:image',
-          content:
-            'https://repository-images.githubusercontent.com/315020727/e23c6200-8110-11eb-87b8-e9e5757bd827',
+          content: CVFY_IMAGE,
         },
         {
           hid: 'twitter:image:alt',
