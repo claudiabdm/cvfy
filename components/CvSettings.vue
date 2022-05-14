@@ -1,7 +1,24 @@
 <template>
   <div class="bg-gray-100 bg-opacity-100 shadow-lg font-bold z-10">
-    <h2 class="text-2xl pt-8 px-6 pb-6 tracking-wide uppercase">
-      {{ $t('cv-settings') }}
+    <h2 class="title">
+      <span class="title__text">
+        {{ $t('cv-settings') }}
+      </span>
+      <a
+        class="buy-me-a-coffee"
+        href="https://www.buymeacoffee.com/claudiabdm"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Buy me a coffee"
+      >
+        <img
+          :src="`https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=&slug=WkEJXNYmy&button_colour=${formSettings.activeColor.replace(
+            '#',
+            ''
+          )}&font_colour=fff&outline_colour=fff&coffee_colour=fff`"
+          alt="Buy me a coffee button"
+        />
+      </a>
     </h2>
     <form class="form mb-10" autocomplete="on">
       <div class="form__section px-6 py-3">
@@ -462,6 +479,21 @@ export default Vue.extend({
 });
 </script>
 <style lang="postcss">
+.title {
+  @apply flex flex-wrap text-xl pt-8 px-6 pb-6 tracking-wide uppercase;
+  align-items: center;
+  justify-content: space-between;
+  .title__text {
+    flex-shrink: 0;
+  }
+  .buy-me-a-coffee {
+    display: flex;
+    justify-content: flex-end;
+    flex-basis: 50%;
+    height: 30px;
+    flex-shrink: 1;
+  }
+}
 .form {
   @apply font-light;
 
