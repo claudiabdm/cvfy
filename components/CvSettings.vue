@@ -12,6 +12,7 @@
         aria-label="Buy me a coffee"
       >
         <img
+          class="buy-me-a-coffee__image"
           :src="`https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=&slug=WkEJXNYmy&button_colour=${formSettings.activeColor.replace(
             '#',
             ''
@@ -492,6 +493,9 @@ export default Vue.extend({
     flex-basis: 50%;
     height: 30px;
     flex-shrink: 1;
+    &__image {
+      width: 141.6px;
+    }
   }
 }
 .form {
