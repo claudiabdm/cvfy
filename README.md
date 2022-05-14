@@ -18,7 +18,7 @@ PDF creation is client-side only, so results may differ among  browsers:
 It's also a PWA so it can be used offline.
 
 
-Demo: https://cvfy.netlify.app/
+Demo: https://cvfy.xyz/
 
 ## Build Setup
 
