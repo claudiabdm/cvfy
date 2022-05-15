@@ -6,17 +6,16 @@
       </span>
       <a
         class="buy-me-a-coffee"
-        href="https://www.buymeacoffee.com/claudiabdm"
+        href="https://ko-fi.com/X8X4COWK0"
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Buy me a coffee"
       >
         <img
           class="buy-me-a-coffee__image"
-          :src="`https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=&slug=WkEJXNYmy&button_colour=${formSettings.activeColor.replace(
-            '#',
-            ''
-          )}&font_colour=fff&outline_colour=fff&coffee_colour=fff`"
+          src="https://cdn.ko-fi.com/cdn/kofi5.png?v=3"
+          width="118px"
+          height="30px"
           alt="Buy me a coffee button"
         />
       </a>
@@ -488,13 +487,11 @@ export default Vue.extend({
     flex-shrink: 0;
   }
   .buy-me-a-coffee {
-    display: flex;
-    justify-content: flex-end;
-    flex-basis: 50%;
-    height: 30px;
     flex-shrink: 1;
     &__image {
-      width: 141.6px;
+      width: 118px;
+      height: 30px;
+      font-size: 0.5rem;
     }
   }
 }

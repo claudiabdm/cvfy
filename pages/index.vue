@@ -21,6 +21,13 @@ export default Vue.extend({
         lang: this.$i18n.locale,
       },
       title: this.$t('title-tag') as string,
+      link: [
+        {
+          rel: 'preload',
+          as: 'image',
+          href: 'https://cdn.ko-fi.com/cdn/kofi5.png?v=3',
+        },
+      ],
       meta: [
         {
           hid: 'description',
