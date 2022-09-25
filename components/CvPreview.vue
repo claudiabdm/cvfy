@@ -1,20 +1,8 @@
 <template>
-  <div id="cv" class="font-normal relative flex justify-center w-full bg-white">
-    <div
-      id="credit"
-      class="p-3 text-gray-700 absolute bottom-0 text-center w-full text-xs"
-    >
-      Made with ♥️ by
-      <a
-        class="underline"
-        :style="{ color: 'var(--primary)' }"
-        href="https://github.com/claudiabdm"
-        rel="noopener"
-        target="_blank"
-        >claudiabdm</a
-      >
-      using <b>Nuxt.js</b> + <b>TailwindCSS</b>
-    </div>
+  <div
+    id="cv"
+    class="font-normal relative flex flex-col items-center p-5 w-full bg-white overflow-auto"
+  >
     <div
       tabindex="0"
       aria-label="CV preview"
@@ -273,6 +261,22 @@
         <!-- // PROJECTS -->
       </div>
     </div>
+
+    <div
+      id="credit"
+      class="p-3 mt-5 text-gray-700 bottom-0 text-center w-full text-xs"
+    >
+      Made with ♥️ by
+      <a
+        class="underline"
+        :style="{ color: 'var(--primary)' }"
+        href="https://github.com/claudiabdm"
+        rel="noopener"
+        target="_blank"
+        >claudiabdm</a
+      >
+      using <b>Nuxt.js</b> + <b>TailwindCSS</b>
+    </div>
   </div>
 </template>
 
@@ -354,16 +358,11 @@ p {
 .cv {
   @apply flex text-gray-800 shadow-lg text-sm font-normal;
   width: 21cm;
-  height: 29.69cm;
-  min-width: 21cm;
-  min-height: 29.69cm;
+  height: max-content;
   max-width: 21cm;
-  max-height: 29.69cm;
   margin: 0;
-  align-self: center;
   word-break: break-word;
   transform: scale(0.4);
-  overflow-y: hidden;
 
   @media screen and (min-width: 425px) {
     transform: scale(0.5);
@@ -371,13 +370,13 @@ p {
   @media screen and (min-width: 768px) {
     transform: scale(0.9);
   }
-  @media screen and (min-width: 1024px) {
-    transform: scale(0.52);
+  @media screen and (min-width: 1170px) {
+    width: 21cm;
+    max-width: 21cm;
+    min-width: 21cm;
+    transform: none;
   }
 
-  @media screen and (min-width: 1400px) {
-    transform: scale(0.75);
-  }
   &__side {
     @apply px-6 py-10 bg-gray-100 bg-opacity-100;
   }
