@@ -153,8 +153,9 @@
           <h4 class="cv__section-title cv__section-title--main">
             {{ $t('about-me') }}
           </h4>
-          <p class="font-light whitespace-pre-wrap">
-            {{ formSettings.aboutme }}
+          <p class="font-light">
+            <!-- Avoids unnecessary spaces at the begging while still allowing break lines -->
+            <span class="whitespace-pre-wrap">{{ formSettings.aboutme }}</span>
           </p>
         </section>
         <!-- // ABOUT ME -->
