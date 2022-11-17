@@ -355,31 +355,27 @@ p {
   @apply leading-relaxed;
 }
 .cv {
-  @apply flex text-gray-800 shadow-lg text-sm font-normal;
+  @apply flex text-gray-800 shadow-lg text-sm font-normal mt-6;
   width: 21cm;
   height: 29.69cm;
   min-width: 21cm;
   min-height: 29.69cm;
   max-width: 21cm;
   max-height: 29.69cm;
-  margin: 0;
-  align-self: center;
+  align-self: flex-start;
   word-break: break-word;
   transform: scale(0.4);
+  transform-origin: top;
   overflow-y: hidden;
 
   @media screen and (min-width: 425px) {
-    transform: scale(0.5);
+    transform: scale(0.65);
   }
   @media screen and (min-width: 768px) {
     transform: scale(0.9);
   }
   @media screen and (min-width: 1024px) {
-    transform: scale(0.52);
-  }
-
-  @media screen and (min-width: 1400px) {
-    transform: scale(0.75);
+    transform: scale(0.7);
   }
   &__side {
     @apply px-6 py-10 bg-gray-100 bg-opacity-100;
