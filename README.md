@@ -4,7 +4,7 @@
 
 ![CvFy](/static/CvFy.png)
 
-CvFy is a simple CV maker that makes CV creation faster and easier in both English and Spanish. 
+CvFy is a simple CV maker that makes CV creation faster and easier in both English , Spanish and Indonesian. 
 
 It's built with NuxtJs and deployed in Netlify. 
 
