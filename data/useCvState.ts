@@ -23,9 +23,11 @@ export function useCvState() {
   function setUpCvSettings(): void {
     const cvEs = localStorage.getItem('cvSettings-es') || '{}';
     const cvEn = localStorage.getItem('cvSettings-en') || '{}';
+    const cvId = localStorage.getItem('cvSettings-id') || '{}';
     const isCvEsEmpty = isCvSettingsFromLocalStorageEmpty(JSON.parse(cvEs));
     const isCvEnEmpty = isCvSettingsFromLocalStorageEmpty(JSON.parse(cvEn));
-    if (isCvEsEmpty && isCvEnEmpty) {
+    const isCvIdEmpty = isCvSettingsFromLocalStorageEmpty(JSON.parse(cvId));
+    if (isCvEsEmpty && isCvEnEmpty && isCvIdEmpty) {
       state.formSettings = { ...cvSettingTemplate };
     }
     if (context.app.i18n.locale.includes('es') && !isCvEsEmpty) {
@@ -38,6 +40,12 @@ export function useCvState() {
       state.formSettings = {
         ...cvSettingsEmptyTemplate,
         ...JSON.parse(cvEn),
+      };
+    }
+    if (context.app.i18n.locale.includes('id') && !isCvIdEmpty) {
+      state.formSettings = {
+        ...cvSettingsEmptyTemplate,
+        ...JSON.parse(cvId),
       };
     }
     if (context.app.i18n.locale.includes('es') && isCvEsEmpty && !isCvEnEmpty) {
@@ -53,6 +61,13 @@ export function useCvState() {
         ...JSON.parse(cvEs),
       };
       localStorage.setItem('cvSettings-en', JSON.stringify(state.formSettings));
+    }
+    if (context.app.i18n.locale.includes('id') && isCvEnEmpty && !isCvEnEmpty) {
+      state.formSettings = {
+        ...cvSettingsEmptyTemplate,
+        ...JSON.parse(cvEn),
+      };
+      localStorage.setItem('cvSettings-id', JSON.stringify(state.formSettings));
     }
     state.isLoading = false;
   }
@@ -130,6 +145,7 @@ export function useCvState() {
     state.formSettings = cvSettingsEmptyTemplate;
     localStorage.removeItem('cvSettings-es');
     localStorage.removeItem('cvSettings-en');
+    localStorage.removeItem('cvSettings-id');
   }
 
   function changeDisplaySection(e: {

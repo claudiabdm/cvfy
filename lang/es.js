@@ -1,6 +1,7 @@
 export default {
   'es-name': 'Español',
   'en-name': 'Inglés',
+  'id-name': 'Indonesian',
   'about-me': 'Sobre mí',
   experience: 'Experiencia',
   education: 'educación',

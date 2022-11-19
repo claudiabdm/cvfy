@@ -407,6 +407,7 @@ export default Vue.extend({
       languages: [
         { name: 'es-name', code: 'es' },
         { name: 'en-name', code: 'en' },
+        { name: 'id-name', code: 'id' },
       ],
     };
 

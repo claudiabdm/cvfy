@@ -96,6 +96,11 @@ export default {
         file: 'es.js',
         name: 'Español',
       },
+      {
+        code: 'id',
+        file: 'id.js',
+        name: 'Indonesian',
+      },
     ],
     lazy: true,
     langDir: 'lang/',
