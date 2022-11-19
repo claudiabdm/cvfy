@@ -42,8 +42,9 @@ export default {
   social: 'Sosial Media',
   work: 'Kerja',
   'clear-settings': 'Hapus Data CV',
+  'reset-settings': 'Reset Data CV',
   description:
     'Dengan CvFy Anda dapat membuat, mempratinjau, dan menyimpan CV Anda sebagai PDF dengan mudah dan gratis! Tersedia dalam bahasa Inggris , Spanyol dan Indonesia. Dibangun dengan Nuxt.',
-    'title-tag': 'CvFy - Buat CV Anda sebagai PDF dalam beberapa menit!',
+  'title-tag': 'CvFy - Buat CV Anda sebagai PDF dalam beberapa menit!',
   projects: 'Proyek',
 };

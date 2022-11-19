@@ -126,16 +126,7 @@ export default Vue.extend({
     entries: {
       type: Array as () => CvEvent[],
       default: () => {
-        return [
-          {
-            title: '',
-            location: '',
-            from: new Date(),
-            to: new Date(),
-            current: false,
-            summary: '',
-          },
-        ];
+        return [];
       },
     },
   },

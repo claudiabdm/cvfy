@@ -27,6 +27,13 @@
           type="button"
           @click="resetForm"
         >
+          {{ $t('reset-settings') }}
+        </button>
+        <button
+          class="form__btn form__btn--ghost"
+          type="button"
+          @click="clearForm"
+        >
           {{ $t('clear-settings') }}
         </button>
       </div>
@@ -411,7 +418,8 @@ export default Vue.extend({
       ],
     };
 
-    const { formSettings, uploadCV, resetForm, setUpCvSettings } = useCvState();
+    const { formSettings, uploadCV, clearForm, resetForm, setUpCvSettings } =
+      useCvState();
     const context = useContext();
 
     onMounted(setUpCvSettings);
@@ -474,6 +482,7 @@ export default Vue.extend({
       formSettingsHref,
       availableLocales,
       uploadCV,
+      clearForm,
       resetForm,
     };
   },

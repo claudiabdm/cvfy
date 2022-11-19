@@ -40,7 +40,8 @@ export default {
   to: 'Hasta',
   summary: 'Resumen',
   work: 'trabajo',
-  'clear-settings': 'Limpiar CV settings',
+  'clear-settings': 'Limpiar CV',
+  'reset-settings': 'Resetear CV',
   description:
     'Con CvFy puedes crear, visualizar y guardar tu CV fácilmente y gratis. Disponible en Inglés y Español. Hecho con Nuxt.',
   'title-tag': 'CvFy - Crea tu CV en cuestión de minutos',

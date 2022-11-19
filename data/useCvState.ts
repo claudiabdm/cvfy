@@ -6,69 +6,26 @@ import {
 import { Cv, CvEvent, defaultSkill, languagesSkill } from '~/types/cvfy';
 
 const state = reactive({
-  formSettings: { ...cvSettingTemplate } as Cv,
+  formSettings: { ...cvSettingsEmptyTemplate } as Cv,
   isLoading: true,
 });
-
-function isCvSettingsFromLocalStorageEmpty(item: any): boolean {
-  if (!item || Object.keys(item).length < 1) return true;
-  return Object.keys(item).every(
-    (key) => item[key] === '' || item[key].length < 1
-  );
-}
 
 export function useCvState() {
   const context = useContext();
 
   function setUpCvSettings(): void {
-    const cvEs = localStorage.getItem('cvSettings-es') || '{}';
-    const cvEn = localStorage.getItem('cvSettings-en') || '{}';
-    const cvId = localStorage.getItem('cvSettings-id') || '{}';
-    const isCvEsEmpty = isCvSettingsFromLocalStorageEmpty(JSON.parse(cvEs));
-    const isCvEnEmpty = isCvSettingsFromLocalStorageEmpty(JSON.parse(cvEn));
-    const isCvIdEmpty = isCvSettingsFromLocalStorageEmpty(JSON.parse(cvId));
-    if (isCvEsEmpty && isCvEnEmpty && isCvIdEmpty) {
-      state.formSettings = { ...cvSettingTemplate };
-    }
-    if (context.app.i18n.locale.includes('es') && !isCvEsEmpty) {
+    const locale = `cvSettings-${context.i18n.locale}`;
+    const cvSettings = localStorage.getItem(locale);
+
+    if (cvSettings == null) {
       state.formSettings = {
-        ...cvSettingsEmptyTemplate,
-        ...JSON.parse(cvEs),
+        ...cvSettingTemplate,
       };
+    } else {
+      const cvSettingsObj = JSON.parse(cvSettings);
+      state.formSettings = { ...cvSettingsEmptyTemplate, ...cvSettingsObj };
     }
-    if (context.app.i18n.locale.includes('en') && !isCvEnEmpty) {
-      state.formSettings = {
-        ...cvSettingsEmptyTemplate,
-        ...JSON.parse(cvEn),
-      };
-    }
-    if (context.app.i18n.locale.includes('id') && !isCvIdEmpty) {
-      state.formSettings = {
-        ...cvSettingsEmptyTemplate,
-        ...JSON.parse(cvId),
-      };
-    }
-    if (context.app.i18n.locale.includes('es') && isCvEsEmpty && !isCvEnEmpty) {
-      state.formSettings = {
-        ...cvSettingsEmptyTemplate,
-        ...JSON.parse(cvEn),
-      };
-      localStorage.setItem('cvSettings-es', JSON.stringify(state.formSettings));
-    }
-    if (context.app.i18n.locale.includes('en') && isCvEnEmpty && !isCvEsEmpty) {
-      state.formSettings = {
-        ...cvSettingsEmptyTemplate,
-        ...JSON.parse(cvEs),
-      };
-      localStorage.setItem('cvSettings-en', JSON.stringify(state.formSettings));
-    }
-    if (context.app.i18n.locale.includes('id') && isCvEnEmpty && !isCvEnEmpty) {
-      state.formSettings = {
-        ...cvSettingsEmptyTemplate,
-        ...JSON.parse(cvEn),
-      };
-      localStorage.setItem('cvSettings-id', JSON.stringify(state.formSettings));
-    }
+    localStorage.setItem(locale, JSON.stringify(state.formSettings));
     state.isLoading = false;
   }
 
@@ -142,10 +99,18 @@ export function useCvState() {
   }
 
   function resetForm(): void {
+    state.formSettings = {
+      ...cvSettingTemplate,
+    };
+    localStorage.setItem(
+      `cvSettings-${context.i18n.locale}`,
+      JSON.stringify(state.formSettings)
+    );
+  }
+
+  function clearForm(): void {
     state.formSettings = cvSettingsEmptyTemplate;
-    localStorage.removeItem('cvSettings-es');
-    localStorage.removeItem('cvSettings-en');
-    localStorage.removeItem('cvSettings-id');
+    localStorage.removeItem(`cvSettings-${context.i18n.locale}`);
   }
 
   function changeDisplaySection(e: {
@@ -169,6 +134,7 @@ export function useCvState() {
     removeEntry,
     uploadCV,
     resetForm,
+    clearForm,
     changeDisplaySection,
   };
 }
