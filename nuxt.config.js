@@ -88,18 +88,23 @@ export default {
     locales: [
       {
         code: 'en',
-        file: 'en.js',
+        file: 'en.json',
         name: 'English',
       },
       {
         code: 'es',
-        file: 'es.js',
+        file: 'es.json',
         name: 'Español',
       },
       {
         code: 'id',
-        file: 'id.js',
+        file: 'id.json',
         name: 'Indonesian',
+      },
+      {
+        code: 'de',
+        file: 'de.json',
+        name: 'German',
       },
     ],
     lazy: true,
