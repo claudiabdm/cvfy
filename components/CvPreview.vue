@@ -100,7 +100,7 @@
         <!-- // LANGUAGES -->
         <!-- SOCIAL -->
         <section class="cv__section">
-          <h4 class="cv__section-title">SOCIAL</h4>
+          <h4 class="cv__section-title">{{ $t('social') }}</h4>
           <div class="flex flex-col">
             <div v-if="formSettings.linkedin" class="cv__icon-wrapper">
               <svg class="cv__icon">
