@@ -9,7 +9,7 @@
           changeDisplaySection({ sectionName, status: $event.target.checked })
         "
       />
-      <span class="checkbox__text"> Display section on CV </span>
+      <span class="checkbox__text"> {{ $t('display-section') }} </span>
     </label>
   </div>
 </template>
