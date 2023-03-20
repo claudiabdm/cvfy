@@ -66,7 +66,7 @@ export function useCvState() {
     }
   }
 
-  function addEntry(e: { sectionName: 'education' | 'work' }) {
+  function addEntry(e: { sectionName: 'work' }) {
     state.formSettings[e.sectionName].push({
       title: '',
       location: '',
@@ -75,7 +75,18 @@ export function useCvState() {
       current: false,
       summary: '',
     });
-  }
+  } 
+  
+  function addEntry(e: { sectionName: 'education' }) {
+    state.formSettings[e.sectionName].push({
+      title: '',
+      location: '',
+      from: new Date().getFullYear(),
+      to: new Date().getFullYear(),
+      current: false,
+      summary: '',
+    });
+  } 
 
   function removeEntry(e: {
     sectionName: 'education' | 'work';
