@@ -27,6 +27,10 @@ export default Vue.extend({
           as: 'image',
           href: 'https://cdn.ko-fi.com/cdn/kofi5.png?v=3',
         },
+        {
+          rel: 'canonical',
+          href: 'https://cvfy.xyz/',
+        },
       ],
       meta: [
         {
