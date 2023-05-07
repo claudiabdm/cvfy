@@ -21,7 +21,7 @@ export default {
       {
         hid: 'google-site-verification',
         name: 'google-site-verification',
-        content: 'hMvPTPU_1B3OvsDWBBV0g0ySj9V0sIrZPASB-6BWDmk',
+        content: 'CGbgWpLEg4fyBPWujKEYS3rrwZR4mMU7XfsDEGArchg',
       },
       {
         hid: 'twitter:card',
@@ -31,7 +31,7 @@ export default {
       {
         hid: 'twitter:url',
         name: 'twitter:url',
-        content: 'https://cvfy.netlify.app/',
+        content: 'https://cvfy.xyz/',
       },
       {
         hid: 'twitter:image',
