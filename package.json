@@ -16,6 +16,7 @@
     "@nuxtjs/composition-api": "^0.26.0",
     "@nuxtjs/i18n": "^7.0.2",
     "@nuxtjs/pwa": "^3.3.3",
+    "@nuxtjs/sitemap": "^2.4.0",
     "chrome-aws-lambda": "^5.5.0",
     "core-js": "^3.6.5",
     "nuxt": "^2.15.7",

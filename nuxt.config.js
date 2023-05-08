@@ -68,6 +68,7 @@ export default {
     '@nuxtjs/pwa',
     '@nuxtjs/axios',
     '@nuxtjs/i18n',
+    '@nuxtjs/sitemap',
   ],
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
@@ -123,5 +124,10 @@ export default {
     meta: {
       theme_color: '#5B21B6',
     },
+  },
+  sitemap: {
+    hostname: 'https://cvfy.xyz',
+    i18n: true,
+    routesNameSeparator: '___',
   },
 };
