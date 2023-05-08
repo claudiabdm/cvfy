@@ -47,6 +47,7 @@
             :key="locale"
             class="form__btn form__btn--ghost"
             :to="switchLocalePath(locale)"
+            :exact="true"
           >
             {{ $t(`${locale}-name`) }}
           </nuxt-link>

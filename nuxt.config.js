@@ -85,7 +85,7 @@ export default {
     configPath: '~/tailwind.config.js',
   },
   i18n: {
-    strategy: 'prefix',
+    strategy: 'prefix_and_default',
     locales: [
       {
         code: 'en',
@@ -114,7 +114,7 @@ export default {
     detectBrowserLanguage: {
       useCookie: true,
       cookieKey: 'i18n_redirected',
-      onlyOnRoot: true,
+      redirectOn: 'root',
     },
   },
   router: {
