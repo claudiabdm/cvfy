@@ -3,49 +3,7 @@
     <label class="form__label" :for="tagListName">{{ tagListLabel }}</label>
     <div class="flex gap-3">
       <template v-if="tagListName === 'languages'">
-        <div class="grid grid-cols-2 gap-3">
-          <input
-            id="languages"
-            v-model.trim="tagInputLang.lang"
-            class="form__control mt-2 mb-1"
-            type="text"
-            placeholder="Spanish"
-            @keyup.enter="
-              addSkill({ skill: tagInputLang, skillType: tagListName });
-              cleanInput();
-            "
-          />
-          <div class="flex relative">
-            <input
-              id="level"
-              v-model="tagInputLang.level"
-              class="form__control mt-2 mb-1"
-              type="number"
-              min="0"
-              max="100"
-              step="10"
-              placeholder="80"
-              @keyup.enter="
-                addSkill({ skill: tagInputLang, skillType: tagListName });
-                cleanInput();
-              "
-            />
-            <span class="percentage top-1 mt-2 mb-1">%</span>
-          </div>
-        </div>
-        <button
-          class="form__btn"
-          type="button"
-          :disabled="tagInputLangEmpty"
-          :aria-disabled="tagInputLangEmpty"
-          aria-live="assertive"
-          @click="
-            addSkill({ skill: tagInputLang, skillType: tagListName });
-            cleanInput();
-          "
-        >
-          {{ $t('add') }}
-        </button>
+        <cv-input-lang />
       </template>
 
       <template v-else>
@@ -54,10 +12,7 @@
           v-model="tagInput"
           class="form__control mt-2 mb-1"
           type="text"
-          @keyup.enter="
-            addSkill({ skill: tagInput, skillType: tagListName });
-            cleanInput();
-          "
+          @keyup.enter="updateSkill"
         />
         <button
           class="form__btn"
@@ -65,19 +20,20 @@
           :disabled="tagInputEmpty"
           :aria-disabled="tagInputEmpty"
           aria-live="assertive"
-          @click="
-            addSkill({ skill: tagInput, skillType: tagListName });
-            cleanInput();
-          "
+          @click="updateSkill"
         >
           {{ $t('add') }}
         </button>
       </template>
     </div>
     <ul class="tags">
-      <template v-if="tagListName !== 'languages'">
-        <li v-for="tag in tagList" :key="tag" class="form__btn form__btn--tag">
-          {{ tag }}
+      <template v-if="tagListName === 'languages'">
+        <li
+          v-for="tag in tagListLang"
+          :key="tag.lang"
+          class="form__btn form__btn--tag"
+        >
+          {{ tag.lang }}: {{ $t(tag.level) }}
           <button
             type="button"
             @click="removeSkill({ skill: tag, skillType: tagListName })"
@@ -89,12 +45,8 @@
         </li>
       </template>
       <template v-else>
-        <li
-          v-for="tag in tagListLang"
-          :key="tag.lang"
-          class="form__btn form__btn--tag"
-        >
-          {{ tag.lang }}: {{ tag.level }}
+        <li v-for="tag in tagList" :key="tag" class="form__btn form__btn--tag">
+          {{ tag }}
           <button
             type="button"
             @click="removeSkill({ skill: tag, skillType: tagListName })"
@@ -109,14 +61,17 @@
   </div>
 </template>
 <script lang="ts">
-import { computed, reactive, toRefs } from '@nuxtjs/composition-api';
+import { computed, PropType, reactive, toRefs } from '@nuxtjs/composition-api';
 import Vue from 'vue';
+import CvInputLang from './CvInputLang.vue';
 import { useCvState } from '~/data/useCvState';
+import { DefaultSkill } from '~/types/cvfy';
 export default Vue.extend({
   name: 'CvInputTags',
+  components: { CvInputLang },
   props: {
     tagListName: {
-      type: String,
+      type: String as PropType<DefaultSkill['skillType']>,
       default: '',
     },
     tagList: {
@@ -132,17 +87,12 @@ export default Vue.extend({
       default: '',
     },
   },
-  setup() {
+  setup(props) {
     const state = reactive({
       tagInput: '',
-      tagInputLang: { lang: '', level: '' },
     });
 
     const { addSkill, removeSkill } = useCvState();
-
-    const tagInputLangEmpty = computed(function getTagInputLangEmpty() {
-      return state.tagInputLang.lang === '' || state.tagInputLang.level === '';
-    });
 
     const tagInputEmpty = computed(function getTagInputEmpty() {
       return state.tagInput === '';
@@ -150,15 +100,20 @@ export default Vue.extend({
 
     function cleanInput(): void {
       state.tagInput = '';
-      state.tagInputLang = { lang: '', level: '' };
+    }
+
+    function updateSkill() {
+      addSkill({
+        skill: state.tagInput,
+        skillType: props.tagListName as DefaultSkill['skillType'],
+      });
+      cleanInput();
     }
 
     return {
       ...toRefs(state),
-      tagInputLangEmpty,
       tagInputEmpty,
-      cleanInput,
-      addSkill,
+      updateSkill,
       removeSkill,
     };
   },
