@@ -1,4 +1,4 @@
-import { Cv } from '~/types/cvfy';
+import { Cv, LEVELS } from '~/types/cvfy';
 
 export const cvSettingTemplate: Cv = {
   jobTitle: 'Deputy Director Parks Department',
@@ -11,7 +11,7 @@ export const cvSettingTemplate: Cv = {
     "My name is Leslie Knope. I am a passionate, over-achieving government employee who believes the government's #1 job is serving the people. By pairing the right people with the right messaging at the right time, the parks department and your local government can make the world a better place for everyone! I have met Joe Biden, and one day I will become the first female President of the United States.",
   jobSkills: ['Microsoft', 'Word', 'Excel', 'PerfectMind'],
   softSkills: ['Positivity', 'Leadership', 'Public Speaking'],
-  languages: [{ lang: 'English', level: '100%' }],
+  languages: [{ lang: 'English', level: LEVELS[4] }],
   linkedin: '',
   twitter: '',
   github: '',

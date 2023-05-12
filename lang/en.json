@@ -47,5 +47,10 @@
     "title-tag": "CvFy - Create your CV as PDF in a few minutes!",
     "projects": "projects",
     "social": "Social",
-    "display-section": "Display section on CV"
+    "display-section": "Display section on CV",
+    "elementary": "Elementary",
+    "limited-working": "Limited Working",
+    "professional-working": "Professional Working",
+    "full-professional": "Full Professional",
+    "native-bilingual": "Native/Bilingual"
 }

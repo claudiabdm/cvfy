@@ -86,14 +86,10 @@
             <li
               v-for="lang in formSettings.languages"
               :key="`preview${lang.lang}`"
+              class="flex pr-4"
             >
-              {{ lang.lang }}
-              <div class="cv__bar-level bg-gray-300" :style="{ width: '100%' }">
-                <span
-                  class="cv__bar-level cv__bar-level--in"
-                  :style="{ width: lang.level }"
-                ></span>
-              </div>
+              <span>{{ lang.lang }}</span>
+              <span class="font-light">{{ $t(lang.level) }}</span>
             </li>
           </ul>
         </section>
@@ -458,21 +454,10 @@ p {
     padding: 0;
     margin: 0;
     li {
-      @apply flex flex-col;
+      @apply flex justify-between;
     }
     li + li {
       @apply mt-3;
-    }
-  }
-  &__bar-level {
-    @apply rounded-full mr-2;
-    position: relative;
-    height: 0.5rem;
-
-    &--in {
-      position: absolute;
-      display: inline-block;
-      background-color: var(--primary);
     }
   }
 

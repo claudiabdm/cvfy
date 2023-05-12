@@ -3,7 +3,7 @@ import {
   cvSettingsEmptyTemplate,
   cvSettingTemplate,
 } from './example-cv-settings';
-import { Cv, CvEvent, defaultSkill, languagesSkill } from '~/types/cvfy';
+import { Cv, CvEvent, DefaultSkill, LanguagesSkill } from '~/types/cvfy';
 
 const state = reactive({
   formSettings: { ...cvSettingsEmptyTemplate } as Cv,
@@ -29,7 +29,7 @@ export function useCvState() {
     state.isLoading = false;
   }
 
-  function addSkill(e: languagesSkill | defaultSkill): void {
+  function addSkill(e: LanguagesSkill | DefaultSkill): void {
     if (e.skillType === 'languages') {
       if (e.skill.lang.trim() === '') return;
       const newLang = e.skill;
@@ -40,7 +40,7 @@ export function useCvState() {
         state.formSettings.languages = [
           ...new Set([
             ...state.formSettings.languages,
-            { lang: e.skill.lang, level: `${e.skill.level}%` },
+            { lang: e.skill.lang, level: e.skill.level },
           ]),
         ];
       }
@@ -52,7 +52,7 @@ export function useCvState() {
     }
   }
 
-  function removeSkill(e: languagesSkill | defaultSkill): void {
+  function removeSkill(e: LanguagesSkill | DefaultSkill): void {
     if (e.skillType === 'languages') {
       state.formSettings[e.skillType] = [
         ...state.formSettings[e.skillType].filter(
