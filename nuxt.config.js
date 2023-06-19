@@ -107,6 +107,11 @@ export default {
         file: 'de.json',
         name: 'German',
       },
+      {
+        code: 'fr',
+        file: 'fr.json',
+        name: 'Francais',
+      },
     ],
     lazy: true,
     langDir: 'lang/',
