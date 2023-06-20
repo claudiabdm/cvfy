@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-gray-100 bg-opacity-100 shadow-lg font-bold z-10">
+  <div class="settings">
     <h2 class="title">
       <span class="title__text">
         {{ $t('cv-settings') }}
@@ -491,6 +491,19 @@ export default Vue.extend({
 });
 </script>
 <style lang="postcss">
+.settings {
+  @apply bg-gray-100 bg-opacity-100 shadow-lg font-bold z-10;
+  @media screen and (min-width: 1024px) {
+    & {
+      @apply overflow-y-auto w-5/12;
+    }
+  }
+  @media print {
+    display: none;
+    box-shadow: none;
+    z-index: 0;
+  }
+}
 .title {
   @apply flex flex-wrap text-xl pt-8 px-6 pb-6 tracking-wide uppercase;
   align-items: center;

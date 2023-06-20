@@ -1,47 +1,21 @@
-@media print {
-  #settings {
-    display: none;
-    box-shadow: none;
-    z-index: 0;
-  }
-  #cv {
-    display: block;
-    width: 100%;
-    margin: 0;
-    padding: 0;
-  }
-
-  #cv .cv {
-    margin: 0;
-    border: none;
-    padding: 0;
-    transform: none;
-    box-shadow: none;
-  }
-
-  #cv #credit {
-    display: none;
-  }
-}
-
 :root {
   --bg-color: #f3f4f6;
-  --primary: #5B21B6;
-  --primary-darker: #4C1D95;
-  --pink: #9D174D;
+  --primary: #5b21b6;
+  --primary-darker: #4c1d95;
+  --pink: #9d174d;
   --pink-darker: #831843;
-  --purple: #5B21B6;
-  --purple-darker: #4C1D95;
-  --indigo: #3730A3;
-  --indigo-darker: #312E81;
-  --blue: #1E40AF;
-  --blue-darker: #1E3A8A;
-  --green: #065F46;
-  --green-darker: #064E3B;
-  --yellow: #F59E0B;
-  --yellow-darker: #D97706;
-  --red: #DC2626;
-  --red-darker: #B91C1C;
-  --black: #1F2937;
+  --purple: #5b21b6;
+  --purple-darker: #4c1d95;
+  --indigo: #3730a3;
+  --indigo-darker: #312e81;
+  --blue: #1e40af;
+  --blue-darker: #1e3a8a;
+  --green: #065f46;
+  --green-darker: #064e3b;
+  --yellow: #f59e0b;
+  --yellow-darker: #d97706;
+  --red: #dc2626;
+  --red-darker: #b91c1c;
+  --black: #1f2937;
   --black-darker: #111827;
 }
