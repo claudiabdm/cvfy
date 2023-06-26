@@ -1,26 +1,26 @@
 <template>
-  <div id="cv" class="font-normal relative flex justify-center w-full bg-white">
+  <div class="cvWrapper">
     <div
-      id="credit"
-      class="p-3 text-gray-700 absolute bottom-0 text-center w-full text-xs"
-    >
-      Made with ♥️ by
-      <a
-        class="underline"
-        :style="{ color: 'var(--primary)' }"
-        href="https://github.com/claudiabdm"
-        rel="noopener"
-        target="_blank"
-        >claudiabdm</a
-      >
-      using <b>Nuxt.js</b> + <b>TailwindCSS</b>
-    </div>
-    <div
+      ref="cv"
       tabindex="0"
       aria-label="CV preview"
-      :class="['cv', 'bg-white', { blur: isLoading }]"
+      :class="['cv', 'bg-white', { blur: isLoading }, 'relative']"
     >
-      <div class="cv__side w-1/3">
+      <div
+        v-for="page in pages"
+        :key="page"
+        :style="{ top: `${page * 29.69}cm` }"
+        class="cv__pages"
+      >
+        <div
+          :style="{
+            transform: 'translate3d(102%, -50%, 0)',
+          }"
+        >
+          {{ page + 1 }}
+        </div>
+      </div>
+      <div class="cv__side">
         <h2 class="cv__name">
           {{ formSettings.name }} {{ formSettings.lastName }}
         </h2>
@@ -143,7 +143,7 @@
         </section>
         <!-- // SOCIAL -->
       </div>
-      <div class="cv__main w-2/3">
+      <div ref="cvMain" class="cv__main">
         <!-- ABOUT ME -->
         <section class="cv__section cv__section--main w-full">
           <h4 class="cv__section-title cv__section-title--main">
@@ -272,17 +272,35 @@
         <!-- // PROJECTS -->
       </div>
     </div>
+    <div class="credit">
+      Made with ♥️ by
+      <a
+        class="underline"
+        :style="{ color: 'var(--primary)' }"
+        href="https://github.com/claudiabdm"
+        rel="noopener"
+        target="_blank"
+        >claudiabdm</a
+      >
+      using <b>Nuxt.js</b> + <b>TailwindCSS</b>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
-import { useContext, computed } from '@nuxtjs/composition-api';
+import {
+  useContext,
+  computed,
+  ref,
+  onMounted,
+  onUnmounted,
+} from '@nuxtjs/composition-api';
 import { CvEvent } from '~/types/cvfy';
 import { useCvState } from '~/data/useCvState';
 
 export default Vue.extend({
-  name: 'CvPreview',
+  name: 'Cv',
   setup() {
     const { formSettings, isLoading } = useCvState();
     const context = useContext();
@@ -333,6 +351,41 @@ export default Vue.extend({
       return dateObj.toLocaleDateString(context.app.i18n.locale, options);
     }
 
+    const cv = ref<HTMLElement | null>(null);
+    const cvMain = ref<HTMLElement | null>(null);
+    const PX_TO_CM = 0.026458;
+    const PAGE_HEIGHT_CM = 29.69;
+    const pages = ref<Array<number>>([]);
+    let resizeObserver: ResizeObserver | null = null;
+
+    onMounted(() => {
+      if (cv.value && cvMain.value) {
+        resizeObserver = new ResizeObserver(function (entries) {
+          for (const entry of entries) {
+            const cm = PX_TO_CM * entry.contentRect.height;
+            const newPages = Math.ceil(cm / PAGE_HEIGHT_CM);
+            if (newPages !== pages.value.length) {
+              pages.value = [...Array(newPages).keys()];
+              const newHeightCm = Math.max(
+                PAGE_HEIGHT_CM,
+                newPages * PAGE_HEIGHT_CM
+              );
+              if (cv.value) {
+                cv.value.style.setProperty('--height', `${newHeightCm}cm`);
+              }
+            }
+          }
+        });
+        resizeObserver.observe(cvMain.value);
+      }
+    });
+
+    onUnmounted(() => {
+      if (resizeObserver) {
+        resizeObserver.disconnect();
+      }
+    });
+
     return {
       formSettings,
       isLoading,
@@ -342,6 +395,9 @@ export default Vue.extend({
       education,
       projects,
       formatDate,
+      cv,
+      cvMain,
+      pages,
     };
   },
 });
@@ -350,19 +406,53 @@ export default Vue.extend({
 p {
   @apply leading-relaxed;
 }
+
+.credit {
+  @apply p-3 text-gray-700 text-center w-full text-xs;
+}
+
+.cvWrapper {
+  @apply font-normal relative flex flex-col items-center w-full bg-white overflow-y-auto overflow-x-hidden;
+
+  @media print {
+    display: block;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+
+    & .cv {
+      margin: 0;
+      border: none;
+      padding: 0;
+      transform: none;
+      box-shadow: none;
+    }
+
+    & .credit {
+      display: none;
+    }
+  }
+}
+
 .cv {
-  @apply flex text-gray-800 shadow-lg text-sm font-normal mt-6;
+  @apply grid text-gray-800 shadow-lg text-sm font-normal mt-6;
+  --height: 29.69cm;
+  grid-template-columns: 1fr 2fr;
   width: 21cm;
-  height: 29.69cm;
+  height: var(--height);
+  min-height: var(--height);
   min-width: 21cm;
-  min-height: 29.69cm;
   max-width: 21cm;
-  max-height: 29.69cm;
-  align-self: flex-start;
+  max-height: var(--height);
   word-break: break-word;
   transform: scale(0.4);
   transform-origin: top;
-  overflow-y: hidden;
+  background-image: linear-gradient(
+    to right,
+    rgba(247, 250, 252, 1) 33%,
+    rgba(255, 255, 255, 0) 0%
+  );
 
   @media screen and (min-width: 425px) {
     transform: scale(0.65);
@@ -373,8 +463,29 @@ p {
   @media screen and (min-width: 1024px) {
     transform: scale(0.7);
   }
+
+  &__main {
+    height: min-content;
+  }
+
   &__side {
-    @apply px-6 py-10 bg-gray-100 bg-opacity-100;
+    @apply flex flex-col px-6 py-10;
+  }
+
+  &__pages {
+    position: absolute;
+    right: -5%;
+    left: -5%;
+    background-image: linear-gradient(
+      to right,
+      grey 50%,
+      rgba(255, 255, 255, 0) 0%
+    );
+    background-size: 20px 1px;
+    background-repeat: repeat-x;
+    @media print {
+      display: none;
+    }
   }
 
   &__name {
