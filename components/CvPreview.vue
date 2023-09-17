@@ -135,7 +135,7 @@
               <svg class="cv__icon">
                 <use href="@/assets/sprite.svg#website"></use>
               </svg>
-              <a target="_blank" rel="noopener" :href="formSettings.website">{{
+              <a target="_blank" rel="noopener" :href="`https://${formSettings.website}`">{{
                 formSettings.website
               }}</a>
             </div>
