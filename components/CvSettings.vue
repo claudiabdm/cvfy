@@ -218,9 +218,9 @@
 
       <!-- SOCIAL -->
       <fieldset class="form__section grid gap-3">
-        <expansion-panel :panel-name="'Social'">
+        <expansion-panel :panel-name="$t('social')">
           <template v-slot:title>
-            <legend class="form__legend">Social</legend>
+            <legend class="form__legend">{{ $t('social') }}</legend>
           </template>
           <template v-slot:content>
             <div class="grid grid-cols-2 gap-x-3 gap-y-10">
@@ -417,6 +417,7 @@ export default Vue.extend({
         { name: 'en-name', code: 'en' },
         { name: 'id-name', code: 'id' },
         { name: 'fr-name', code: 'fr' },
+        { name: 'zh-name', code: 'zh' },
       ],
     };
 

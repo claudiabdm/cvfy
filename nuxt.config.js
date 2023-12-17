@@ -112,6 +112,11 @@ export default {
         file: 'fr.json',
         name: 'Francais',
       },
+      {
+        code: 'zh',
+        file: 'zh.json',
+        name: 'Chinese',
+      }
     ],
     lazy: true,
     langDir: 'lang/',
