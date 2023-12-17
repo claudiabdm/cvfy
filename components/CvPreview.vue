@@ -489,7 +489,7 @@ p {
   }
 
   &__side {
-    @apply flex flex-col px-6 py-10;
+    @apply flex flex-col px-6 py-1;
   }
 
   &__pages {
