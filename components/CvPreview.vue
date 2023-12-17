@@ -21,6 +21,7 @@
         </div>
       </div>
       <div class="cv__side">
+        <img class="cv__head-image" :src="headImage" alt="head-image" />
         <h2 class="cv__name">
           {{ formSettings.name }} {{ formSettings.lastName }}
         </h2>
@@ -398,6 +399,7 @@ export default Vue.extend({
       cv,
       cvMain,
       pages,
+      headImage: require('@/assets/images/head.png'),
     };
   },
 });
@@ -486,6 +488,10 @@ p {
     @media print {
       display: none;
     }
+  }
+
+  &__head-image {
+    @apply my-4;
   }
 
   &__name {

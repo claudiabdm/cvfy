@@ -91,3 +91,4 @@ sw.*
 
 # Local Netlify folder
 .netlify
+/assets/images/
