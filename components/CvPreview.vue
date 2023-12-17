@@ -96,7 +96,7 @@
         </section>
         <!-- // LANGUAGES -->
         <!-- SOCIAL -->
-        <section class="cv__section">
+        <section v-if="formSettings.displaySocial" class="cv__section">
           <h4 class="cv__section-title">{{ $t('social') }}</h4>
           <div class="flex flex-col">
             <div v-if="formSettings.linkedin" class="cv__icon-wrapper">
@@ -578,6 +578,12 @@ p {
 
     li:first-child {
       @apply mt-1;
+    }
+
+    li::before {
+      content: '\2022';
+      padding-right: 0.2em;
+      color: var(--primary);
     }
 
     .with-dot::before {
