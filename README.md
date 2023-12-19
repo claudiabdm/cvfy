@@ -39,5 +39,3 @@ $ yarn generate
 
 For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
 
-## Support profile image
-Put an image named `head.png` to `/assets/images/head.png`, then it should be displayed in the CV preview.
