@@ -358,6 +358,26 @@
 
       <!-- CTA -->
       <div class="form__section flex flex-col p-6 gap-3">
+        <div class="flex flex-row">
+          <label tabindex="0" class="form__btn flex justify-center flex-grow">
+            {{ $t('upload-profile-image') }} (PNG)
+            <input
+              type="file"
+              accept=".png"
+              name="uploadProfileImage"
+              class="hidden"
+              @change="uploadProfileImage"
+            />
+          </label>
+          <button
+            class="form__btn flex flex-col justify-center"
+            type="button"
+            @click="clearProfileImage"
+          >
+            {{ $t('clear-profile-image') }}
+          </button>
+        </div>
+
         <label tabindex="0" class="form__btn flex justify-center">
           {{ $t('upload-cv') }} (JSON)
           <input
@@ -428,8 +448,16 @@ export default Vue.extend({
       ],
     };
 
-    const { formSettings, uploadCV, clearForm, resetForm, setUpCvSettings } =
-      useCvState();
+    const {
+      formSettings,
+      uploadCV,
+      uploadProfileImage,
+      clearProfileImage,
+      profileImageData,
+      clearForm,
+      resetForm,
+      setUpCvSettings,
+    } = useCvState();
     const context = useContext();
 
     onMounted(setUpCvSettings);
@@ -492,6 +520,8 @@ export default Vue.extend({
       formSettingsHref,
       availableLocales,
       uploadCV,
+      uploadProfileImage,
+      clearProfileImage,
       clearForm,
       resetForm,
     };

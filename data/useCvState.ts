@@ -8,6 +8,7 @@ import { Cv, CvEvent, DefaultSkill, LanguagesSkill } from '~/types/cvfy';
 const state = reactive({
   formSettings: { ...cvSettingsEmptyTemplate } as Cv,
   isLoading: true,
+  profileImageData: null,
 });
 
 export function useCvState() {
@@ -98,6 +99,18 @@ export function useCvState() {
     fr.readAsText(e.target.files[0]);
   }
 
+  function uploadProfileImage(e: any): void {
+    const fr = new FileReader();
+    fr.onload = (e: any) => {
+      state.profileImageData = e.target.result;
+    };
+    fr.readAsDataURL(e.target.files[0]);
+  }
+
+  function clearProfileImage(): void {
+    state.profileImageData = null;
+  }
+
   function resetForm(): void {
     state.formSettings = {
       ...cvSettingTemplate,
@@ -133,6 +146,8 @@ export function useCvState() {
     addEntry,
     removeEntry,
     uploadCV,
+    uploadProfileImage,
+    clearProfileImage,
     resetForm,
     clearForm,
     changeDisplaySection,

@@ -21,7 +21,12 @@
         </div>
       </div>
       <div class="cv__side">
-        <img class="cv__head-image" :src="headImage" alt="head-image" />
+        <img
+          v-if="profileImageData"
+          class="cv__head-image"
+          :src="profileImageData"
+          alt="profile-image"
+        />
         <h2 class="cv__name">
           {{ formSettings.name }} {{ formSettings.lastName }}
         </h2>
@@ -311,7 +316,7 @@ import { useCvState } from '~/data/useCvState';
 export default Vue.extend({
   name: 'Cv',
   setup() {
-    const { formSettings, isLoading } = useCvState();
+    const { formSettings, isLoading, profileImageData } = useCvState();
     const context = useContext();
 
     const phoneNumberHref = computed(function getPhoneNumberHref() {
@@ -407,6 +412,7 @@ export default Vue.extend({
     return {
       formSettings,
       isLoading,
+      profileImageData,
       phoneNumberHref,
       emailHref,
       work,
@@ -416,7 +422,6 @@ export default Vue.extend({
       cv,
       cvMain,
       pages,
-      headImage: require('@/assets/images/head.png'),
       getLineClass,
     };
   },
@@ -489,7 +494,7 @@ p {
   }
 
   &__side {
-    @apply flex flex-col px-6 py-1;
+    @apply flex flex-col px-6 py-10;
   }
 
   &__pages {
