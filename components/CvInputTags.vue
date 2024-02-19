@@ -7,37 +7,19 @@
       </template>
 
       <template v-else>
-        <input
-          :id="tagListName"
-          v-model="tagInput"
-          class="form__control mt-2 mb-1"
-          type="text"
-          @keyup.enter="updateSkill"
-        />
-        <button
-          class="form__btn"
-          type="button"
-          :disabled="tagInputEmpty"
-          :aria-disabled="tagInputEmpty"
-          aria-live="assertive"
-          @click="updateSkill"
-        >
+        <input :id="tagListName" v-model="tagInput" class="form__control mt-2 mb-1" type="text"
+          @keyup.enter="updateSkill" />
+        <button class="form__btn" type="button" :disabled="tagInputEmpty" :aria-disabled="tagInputEmpty"
+          aria-live="assertive" @click="updateSkill">
           {{ $t('add') }}
         </button>
       </template>
     </div>
     <ul class="tags">
       <template v-if="tagListName === 'languages'">
-        <li
-          v-for="tag in tagListLang"
-          :key="tag.lang"
-          class="form__btn form__btn--tag"
-        >
+        <li v-for="tag in tagListLang" :key="tag.lang" class="form__btn form__btn--tag">
           {{ tag.lang }}: {{ $t(tag.level) }}
-          <button
-            type="button"
-            @click="removeSkill({ skill: tag, skillType: tagListName })"
-          >
+          <button type="button" @click="removeSkill<LanguagesSkill>({ skill: tag, skillType: tagListName })">
             <svg class="form__icon">
               <use href="@/assets/sprite.svg#close"></use>
             </svg>
@@ -47,10 +29,7 @@
       <template v-else>
         <li v-for="tag in tagList" :key="tag" class="form__btn form__btn--tag">
           {{ tag }}
-          <button
-            type="button"
-            @click="removeSkill({ skill: tag, skillType: tagListName })"
-          >
+          <button type="button" @click="removeSkill({ skill: tag, skillType: tagListName })">
             <svg class="form__icon">
               <use href="@/assets/sprite.svg#close"></use>
             </svg>
@@ -61,25 +40,25 @@
   </div>
 </template>
 <script lang="ts">
-import { computed, PropType, reactive, toRefs } from '@nuxtjs/composition-api';
-import Vue from 'vue';
+import { computed, type PropType, reactive, toRefs } from 'vue';
+import { defineComponent } from 'vue';
 import CvInputLang from './CvInputLang.vue';
 import { useCvState } from '~/data/useCvState';
-import { DefaultSkill } from '~/types/cvfy';
-export default Vue.extend({
+import type { DefaultSkill, LanguagesSkill, SkillType } from '~/types/cvfy';
+export default defineComponent({
   name: 'CvInputTags',
   components: { CvInputLang },
   props: {
     tagListName: {
-      type: String as PropType<DefaultSkill['skillType']>,
+      type: String as PropType<SkillType>,
       default: '',
     },
     tagList: {
-      type: Array as () => string[],
+      type: Array as () => DefaultSkill['skill'][],
       default: () => [''],
     },
     tagListLang: {
-      type: Array as () => { lang: string; level: string }[],
+      type: Array as () => LanguagesSkill['skill'][],
       default: () => [{ lang: '', level: '' }],
     },
     tagListLabel: {
@@ -89,7 +68,7 @@ export default Vue.extend({
   },
   setup(props) {
     const state = reactive({
-      tagInput: '',
+      tagInput: null as any,
     });
 
     const { addSkill, removeSkill } = useCvState();
@@ -105,7 +84,7 @@ export default Vue.extend({
     function updateSkill() {
       addSkill({
         skill: state.tagInput,
-        skillType: props.tagListName as DefaultSkill['skillType'],
+        skillType: props.tagListName,
       });
       cleanInput();
     }
@@ -121,7 +100,7 @@ export default Vue.extend({
 </script>
 <style lang="postcss" scoped>
 .tags {
-  @apply flex flex-wrap gap-3 mt-3 text-xs justify-start w-full;
+  @apply flex flex-wrap gap-3 mt-3 text-xs/normal justify-start w-full;
 }
 
 .percentage {

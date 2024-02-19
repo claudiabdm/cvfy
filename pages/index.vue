@@ -6,13 +6,13 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
+import { defineComponent } from 'vue';
 import CvSettings from '@/components/CvSettings.vue';
 import CvPreview from '@/components/CvPreview.vue';
 
 const CVFY_IMAGE = 'https://cvfy.xyz/CvFy-no-border.png';
 
-export default Vue.extend({
+export default defineComponent({
   name: 'Index',
   components: { CvSettings, CvPreview },
   head() {

@@ -3,47 +3,27 @@
     <div class="expansion-panel__header" @click.prevent="togglePanel">
       <div class="expansion-panel__title">
         <slot name="title">Título</slot>
-        <button
-          :id="`expansionPanel${panelName}`"
-          type="button"
-          :aria-label="`Expansion panel ${panelName}`"
-          :aria-expanded="`${isOpen}`"
-          :aria-controls="panelName"
-          @click.stop="togglePanel"
-        >
-          <svg
-            :class="[
-              'expansion-panel__arrow',
-              { 'expansion-panel__arrow--open': isOpen },
-            ]"
-          >
+        <button :id="`expansionPanel${panelName}`" type="button" :aria-label="`Expansion panel ${panelName}`"
+          :aria-expanded="`${isOpen}`" :aria-controls="panelName" @click.stop="togglePanel">
+          <svg :class="[
+            'expansion-panel__arrow',
+            { 'expansion-panel__arrow--open': isOpen },
+          ]">
             <use href="@/assets/sprite.svg#panel-arrow"></use>
           </svg>
         </button>
       </div>
       <slot name="action-button"></slot>
     </div>
-    <transition
-      name="expand"
-      @enter="enter"
-      @after-enter="afterEnter"
-      @leave="leave"
-    >
-      <slot
-        v-if="isOpen"
-        :id="panelName"
-        class="expansion-panel__panel"
-        name="content"
-        role="region"
-        :aria-labelledby="`expansionPanel${panelName}`"
-        >Contenido</slot
-      >
+    <transition name="expand" @enter="enter" @after-enter="afterEnter" @leave="leave">
+      <slot v-if="isOpen" :id="panelName" class="expansion-panel__panel" name="content" role="region"
+        :aria-labelledby="`expansionPanel${panelName}`">Contenido</slot>
     </transition>
   </div>
 </template>
 <script lang="ts">
-import Vue from 'vue';
-export default Vue.extend({
+import { defineComponent } from 'vue';
+export default defineComponent({
   name: 'ExpansionPanel',
   props: {
     panelName: {
@@ -60,26 +40,29 @@ export default Vue.extend({
     togglePanel() {
       this.isOpen = !this.isOpen;
     },
-    enter(element: HTMLElement) {
-      element.style.height = 'auto';
+    enter(element: Element) {
+      const el = element as HTMLElement;
+      el.style.height = 'auto';
       const height = getComputedStyle(element).height;
-      element.style.height = '0';
+      el.style.height = '0';
       // eslint-disable-next-line no-unused-expressions
       getComputedStyle(element).height;
       requestAnimationFrame(() => {
-        element.style.height = height;
+        el.style.height = height;
       });
     },
-    afterEnter(element: HTMLElement) {
-      element.style.height = 'auto';
+    afterEnter(element: Element) {
+      const el = element as HTMLElement;
+      el.style.height = 'auto';
     },
-    leave(element: HTMLElement) {
+    leave(element: Element) {
+      const el = element as HTMLElement;
       const height = getComputedStyle(element).height;
-      element.style.height = height;
+      el.style.height = height;
       // eslint-disable-next-line no-unused-expressions
       getComputedStyle(element).height;
       requestAnimationFrame(() => {
-        element.style.height = '0';
+        el.style.height = '0';
       });
     },
   },
@@ -95,17 +78,19 @@ export default Vue.extend({
 
 .expansion-panel {
   overflow: hidden;
-  @apply bg-gray-100 bg-opacity-100 relative px-6 py-3;
+  @apply bg-slate-50 bg-opacity-100 relative px-6 py-3;
 
   & & {
     @apply p-1;
   }
 
   &__header {
-    @apply flex items-center justify-between w-full flex-row-reverse  mb-10;
+    @apply flex items-center justify-between w-full flex-row-reverse mb-10;
   }
+
   &__title {
-    @apply flex items-center justify-between w-full bg-gray-100 bg-opacity-100 z-10 capitalize;
+    @apply flex items-center justify-between w-full bg-slate-50 bg-opacity-100 z-10 capitalize;
+
     &:hover {
       cursor: pointer;
     }
@@ -120,6 +105,7 @@ export default Vue.extend({
     height: 1.25rem;
     transform: rotate(0);
     transition: transform 0.25s ease-in-out;
+
     &--open {
       transform: rotate(180deg);
     }
