@@ -1,9 +1,15 @@
-import { useContext, reactive, toRefs } from '@nuxtjs/composition-api';
+import { reactive, toRefs } from 'vue';
 import {
   cvSettingsEmptyTemplate,
   cvSettingTemplate,
 } from './example-cv-settings';
-import { Cv, CvEvent, DefaultSkill, LanguagesSkill } from '~/types/cvfy';
+import type {
+  Cv,
+  CvEvent,
+  DefaultSkill,
+  LanguagesSkill,
+  SectionName,
+} from '~/types/cvfy';
 
 const state = reactive({
   formSettings: { ...cvSettingsEmptyTemplate } as Cv,
@@ -11,10 +17,10 @@ const state = reactive({
 });
 
 export function useCvState() {
-  const context = useContext();
+  const i18n = useI18n();
 
   function setUpCvSettings(): void {
-    const locale = `cvSettings-${context.i18n.locale}`;
+    const locale = `cvSettings-${i18n.locale}`;
     const cvSettings = localStorage.getItem(locale);
 
     if (cvSettings == null) {
@@ -29,12 +35,12 @@ export function useCvState() {
     state.isLoading = false;
   }
 
-  function addSkill(e: LanguagesSkill | DefaultSkill): void {
+  function addSkill<T extends LanguagesSkill | DefaultSkill>(e: T): void {
     if (e.skillType === 'languages') {
       if (e.skill.lang.trim() === '') return;
       const newLang = e.skill;
       const newLangIdx = state.formSettings.languages.findIndex(
-        (lang) => lang.lang === newLang.lang
+        (lang) => lang.lang === newLang.lang,
       );
       if (newLangIdx < 0) {
         state.formSettings.languages = [
@@ -52,11 +58,11 @@ export function useCvState() {
     }
   }
 
-  function removeSkill(e: LanguagesSkill | DefaultSkill): void {
+  function removeSkill<T extends LanguagesSkill | DefaultSkill>(e: T): void {
     if (e.skillType === 'languages') {
       state.formSettings[e.skillType] = [
         ...state.formSettings[e.skillType].filter(
-          (skill) => skill.lang !== e.skill.lang
+          (skill) => skill.lang !== e.skill.lang,
         ),
       ];
     } else {
@@ -66,7 +72,7 @@ export function useCvState() {
     }
   }
 
-  function addEntry(e: { sectionName: 'education' | 'work' }) {
+  function addEntry(e: { sectionName: SectionName }) {
     state.formSettings[e.sectionName].push({
       title: '',
       location: '',
@@ -77,10 +83,7 @@ export function useCvState() {
     });
   }
 
-  function removeEntry(e: {
-    sectionName: 'education' | 'work';
-    entry: CvEvent;
-  }) {
+  function removeEntry(e: { sectionName: SectionName; entry: CvEvent }) {
     state.formSettings[e.sectionName] = state.formSettings[
       e.sectionName
     ].filter((entry) => entry.title !== e.entry.title);
@@ -103,14 +106,14 @@ export function useCvState() {
       ...cvSettingTemplate,
     };
     localStorage.setItem(
-      `cvSettings-${context.i18n.locale}`,
-      JSON.stringify(state.formSettings)
+      `cvSettings-${i18n.locale}`,
+      JSON.stringify(state.formSettings),
     );
   }
 
   function clearForm(): void {
     state.formSettings = cvSettingsEmptyTemplate;
-    localStorage.removeItem(`cvSettings-${context.i18n.locale}`);
+    localStorage.removeItem(`cvSettings-${i18n.locale}`);
   }
 
   function changeDisplaySection(e: {

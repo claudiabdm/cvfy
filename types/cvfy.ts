@@ -6,7 +6,7 @@ export const LEVELS = [
   'native-bilingual',
 ] as const;
 
-export type Level = typeof LEVELS[number];
+export type Level = (typeof LEVELS)[number];
 export interface Cv {
   jobTitle: string;
   name: string;
@@ -38,6 +38,9 @@ export interface CvEvent {
   summary: string;
   summaryArr?: string[];
 }
+
+export type SkillType = 'jobSkills' | 'softSkills' | 'languages';
+
 export interface LanguagesSkill {
   skill: { lang: string; level: Level };
   skillType: 'languages';
@@ -46,3 +49,5 @@ export interface DefaultSkill {
   skill: string;
   skillType: 'jobSkills' | 'softSkills';
 }
+
+export type SectionName = 'education' | 'work' | 'projects';

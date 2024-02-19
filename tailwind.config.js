@@ -1,6 +1,6 @@
-const defaultTheme = require('tailwindcss/defaultTheme')
+const defaultTheme = require('tailwindcss/defaultTheme');
 
-module.exports = {
+export default {
   theme: {
     fontFamily: {
       sans: ['Roboto', 'sans-serif'],
@@ -18,4 +18,4 @@ module.exports = {
       layers: ['utilities'],
     },
   },
-}
+};

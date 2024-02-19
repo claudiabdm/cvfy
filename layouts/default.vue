@@ -1,6 +1,6 @@
 <template>
   <main class="main-wrapper font-sans">
-    <nuxt />
+    <slot />
   </main>
 </template>
 <style lang="postcss" scoped>

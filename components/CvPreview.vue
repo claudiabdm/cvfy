@@ -82,11 +82,11 @@
         <!-- LANGUAGES -->
         <section class="cv__section">
           <h4 class="cv__section-title">{{ $t('languages') }}</h4>
-          <ul class="cv__bar">
+          <ul>
             <li
               v-for="lang in formSettings.languages"
               :key="`preview${lang.lang}`"
-              class="flex pr-4"
+              class="flex justify-between pr-4"
             >
               <span>{{ lang.lang }}</span>
               <span class="font-light">{{ $t(lang.level) }}</span>
@@ -176,13 +176,13 @@
                   <template v-else>{{ formatDate(job.to) }}</template>
                 </span>
               </div>
-              <ul v-if="job.summaryArr.length > 1" class="cv__list">
+              <ul v-if="job.summaryArr && job.summaryArr.length > 1" class="cv__list">
                 <li v-for="(line, index) in job.summaryArr" :key="index">
                   {{ line }}
                 </li>
               </ul>
               <p v-else class="font-light">
-                {{ job.summaryArr[0] }}
+                {{ job.summaryArr?.[0] }}
               </p>
             </li>
           </ul>
@@ -216,13 +216,13 @@
                   <template v-else>{{ formatDate(edu.to) }}</template>
                 </span>
               </div>
-              <ul v-if="edu.summaryArr.length > 1" class="cv__list">
+              <ul v-if="edu.summaryArr && edu.summaryArr.length > 1" class="cv__list">
                 <li v-for="(line, index) in edu.summaryArr" :key="index">
                   {{ line }}
                 </li>
               </ul>
               <p v-else class="font-light">
-                {{ edu.summaryArr[0] }}
+                {{ edu.summaryArr?.[0] }}
               </p>
             </li>
           </ul>
@@ -258,13 +258,13 @@
                   <template v-else>{{ formatDate(project.to) }}</template>
                 </span>
               </div>
-              <ul v-if="project.summaryArr.length > 1" class="cv__list">
+              <ul v-if="project.summaryArr && project.summaryArr.length > 1" class="cv__list">
                 <li v-for="(line, index) in project.summaryArr" :key="index">
                   {{ line }}
                 </li>
               </ul>
               <p v-else class="font-light">
-                {{ project.summaryArr[0] }}
+                {{ project.summaryArr?.[0] }}
               </p>
             </li>
           </ul>
@@ -288,22 +288,21 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
+import { defineComponent } from 'vue';
 import {
-  useContext,
   computed,
   ref,
   onMounted,
   onUnmounted,
-} from '@nuxtjs/composition-api';
-import { CvEvent } from '~/types/cvfy';
+} from 'vue';
+import type { CvEvent } from '~/types/cvfy';
 import { useCvState } from '~/data/useCvState';
 
-export default Vue.extend({
+export default defineComponent({
   name: 'Cv',
   setup() {
     const { formSettings, isLoading } = useCvState();
-    const context = useContext();
+    const i18n = useI18n();
 
     const phoneNumberHref = computed(function getPhoneNumberHref() {
       return `tel:${formSettings.value.phoneNumber}`;
@@ -348,7 +347,7 @@ export default Vue.extend({
         month: 'short',
       };
       const dateObj = new Date(date);
-      return dateObj.toLocaleDateString(context.app.i18n.locale, options);
+      return dateObj.toLocaleDateString(i18n.locale.value, options);
     }
 
     const cv = ref<HTMLElement | null>(null);
@@ -402,13 +401,13 @@ export default Vue.extend({
   },
 });
 </script>
-<style lang="postcss" scoped>
+<style lang="postcss">
 p {
   @apply leading-relaxed;
 }
 
 .credit {
-  @apply p-3 text-gray-700 text-center w-full text-xs;
+  @apply p-3 text-slate-700 text-center w-full text-xs/normal;
 }
 
 .cvWrapper {
@@ -436,7 +435,7 @@ p {
 }
 
 .cv {
-  @apply grid text-gray-800 shadow-lg text-sm font-normal mt-6;
+  @apply grid text-slate-800 shadow-lg text-sm/normal font-normal mt-6;
   --height: 29.69cm;
   grid-template-columns: 1fr 2fr;
   width: 21cm;
@@ -450,7 +449,7 @@ p {
   transform-origin: top;
   background-image: linear-gradient(
     to right,
-    rgba(247, 250, 252, 1) 33%,
+    #f8fafc 33%,
     rgba(255, 255, 255, 0) 0%
   );
 
@@ -489,25 +488,25 @@ p {
   }
 
   &__name {
-    @apply text-3xl uppercase font-bold leading-8 mb-3 tracking-wide;
+    @apply text-3xl/normal uppercase font-bold leading-8 mb-3 tracking-wide;
     color: var(--primary);
   }
 
   &__job-title {
-    @apply text-xl uppercase;
+    @apply text-xl/normal uppercase;
   }
 
   &__section {
     @apply mt-6;
     &--main {
-      @apply mt-0 text-sm;
+      @apply mt-0 text-sm/normal;
     }
   }
 
   &__section-title {
     @apply text-lg uppercase mb-2 font-bold tracking-wide;
     &--sm {
-      @apply text-sm;
+      @apply text-sm/normal;
     }
     &--main {
       color: var(--primary);
@@ -536,7 +535,7 @@ p {
   }
 
   &__tag {
-    @apply px-2 py-1 rounded text-white text-xs;
+    @apply px-2 py-1 rounded text-white text-xs/normal;
     margin: 0.5rem 0.2rem 0.25rem;
     background-color: var(--primary);
   }
@@ -555,15 +554,15 @@ p {
     }
     li::before {
       content: '\2022';
-      padding-right: 0.2em;
+      padding-right: 0.4em;
       color: var(--primary);
     }
   }
 
   &__bar {
+    @apply my-5 border-slate-50 border-2;
     list-style: none;
     padding: 0;
-    margin: 0;
     li {
       @apply flex justify-between;
     }
@@ -582,9 +581,6 @@ p {
     }
   }
 
-  &__bar {
-    @apply my-5 border-gray-100 border-2;
-  }
 }
 
 .blur {
