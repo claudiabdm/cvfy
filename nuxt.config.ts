@@ -103,6 +103,11 @@ export default defineNuxtConfig({
         file: 'fr.json',
         name: 'Francais',
       },
+      {
+        code: 'ar',
+        file: 'ar.json',
+        name: 'Arabic',
+      },
     ],
     lazy: true,
     langDir: 'lang/',
