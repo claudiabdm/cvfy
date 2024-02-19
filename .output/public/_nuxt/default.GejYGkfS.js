@@ -1,1 +1,0 @@
-import{_ as s,c as t,r as a,o as n}from"./entry.DGjZhfUt.js";const o={},r={class:"main-wrapper font-sans"};function c(e,_){return n(),t("main",r,[a(e.$slots,"default",{},void 0,!0)])}const f=s(o,[["render",c],["__scopeId","data-v-b20c0976"]]);export{f as default};
