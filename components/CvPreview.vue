@@ -21,6 +21,12 @@
         </div>
       </div>
       <div class="cv__side">
+        <img
+          v-if="profileImageData"
+          class="cv__head-image"
+          :src="profileImageData"
+          alt="profile-image"
+        />
         <h2 class="cv__name">
           {{ formSettings.name }} {{ formSettings.lastName }}
         </h2>
@@ -301,7 +307,7 @@ import { useCvState } from '~/data/useCvState';
 export default defineComponent({
   name: 'Cv',
   setup() {
-    const { formSettings, isLoading } = useCvState();
+    const { formSettings, isLoading, profileImageData } = useCvState();
     const i18n = useI18n();
 
     const phoneNumberHref = computed(function getPhoneNumberHref() {
@@ -388,6 +394,7 @@ export default defineComponent({
     return {
       formSettings,
       isLoading,
+      profileImageData,
       phoneNumberHref,
       emailHref,
       work,
@@ -485,6 +492,10 @@ p {
     @media print {
       display: none;
     }
+  }
+
+  &__head-image {
+    @apply mb-4;
   }
 
   &__name {
