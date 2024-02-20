@@ -1,7 +1,7 @@
 <template>
   <div class="form__display-checkbox checkbox">
     <label class="checkbox__label">
-      <input class="checkbox__input" type="checkbox" :checked="displaySection" @change="
+      <input class="checkbox__input mr-2" type="checkbox" :checked="displaySection" @change="
         changeDisplaySection({ sectionName, status: ($event.target as HTMLInputElement).checked })
         " />
       <span class="checkbox__text"> {{ $t('display-section') }} </span>
