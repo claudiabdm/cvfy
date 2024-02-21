@@ -178,7 +178,6 @@
           </template>
           <template v-slot:content>
             <cv-dynamic-section section-name="work" :entries="formSettings.work"></cv-dynamic-section>
-            {{ formSettings.work }}
           </template>
         </expansion-panel>
       </fieldset>
