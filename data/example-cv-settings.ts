@@ -1,4 +1,4 @@
-import { Cv, LEVELS } from '~/types/cvfy';
+import { type Cv, LEVELS } from '~/types/cvfy';
 
 export const cvSettingTemplate: Cv = {
   jobTitle: 'Deputy Director Parks Department',
@@ -23,7 +23,7 @@ export const cvSettingTemplate: Cv = {
       from: new Date(1993, 9, 1),
       to: new Date(1993, 4, 1),
       current: false,
-      summary: 'Summa cum Laude',
+      summary: '<p>Summa cum Laude</p>',
     },
   ],
   work: [
@@ -33,11 +33,8 @@ export const cvSettingTemplate: Cv = {
       from: new Date(2009, 1, 1),
       to: new Date(2012, 1, 1),
       current: true,
-      summary: `- Sed ut lorem viverra urna malesuada interdum in ut risus.
-- Duis at sem non justo aliquam iaculis.
-- Quisque lobortis nibh non turpis interdum ornare.
-- Sed et diam nec arcu tempor suscipit sit amet at tellus.
-- Duis quis diam imperdiet, pharetra lacus eget, fringilla odio.`,
+      summary:
+        '<ul><li><p>In placerat nisi pellentesque felis blandit, vel varius justo eleifend.</p></li><li><p>Etiam porttitor tortor vel lobortis ultricies.</p></li><li><p>Nam non libero accumsan, sagittis nibh vitae, auctor ligula.</p></li><li><p>Sed hendrerit dui a ante porttitor, vitae tristique ipsum laoreet.</p></li><li><p>Suspendisse interdum mauris a lectus dignissim, vitae aliquet ante tempor.</p></li></ul>',
     },
     {
       title: 'City Councilor',
@@ -45,11 +42,8 @@ export const cvSettingTemplate: Cv = {
       from: new Date(2012, 1, 1),
       to: new Date(),
       current: true,
-      summary: `- In placerat nisi pellentesque felis blandit, vel varius justo eleifend.
-- Etiam porttitor tortor vel lobortis ultricies.
-- Nam non libero accumsan, sagittis nibh vitae, auctor ligula.
-- Sed hendrerit dui a ante porttitor, vitae tristique ipsum laoreet.
-- Suspendisse interdum mauris a lectus dignissim, vitae aliquet ante tempor.`,
+      summary:
+        '<ul><li><p>Sed ut lorem viverra urna malesuada interdum in ut risus.</p></li><li><p>Duis at sem non justo aliquam iaculis.</p></li><li><p>Quisque lobortis nibh non turpis interdum ornare.</p></li><li><p>Sed et diam nec arcu tempor suscipit sit amet at tellus.</p></li><li><p>Duis quis diam imperdiet, pharetra lacus eget, fringilla odio.</p></li></ul>',
     },
   ],
   projects: [
@@ -59,11 +53,8 @@ export const cvSettingTemplate: Cv = {
       from: new Date(2009, 1, 1),
       to: new Date(2012, 1, 1),
       current: true,
-      summary: `- Sed ut lorem viverra urna malesuada interdum in ut risus.
-- Duis at sem non justo aliquam iaculis.
-- Quisque lobortis nibh non turpis interdum ornare.
-- Sed et diam nec arcu tempor suscipit sit amet at tellus.
-- Duis quis diam imperdiet, pharetra lacus eget, fringilla odio.`,
+      summary:
+        '<ul><li><p>Sed ut lorem viverra urna malesuada interdum in ut risus.</p></li><li><p>Duis at sem non justo aliquam iaculis.</p></li><li><p>Quisque lobortis nibh non turpis interdum ornare.</p></li><li><p>Sed et diam nec arcu tempor suscipit sit amet at tellus.</p></li><li><p>Duis quis diam imperdiet, pharetra lacus eget, fringilla odio.</p></li></ul>',
     },
   ],
   displayEducation: true,

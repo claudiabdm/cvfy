@@ -11,6 +11,9 @@
     "lint": "npm run lint:js"
   },
   "dependencies": {
+    "@tiptap/pm": "^2.2.3",
+    "@tiptap/starter-kit": "^2.2.3",
+    "@tiptap/vue-3": "^2.2.3",
     "core-js": "^3.6.5",
     "nuxt": "^3.10.0"
   },
