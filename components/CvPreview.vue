@@ -251,16 +251,6 @@ export default defineComponent({
         );
     }
 
-    function getSummaryLines(summary: string): string[] {
-      const lines = summary.split('\n').map((line) => {
-        if (line[0] === '-') {
-          line = line.slice(1).trim();
-        }
-        return line;
-      });
-      return lines;
-    }
-
     function formatDate(date: Date): string {
       const options: Intl.DateTimeFormatOptions = {
         year: 'numeric',
