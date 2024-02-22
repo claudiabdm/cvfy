@@ -8,6 +8,7 @@ export const LEVELS = [
 
 export type Level = (typeof LEVELS)[number];
 export interface Cv {
+  profileImageDataUri?: string | null;
   jobTitle: string;
   name: string;
   lastName: string;

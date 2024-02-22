@@ -63,6 +63,7 @@ export const cvSettingTemplate: Cv = {
 };
 
 export const cvSettingsEmptyTemplate: Cv = {
+  profileImageDataUri: null,
   jobTitle: '',
   name: '',
   lastName: '',

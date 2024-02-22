@@ -63,6 +63,10 @@
           <template v-slot:content>
             <div class="grid grid-cols-2 gap-x-3 gap-y-10">
               <div class="form__group col-span-full">
+                <span class="form__label">📷 {{ $t('profile-image') }} </span>
+                <CvProfileImageUploader v-model="formSettings.profileImageDataUri" />
+              </div>
+              <div class="form__group col-span-full">
                 <label class="form__label" for="job-pos">💼 {{ $t('job-title') }}</label>
                 <input id="job-pos" v-model="formSettings.jobTitle" class="form__control" type="text" />
               </div>
@@ -219,25 +223,6 @@
 
       <!-- CTA -->
       <div class="form__section flex flex-col p-6 gap-3">
-        <div class="flex flex-row">
-          <label tabindex="0" class="form__btn flex justify-center flex-grow">
-            {{ $t('upload-profile-image') }} (PNG)
-            <input
-              type="file"
-              accept=".png"
-              name="uploadProfileImage"
-              class="hidden"
-              @change="uploadProfileImage"
-            />
-          </label>
-          <button
-            class="form__btn flex flex-col justify-center"
-            type="button"
-            @click="clearProfileImage"
-          >
-            {{ $t('clear-profile-image') }}
-          </button>
-        </div>
         <label tabindex="0" class="form__btn flex justify-center">
           {{ $t('upload-cv') }} (JSON)
           <input type="file" accept=".json" name="uploadCV" class="hidden" @change="uploadCV" />
@@ -255,13 +240,9 @@
   </div>
 </template>
 <script setup lang="ts">
-import CvDynamicSection from '~/components/CvDynamicSection.vue';
-import CvDisplayCheckbox from '~/components/CvDisplayCheckbox.vue';
-import CvInputTags from '~/components/CvInputTags.vue';
-import ExpansionPanel from '~/components/ExpansionPanel.vue';
 import { useCvState } from '~/data/useCvState';
 
-const { formSettings, uploadCV, uploadProfileImage, clearProfileImage, clearForm, resetForm, setUpCvSettings, addSkill, removeSkill } =
+const { formSettings, uploadCV, clearForm, resetForm, setUpCvSettings, addSkill, removeSkill } =
   useCvState();
 const switchLocalePath = useSwitchLocalePath();
 const i18n = useI18n();
