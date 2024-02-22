@@ -122,9 +122,9 @@
 
       <!-- SOCIAL -->
       <fieldset class="form__section grid gap-3">
-        <expansion-panel :panel-name="'Social'">
+        <expansion-panel :panel-name="$t('social')">
           <template v-slot:title>
-            <legend class="form__legend">Social</legend>
+            <legend class="form__legend">{{ $t('social') }}</legend>
           </template>
           <template v-slot:content>
             <div class="grid grid-cols-2 gap-x-3 gap-y-10">
@@ -178,7 +178,6 @@
           </template>
           <template v-slot:content>
             <cv-dynamic-section section-name="work" :entries="formSettings.work"></cv-dynamic-section>
-            {{ formSettings.work }}
           </template>
         </expansion-panel>
       </fieldset>
@@ -280,6 +279,9 @@ const config = {
     { name: 'en-name', code: 'en' },
     { name: 'id-name', code: 'id' },
     { name: 'fr-name', code: 'fr' },
+    { name: 'zh-name', code: 'zh' },
+    { name: 'de-name', code: 'de' },
+    { name: 'ar-name', code: 'ar' },
   ],
 };
 

@@ -108,6 +108,11 @@ export default defineNuxtConfig({
         file: 'ar.json',
         name: 'Arabic',
       },
+      {
+        code: 'zh',
+        file: 'zh.json',
+        name: 'Chinese',
+      },
     ],
     lazy: true,
     langDir: 'lang/',
