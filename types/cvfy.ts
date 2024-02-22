@@ -36,7 +36,6 @@ export interface CvEvent {
   to: Date | any;
   current: boolean;
   summary: string;
-  summaryArr?: string[];
 }
 
 export type SkillType = 'jobSkills' | 'softSkills' | 'languages';

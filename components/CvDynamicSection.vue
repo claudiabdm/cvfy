@@ -1,5 +1,5 @@
 <template>
-  <div class="dynamic-section">
+  <div class="dynamic-section" v-if="sectionName">
     <button class="form__btn col-span-full" type="button" @click="addEntry({ sectionName })">
       {{ $t('add') }} {{ $t(sectionName) }}
     </button>
@@ -52,9 +52,9 @@
                   type="date" />
               </div>
               <div class="form__group col-span-full">
-                <label class="form__label" :for="`entrySummary-${entry.title}`">📝 {{ $t('summary') }}</label>
-                <textarea :id="`entrySummary-${entry.title}`" v-model="entry.summary" class="form__control"
-                  name="entrySummary" cols="30" rows="10"></textarea>
+                <label class="form__label" :for="`entrySummary-${entry.title}`"
+                  @click="focusEditor(`entrySummary-${entry.title}`)">📝 {{ $t('summary') }}</label>
+                <CvTextEditor v-model="entry.summary" :id="`entrySummary-${entry.title}`" class="form__control" />
               </div>
             </div>
           </template>
@@ -63,35 +63,23 @@
     </ul>
   </div>
 </template>
-<script lang="ts">
-import { defineComponent } from 'vue';
+<script setup lang="ts">
 import type { CvEvent, SectionName } from '~/types/cvfy';
-import ExpansionPanel from '~/components/ExpansionPanel.vue';
 import { useCvState } from '~/data/useCvState';
-export default defineComponent({
-  name: 'CvDynamicEntry',
-  components: { ExpansionPanel },
-  props: {
-    sectionName: {
-      type: String as () => SectionName,
-      default: 'Section name',
-    },
-    entries: {
-      type: Array as () => CvEvent[],
-      default: () => {
-        return [];
-      },
-    },
-  },
-  setup() {
-    const { addEntry, removeEntry } = useCvState();
 
-    return {
-      addEntry,
-      removeEntry,
-    };
-  },
+const { addEntry, removeEntry } = useCvState();
+const { sectionName = null, entries = [] } = defineProps({
+  sectionName: String as () => SectionName,
+  entries: Array as () => CvEvent[],
 });
+
+function focusEditor(id: string) {
+  const editorElem = document.getElementById(`${id}-editor`);
+  if (editorElem) {
+    editorElem.focus();
+  }
+}
+
 </script>
 <style lang="postcss" scoped>
 .dynamic-section {

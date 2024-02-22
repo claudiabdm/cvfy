@@ -1,22 +1,10 @@
 <template>
   <div class="cvWrapper">
-    <div
-      ref="cv"
-      tabindex="0"
-      aria-label="CV preview"
-      :class="['cv', 'bg-white', { blur: isLoading }, 'relative']"
-    >
-      <div
-        v-for="page in pages"
-        :key="page"
-        :style="{ top: `${page * 29.69}cm` }"
-        class="cv__pages"
-      >
-        <div
-          :style="{
-            transform: 'translate3d(102%, -50%, 0)',
-          }"
-        >
+    <div ref="cv" tabindex="0" aria-label="CV preview" :class="['cv', 'bg-white', { blur: isLoading }, 'relative']">
+      <div v-for="page in pages" :key="page" :style="{ top: `${page * 29.69}cm` }" class="cv__pages">
+        <div :style="{
+          transform: 'translate3d(102%, -50%, 0)',
+        }">
           {{ page + 1 }}
         </div>
       </div>
@@ -56,11 +44,7 @@
         <section class="cv__section">
           <h4 class="cv__section-title">{{ $t('professional-skills') }}</h4>
           <ul class="cv__tags">
-            <li
-              v-for="skill in formSettings.jobSkills"
-              :key="`preview${skill}`"
-              class="cv__tag"
-            >
+            <li v-for="skill in formSettings.jobSkills" :key="`preview${skill}`" class="cv__tag">
               {{ skill }}
             </li>
           </ul>
@@ -70,10 +54,7 @@
         <section class="cv__section">
           <h4 class="cv__section-title">{{ $t('soft-skills') }}</h4>
           <ul class="cv__list">
-            <li
-              v-for="skill in formSettings.softSkills"
-              :key="`preview${skill}`"
-            >
+            <li v-for="skill in formSettings.softSkills" :key="`preview${skill}`">
               {{ skill }}
             </li>
           </ul>
@@ -83,11 +64,7 @@
         <section class="cv__section">
           <h4 class="cv__section-title">{{ $t('languages') }}</h4>
           <ul>
-            <li
-              v-for="lang in formSettings.languages"
-              :key="`preview${lang.lang}`"
-              class="flex justify-between pr-4"
-            >
+            <li v-for="lang in formSettings.languages" :key="`preview${lang.lang}`" class="flex justify-between pr-4">
               <span>{{ lang.lang }}</span>
               <span class="font-light">{{ $t(lang.level) }}</span>
             </li>
@@ -102,34 +79,22 @@
               <svg class="cv__icon">
                 <use href="@/assets/sprite.svg#linkedin-color"></use>
               </svg>
-              <a
-                target="_blank"
-                rel="noopener"
-                :href="`https://linkedin.com/in/${formSettings.linkedin}`"
-                >{{ `linkedin.com/in/${formSettings.linkedin}` }}</a
-              >
+              <a target="_blank" rel="noopener" :href="`https://linkedin.com/in/${formSettings.linkedin}`">{{
+                `linkedin.com/in/${formSettings.linkedin}` }}</a>
             </div>
             <div v-if="formSettings.twitter" class="cv__icon-wrapper">
               <svg class="cv__icon">
                 <use href="@/assets/sprite.svg#twitter-color"></use>
               </svg>
-              <a
-                target="_blank"
-                rel="noopener"
-                :href="`https://twitter.com/${formSettings.twitter}`"
-                >{{ `twitter.com/${formSettings.twitter}` }}</a
-              >
+              <a target="_blank" rel="noopener" :href="`https://twitter.com/${formSettings.twitter}`">{{
+                `twitter.com/${formSettings.twitter}` }}</a>
             </div>
             <div v-if="formSettings.github" class="cv__icon-wrapper">
               <svg class="cv__icon">
                 <use href="@/assets/sprite.svg#github-color"></use>
               </svg>
-              <a
-                target="_blank"
-                rel="noopener"
-                :href="`https://github.com/${formSettings.github}`"
-                >{{ `github.com/${formSettings.github}` }}</a
-              >
+              <a target="_blank" rel="noopener" :href="`https://github.com/${formSettings.github}`">{{
+                `github.com/${formSettings.github}` }}</a>
             </div>
             <div v-if="formSettings.website" class="cv__icon-wrapper">
               <svg class="cv__icon">
@@ -176,14 +141,7 @@
                   <template v-else>{{ formatDate(job.to) }}</template>
                 </span>
               </div>
-              <ul v-if="job.summaryArr && job.summaryArr.length > 1" class="cv__list">
-                <li v-for="(line, index) in job.summaryArr" :key="index">
-                  {{ line }}
-                </li>
-              </ul>
-              <p v-else class="font-light">
-                {{ job.summaryArr?.[0] }}
-              </p>
+              <CvTextEditor v-model="job.summary" :read-only="true" class="cv__desc" />
             </li>
           </ul>
         </section>
@@ -192,19 +150,12 @@
         <hr v-if="formSettings.displayEducation" class="cv__bar" />
 
         <!-- EDUCATION -->
-        <section
-          v-if="formSettings.displayEducation"
-          class="cv__section cv__section--main w-full"
-        >
+        <section v-if="formSettings.displayEducation" class="cv__section cv__section--main w-full">
           <h4 class="cv__section-title cv__section-title--main">
             {{ $t('education') }}
           </h4>
           <ul class="cv__event mt-3">
-            <li
-              v-for="edu in education"
-              :key="edu.title"
-              class="cv__event-elem"
-            >
+            <li v-for="edu in education" :key="edu.title" class="cv__event-elem">
               <h5 class="cv__section-title cv__section-title--sm">
                 {{ edu.title }}
               </h5>
@@ -216,14 +167,7 @@
                   <template v-else>{{ formatDate(edu.to) }}</template>
                 </span>
               </div>
-              <ul v-if="edu.summaryArr && edu.summaryArr.length > 1" class="cv__list">
-                <li v-for="(line, index) in edu.summaryArr" :key="index">
-                  {{ line }}
-                </li>
-              </ul>
-              <p v-else class="font-light">
-                {{ edu.summaryArr?.[0] }}
-              </p>
+              <CvTextEditor v-model="edu.summary" :read-only="true" class="cv__desc" />
             </li>
           </ul>
         </section>
@@ -232,19 +176,12 @@
         <hr v-if="formSettings.displayProjects" class="cv__bar" />
 
         <!-- PROJECTS -->
-        <section
-          v-if="formSettings.displayProjects"
-          class="cv__section cv__section--main w-full"
-        >
+        <section v-if="formSettings.displayProjects" class="cv__section cv__section--main w-full">
           <h4 class="cv__section-title cv__section-title--main">
             {{ $t('projects') }}
           </h4>
           <ul class="cv__event mt-3">
-            <li
-              v-for="project in projects"
-              :key="project.title"
-              class="cv__event-elem"
-            >
+            <li v-for="project in projects" :key="project.title" class="cv__event-elem">
               <h5 class="cv__section-title cv__section-title--sm">
                 {{ project.title }}
               </h5>
@@ -258,14 +195,7 @@
                   <template v-else>{{ formatDate(project.to) }}</template>
                 </span>
               </div>
-              <ul v-if="project.summaryArr && project.summaryArr.length > 1" class="cv__list">
-                <li v-for="(line, index) in project.summaryArr" :key="index">
-                  {{ line }}
-                </li>
-              </ul>
-              <p v-else class="font-light">
-                {{ project.summaryArr?.[0] }}
-              </p>
+              <CvTextEditor v-model="project.summary" :read-only="true" class="cv__desc" />
             </li>
           </ul>
         </section>
@@ -274,14 +204,8 @@
     </div>
     <div class="credit">
       Made with ♥️ by
-      <a
-        class="underline"
-        :style="{ color: 'var(--primary)' }"
-        href="https://github.com/claudiabdm"
-        rel="noopener"
-        target="_blank"
-        >claudiabdm</a
-      >
+      <a class="underline" :style="{ color: 'var(--primary)' }" href="https://github.com/claudiabdm" rel="noopener"
+        target="_blank">claudiabdm</a>
       using <b>Nuxt.js</b> + <b>TailwindCSS</b>
     </div>
   </div>
@@ -322,10 +246,6 @@ export default defineComponent({
 
     function orderEvents(arr: CvEvent[]): CvEvent[] {
       return arr
-        .map((event) => {
-          event.summaryArr = getSummaryLines(event.summary);
-          return event;
-        })
         .sort(
           (a, b) => new Date(b.from).getTime() - new Date(a.from).getTime()
         );
@@ -447,18 +367,18 @@ p {
   word-break: break-word;
   transform: scale(0.4);
   transform-origin: top;
-  background-image: linear-gradient(
-    to right,
-    #f8fafc 33%,
-    rgba(255, 255, 255, 0) 0%
-  );
+  background-image: linear-gradient(to right,
+      #f8fafc 33%,
+      rgba(255, 255, 255, 0) 0%);
 
   @media screen and (min-width: 425px) {
     transform: scale(0.65);
   }
+
   @media screen and (min-width: 768px) {
     transform: scale(0.9);
   }
+
   @media screen and (min-width: 1024px) {
     transform: scale(0.7);
   }
@@ -475,13 +395,12 @@ p {
     position: absolute;
     right: -5%;
     left: -5%;
-    background-image: linear-gradient(
-      to right,
-      grey 50%,
-      rgba(255, 255, 255, 0) 0%
-    );
+    background-image: linear-gradient(to right,
+        grey 50%,
+        rgba(255, 255, 255, 0) 0%);
     background-size: 20px 1px;
     background-repeat: repeat-x;
+
     @media print {
       display: none;
     }
@@ -498,6 +417,7 @@ p {
 
   &__section {
     @apply mt-6;
+
     &--main {
       @apply mt-0 text-sm/normal;
     }
@@ -505,9 +425,11 @@ p {
 
   &__section-title {
     @apply text-lg uppercase mb-2 font-bold tracking-wide;
+
     &--sm {
       @apply text-sm/normal;
     }
+
     &--main {
       color: var(--primary);
     }
@@ -517,7 +439,7 @@ p {
     @apply flex flex-row font-light;
     align-items: center;
 
-    & + & {
+    &+& {
       margin-top: 5px;
     }
   }
@@ -540,33 +462,20 @@ p {
     background-color: var(--primary);
   }
 
-  &__list {
+  &__desc {
     @apply font-light mt-1;
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    li {
-      padding-left: 1em;
-      text-indent: -1em;
-    }
-    li:first-child {
-      @apply mt-1;
-    }
-    li::before {
-      content: '\2022';
-      padding-right: 0.4em;
-      color: var(--primary);
-    }
   }
 
   &__bar {
     @apply my-5 border-slate-50 border-2;
     list-style: none;
     padding: 0;
+
     li {
       @apply flex justify-between;
     }
-    li + li {
+
+    li+li {
       @apply mt-3;
     }
   }
@@ -576,7 +485,7 @@ p {
   }
 
   &__event {
-    &-elem + &-elem {
+    &-elem+&-elem {
       @apply mt-6;
     }
   }
