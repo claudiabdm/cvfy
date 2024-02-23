@@ -131,42 +131,49 @@
             <legend class="form__legend">{{ $t('social') }}</legend>
           </template>
           <template v-slot:content>
-            <div class="grid grid-cols-2 gap-x-3 gap-y-10">
-              <div class="form__group col-span-full">
-                <label class="form__label flex" for="linkedin">
-                  <svg class="form__icon rounded mr-1">
-                    <use href="@/assets/sprite.svg#linkedin"></use>
-                  </svg>
-                  Linkedin
-                </label>
-                <input id="linkedin" v-model="formSettings.linkedin" class="form__control" type="text" />
-              </div>
-              <div class="form__group col-span-full">
-                <label class="form__label flex" for="twitter">
-                  <svg class="form__icon rounded mr-1">
-                    <use href="@/assets/sprite.svg#twitter"></use>
-                  </svg>
-                  Twitter
-                </label>
-                <input id="twitter" v-model="formSettings.twitter" class="form__control" type="text" />
-              </div>
-              <div class="form__group col-span-full">
-                <label class="form__label flex" for="github">
-                  <svg class="form__icon mr-1">
-                    <use href="@/assets/sprite.svg#github"></use>
-                  </svg>
-                  GitHub
-                </label>
-                <input id="github" v-model="formSettings.github" class="form__control" type="text" />
-              </div>
-              <div class="form__group col-span-full">
-                <label class="form__label flex" for="website">
-                  <svg class="form__icon mr-1">
-                    <use href="@/assets/sprite.svg#website"></use>
-                  </svg>
-                  Website
-                </label>
-                <input id="website" v-model="formSettings.website" class="form__control" type="text" />
+            <div>
+              <cv-display-checkbox
+                class="form__display-checkbox"
+                :display-section="formSettings.displaySocial"
+                section-name="social"
+              ></cv-display-checkbox>
+              <div class="grid grid-cols-2 gap-x-3 gap-y-10">
+                <div class="form__group col-span-full">
+                  <label class="form__label flex" for="linkedin">
+                    <svg class="form__icon rounded mr-1">
+                      <use href="@/assets/sprite.svg#linkedin"></use>
+                    </svg>
+                    Linkedin
+                  </label>
+                  <input id="linkedin" v-model="formSettings.linkedin" class="form__control" type="text" />
+                </div>
+                <div class="form__group col-span-full">
+                  <label class="form__label flex" for="twitter">
+                    <svg class="form__icon rounded mr-1">
+                      <use href="@/assets/sprite.svg#twitter"></use>
+                    </svg>
+                    Twitter
+                  </label>
+                  <input id="twitter" v-model="formSettings.twitter" class="form__control" type="text" />
+                </div>
+                <div class="form__group col-span-full">
+                  <label class="form__label flex" for="github">
+                    <svg class="form__icon mr-1">
+                      <use href="@/assets/sprite.svg#github"></use>
+                    </svg>
+                    GitHub
+                  </label>
+                  <input id="github" v-model="formSettings.github" class="form__control" type="text" />
+                </div>
+                <div class="form__group col-span-full">
+                  <label class="form__label flex" for="website">
+                    <svg class="form__icon mr-1">
+                      <use href="@/assets/sprite.svg#website"></use>
+                    </svg>
+                    Website
+                  </label>
+                  <input id="website" v-model="formSettings.website" class="form__control" type="text" />
+                </div>
               </div>
             </div>
           </template>

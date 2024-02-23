@@ -26,6 +26,7 @@ export interface Cv {
   education: CvEvent[];
   work: CvEvent[];
   projects: CvEvent[];
+  displaySocial: boolean;
   displayEducation: boolean;
   displayProjects: boolean;
   activeColor: string;
