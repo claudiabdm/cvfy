@@ -63,6 +63,10 @@
           <template v-slot:content>
             <div class="grid grid-cols-2 gap-x-3 gap-y-10">
               <div class="form__group col-span-full">
+                <span class="form__label">📷 {{ $t('profile-image') }} </span>
+                <CvProfileImageUploader v-model="formSettings.profileImageDataUri" />
+              </div>
+              <div class="form__group col-span-full">
                 <label class="form__label" for="job-pos">💼 {{ $t('job-title') }}</label>
                 <input id="job-pos" v-model="formSettings.jobTitle" class="form__control" type="text" />
               </div>
@@ -236,10 +240,6 @@
   </div>
 </template>
 <script setup lang="ts">
-import CvDynamicSection from '~/components/CvDynamicSection.vue';
-import CvDisplayCheckbox from '~/components/CvDisplayCheckbox.vue';
-import CvInputTags from '~/components/CvInputTags.vue';
-import ExpansionPanel from '~/components/ExpansionPanel.vue';
 import { useCvState } from '~/data/useCvState';
 
 const { formSettings, uploadCV, clearForm, resetForm, setUpCvSettings, addSkill, removeSkill } =

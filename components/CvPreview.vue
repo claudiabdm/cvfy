@@ -8,7 +8,9 @@
           {{ page + 1 }}
         </div>
       </div>
-      <div class="cv__side">
+      <div ref="cvSide" class="cv__side">
+        <CvProfileImageViewer v-if="formSettings.profileImageDataUri"
+          :profileImageDataUri="formSettings.profileImageDataUri" />
         <h2 class="cv__name">
           {{ formSettings.name }} {{ formSettings.lastName }}
         </h2>
@@ -262,38 +264,49 @@ export default defineComponent({
 
     const cv = ref<HTMLElement | null>(null);
     const cvMain = ref<HTMLElement | null>(null);
+    const cvSide = ref<HTMLElement | null>(null);
     const PX_TO_CM = 0.026458;
     const PAGE_HEIGHT_CM = 29.69;
     const pages = ref<Array<number>>([]);
-    let resizeObserver: ResizeObserver | null = null;
+    let resizeObserverMain: ResizeObserver | null = null;
+    let resizeObserverSide: ResizeObserver | null = null;
 
     onMounted(() => {
-      if (cv.value && cvMain.value) {
-        resizeObserver = new ResizeObserver(function (entries) {
-          for (const entry of entries) {
-            const cm = PX_TO_CM * entry.contentRect.height;
-            const newPages = Math.ceil(cm / PAGE_HEIGHT_CM);
-            if (newPages !== pages.value.length) {
-              pages.value = [...Array(newPages).keys()];
-              const newHeightCm = Math.max(
-                PAGE_HEIGHT_CM,
-                newPages * PAGE_HEIGHT_CM
-              );
-              if (cv.value) {
-                cv.value.style.setProperty('--height', `${newHeightCm}cm`);
-              }
-            }
-          }
-        });
-        resizeObserver.observe(cvMain.value);
+      if (cv.value && cvMain.value && cvSide.value) {
+        resizeObserverMain = createResizeObserver();
+        resizeObserverSide = createResizeObserver();
+        resizeObserverMain.observe(cvMain.value);
+        resizeObserverSide.observe(cvSide.value);
       }
     });
 
     onUnmounted(() => {
-      if (resizeObserver) {
-        resizeObserver.disconnect();
+      if (resizeObserverMain) {
+        resizeObserverMain.disconnect();
+      }
+      if (resizeObserverSide) {
+        resizeObserverSide.disconnect();
       }
     });
+
+    function createResizeObserver() {
+      return new ResizeObserver(function (entries) {
+        for (const entry of entries) {
+          const cm = PX_TO_CM * entry.contentRect.height;
+          const newPages = Math.ceil(cm / PAGE_HEIGHT_CM);
+          if (newPages !== pages.value.length) {
+            pages.value = [...Array(newPages).keys()];
+            const newHeightCm = Math.max(
+              PAGE_HEIGHT_CM,
+              newPages * PAGE_HEIGHT_CM
+            );
+            if (cv.value) {
+              cv.value.style.setProperty('--height', `${newHeightCm}cm`);
+            }
+          }
+        }
+      });
+    }
 
     return {
       formSettings,
@@ -306,6 +319,7 @@ export default defineComponent({
       formatDate,
       cv,
       cvMain,
+      cvSide,
       pages,
     };
   },
@@ -378,7 +392,7 @@ p {
   }
 
   &__side {
-    @apply flex flex-col px-6 py-10;
+    @apply flex flex-col px-6 pt-8 pb-10;
   }
 
   &__pages {

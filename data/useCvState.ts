@@ -14,6 +14,7 @@ import type {
 const state = reactive({
   formSettings: { ...cvSettingsEmptyTemplate } as Cv,
   isLoading: true,
+  isProfilePhotoLoading: false,
 });
 
 export function useCvState() {
