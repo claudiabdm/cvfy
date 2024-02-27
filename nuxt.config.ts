@@ -1,11 +1,15 @@
-import { defineNuxtConfig } from 'nuxt/config';
-import en from './lang/en.json';
+import { defineNuxtConfig } from 'nuxt/config'
+import en from './lang/en.json'
 
 export default defineNuxtConfig({
   devtools: { enabled: true },
 
   site: {
-    url: process.env.NODE_ENV === 'dev' ? 'http://localhost:3000' : 'https://www.cvfy.xyz',
+    url:
+      // eslint-disable-next-line node/prefer-global/process
+      process.env.NODE_ENV === 'dev'
+        ? 'http://localhost:3000'
+        : 'https://www.cvfy.xyz',
   },
 
   imports: {
@@ -58,11 +62,16 @@ export default defineNuxtConfig({
   // Modules (https://go.nuxtjs.dev/config-modules)
   modules: [
     // https://go.nuxtjs.dev/pwa
+    'nuxt-module-eslint-config',
     '@nuxtjs/i18n',
     '@nuxtjs/sitemap',
     '@nuxtjs/tailwindcss',
     '@vite-pwa/nuxt',
   ],
+
+  eslintConfig: {
+    setup: false,
+  },
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {},
@@ -155,4 +164,4 @@ export default defineNuxtConfig({
   sitemap: {
     autoI18n: true,
   },
-});
+})

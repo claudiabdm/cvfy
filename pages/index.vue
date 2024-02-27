@@ -1,14 +1,7 @@
-<template>
-  <div class="main">
-    <CvSettings />
-    <CvPreview />
-  </div>
-</template>
-
 <script setup lang="ts">
-const CVFY_IMAGE = 'https://cvfy.xyz/CvFy-no-border.png';
+const CVFY_IMAGE = 'https://cvfy.xyz/CvFy-no-border.png'
 
-const { t, locale } = useI18n();
+const { t, locale } = useI18n()
 useHead({
   htmlAttrs: {
     lang: locale,
@@ -87,9 +80,16 @@ useHead({
       content: t('description'),
     },
   ],
-});
-
+})
 </script>
+
+<template>
+  <div class="main">
+    <CvSettings />
+    <CvPreview />
+  </div>
+</template>
+
 <style lang="postcss" scoped>
 @media screen and (min-width: 1024px) {
   .main {

@@ -1,4 +1,4 @@
-const defaultTheme = require('tailwindcss/defaultTheme');
+const defaultTheme = require('tailwindcss/defaultTheme')
 
 export default {
   theme: {
@@ -18,4 +18,4 @@ export default {
       layers: ['utilities'],
     },
   },
-};
+}

@@ -3,6 +3,7 @@
     <slot />
   </main>
 </template>
+
 <style lang="postcss" scoped>
 @media screen and (min-width: 1024px) {
   .main-wrapper {
