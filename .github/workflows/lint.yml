@@ -1,0 +1,38 @@
+name: Linting
+run-name: Run ESLint and fix all auto-fixable errors
+
+on:
+  # Trigger the workflow on push or pull request,
+  # but only for the main branch
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  linting:
+    name: Linting
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          cache: yarn
+
+      - name: Install dependencies
+        run: yarn --frozen-lockfile
+
+      - name: Prepare Nuxt
+        run: yarn nuxi prepare
+
+      - name: Run ESLint
+        run: yarn lint
+
+      - name: Fix all auto-fixable errors
+        run: yarn lint:fix

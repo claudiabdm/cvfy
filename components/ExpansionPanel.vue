@@ -1,28 +1,6 @@
-<template>
-  <div class="expansion-panel">
-    <div class="expansion-panel__header" @click.prevent="togglePanel">
-      <div class="expansion-panel__title">
-        <slot name="title">Título</slot>
-        <button :id="`expansionPanel${panelName}`" type="button" :aria-label="`Expansion panel ${panelName}`"
-          :aria-expanded="`${isOpen}`" :aria-controls="panelName" @click.stop="togglePanel">
-          <svg :class="[
-            'expansion-panel__arrow',
-            { 'expansion-panel__arrow--open': isOpen },
-          ]">
-            <use href="@/assets/sprite.svg#panel-arrow"></use>
-          </svg>
-        </button>
-      </div>
-      <slot name="action-button"></slot>
-    </div>
-    <transition name="expand" @enter="enter" @after-enter="afterEnter" @leave="leave">
-      <slot v-if="isOpen" :id="panelName" class="expansion-panel__panel" name="content" role="region"
-        :aria-labelledby="`expansionPanel${panelName}`">Contenido</slot>
-    </transition>
-  </div>
-</template>
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent } from 'vue'
+
 export default defineComponent({
   name: 'ExpansionPanel',
   props: {
@@ -34,40 +12,90 @@ export default defineComponent({
   data() {
     return {
       isOpen: false,
-    };
+    }
   },
   methods: {
     togglePanel() {
-      this.isOpen = !this.isOpen;
+      this.isOpen = !this.isOpen
     },
     enter(element: Element) {
-      const el = element as HTMLElement;
-      el.style.height = 'auto';
-      const height = getComputedStyle(element).height;
-      el.style.height = '0';
+      const el = element as HTMLElement
+      el.style.height = 'auto'
+      const height = getComputedStyle(element).height
+      el.style.height = '0'
       // eslint-disable-next-line no-unused-expressions
-      getComputedStyle(element).height;
+      getComputedStyle(element).height
       requestAnimationFrame(() => {
-        el.style.height = height;
-      });
+        el.style.height = height
+      })
     },
     afterEnter(element: Element) {
-      const el = element as HTMLElement;
-      el.style.height = 'auto';
+      const el = element as HTMLElement
+      el.style.height = 'auto'
     },
     leave(element: Element) {
-      const el = element as HTMLElement;
-      const height = getComputedStyle(element).height;
-      el.style.height = height;
+      const el = element as HTMLElement
+      const height = getComputedStyle(element).height
+      el.style.height = height
       // eslint-disable-next-line no-unused-expressions
-      getComputedStyle(element).height;
+      getComputedStyle(element).height
       requestAnimationFrame(() => {
-        el.style.height = '0';
-      });
+        el.style.height = '0'
+      })
     },
   },
-});
+})
 </script>
+
+<template>
+  <div class="expansion-panel">
+    <div
+      class="expansion-panel__header"
+      @click.prevent="togglePanel"
+    >
+      <div class="expansion-panel__title">
+        <slot name="title">
+          Título
+        </slot>
+        <button
+          :id="`expansionPanel${panelName}`"
+          type="button"
+          :aria-label="`Expansion panel ${panelName}`"
+          :aria-expanded="`${isOpen}`"
+          :aria-controls="panelName"
+          @click.stop="togglePanel"
+        >
+          <svg
+            class="expansion-panel__arrow" :class="[
+              { 'expansion-panel__arrow--open': isOpen },
+            ]"
+          >
+            <use href="@/assets/sprite.svg#panel-arrow" />
+          </svg>
+        </button>
+      </div>
+      <slot name="action-button" />
+    </div>
+    <transition
+      name="expand"
+      @enter="enter"
+      @after-enter="afterEnter"
+      @leave="leave"
+    >
+      <slot
+        v-if="isOpen"
+        :id="panelName"
+        class="expansion-panel__panel"
+        name="content"
+        role="region"
+        :aria-labelledby="`expansionPanel${panelName}`"
+      >
+        Contenido
+      </slot>
+    </transition>
+  </div>
+</template>
+
 <style lang="postcss" scoped>
 * {
   will-change: height;
@@ -114,7 +142,9 @@ export default defineComponent({
 
 .expand-enter-active,
 .expand-leave-active {
-  transition: height 0.35s ease-in-out, opacity 0.35s ease-in-out;
+  transition:
+    height 0.35s ease-in-out,
+    opacity 0.35s ease-in-out;
   overflow: hidden;
 }
 
