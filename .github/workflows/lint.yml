@@ -1,4 +1,5 @@
-name: Lint
+name: Linting
+run-name: Run ESLint and fix all auto-fixable errors
 
 on:
   # Trigger the workflow on push or pull request,
@@ -26,6 +27,9 @@ jobs:
 
       - name: Install dependencies
         run: yarn --frozen-lockfile
+
+      - name: Prepare Nuxt
+        run: yarn nuxi prepare
 
       - name: Run ESLint
         run: yarn lint
