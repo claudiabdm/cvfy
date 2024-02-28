@@ -108,7 +108,8 @@ export default defineComponent({
       ref="cv"
       tabindex="0"
       aria-label="CV preview"
-      class="cv bg-white relative" :class="[{ blur: isLoading }]"
+      class="cv bg-white relative"
+      :class="[{ blur: isLoading }]"
     >
       <div
         v-for="page in pages"
@@ -490,11 +491,9 @@ p {
   word-break: break-word;
   transform: scale(0.4);
   transform-origin: top;
-  background-image: linear-gradient(
-    to right,
-    #f8fafc 33%,
-    rgba(255, 255, 255, 0) 0%
-  );
+  background-image: linear-gradient(to right,
+      #f8fafc 33%,
+      rgba(255, 255, 255, 0) 0%);
 
   @media screen and (min-width: 425px) {
     transform: scale(0.65);
@@ -520,11 +519,9 @@ p {
     position: absolute;
     right: -5%;
     left: -5%;
-    background-image: linear-gradient(
-      to right,
-      grey 50%,
-      rgba(255, 255, 255, 0) 0%
-    );
+    background-image: linear-gradient(to right,
+        grey 50%,
+        rgba(255, 255, 255, 0) 0%);
     background-size: 20px 1px;
     background-repeat: repeat-x;
 
@@ -566,7 +563,7 @@ p {
     @apply flex flex-row font-light;
     align-items: center;
 
-    & + & {
+    &+& {
       margin-top: 5px;
     }
   }
@@ -580,13 +577,21 @@ p {
   }
 
   &__tags {
-    @apply flex flex-wrap;
+    @apply flex flex-wrap gap-2;
   }
 
   &__tag {
     @apply px-2 py-1 rounded text-white text-xs/normal;
-    margin: 0.5rem 0.2rem 0.25rem;
     background-color: var(--primary);
+  }
+
+  &__list {
+    font-weight: 300;
+    list-style: inside;
+
+    ::marker {
+      color: var(--primary);
+    }
   }
 
   &__desc {
@@ -602,7 +607,7 @@ p {
       @apply flex justify-between;
     }
 
-    li + li {
+    li+li {
       @apply mt-3;
     }
   }
@@ -612,7 +617,7 @@ p {
   }
 
   &__event {
-    &-elem + &-elem {
+    &-elem+&-elem {
       @apply mt-6;
     }
   }
