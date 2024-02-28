@@ -19,9 +19,7 @@ export default defineComponent({
     const { addSkill, removeSkill } = useCvState()
 
     const tagInputLangEmpty = computed(() => {
-      return (
-        state.tagInputLang.lang === '' || state.tagInputLang.level === LEVELS[0]
-      )
+      return state.tagInputLang.lang === ''
     })
 
     function cleanInput(): void {
@@ -60,8 +58,7 @@ export default defineComponent({
       v-model="tagInputLang.level"
       name="level"
       class="form__control mt-2 mb-1"
-      type="selet"
-      @keyup.enter="updateSkill"
+      aria-label="Language level"
     >
       <option
         v-for="level in LEVELS"
