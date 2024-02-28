@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import CvSettingsHistorySection from './CvSettingsHistorySection.vue'
+import { SectionNameList } from '~/types/cvfy'
 import { useCvState } from '~/data/useCvState'
 
 const {
@@ -152,7 +154,8 @@ function getCurrentColor(colorValue: string): {
             v-for="color in config.colors"
             :key="color.color"
             tabindex="0"
-            class="form__btn form__btn--color-theme capitalize" :class="[
+            class="form__btn form__btn--color-theme capitalize"
+            :class="[
               `form__btn--${color.name}`,
               {
                 'form__btn--color-selected':
@@ -410,73 +413,15 @@ function getCurrentColor(colorValue: string): {
       </fieldset>
       <!-- SOCIAL -->
 
-      <!-- WORK EXPERIENCE -->
-      <fieldset class="form__section grid gap-3">
-        <expansion-panel :panel-name="$t('experience')">
-          <template #title>
-            <legend class="form__legend">
-              {{ $t("experience") }}
-            </legend>
-          </template>
-          <template #content>
-            <cv-dynamic-section
-              section-name="work"
-              :entries="formSettings.work"
-            />
-          </template>
-        </expansion-panel>
-      </fieldset>
-      <!-- WORK EXPERIENCE -->
-
-      <!-- EDUCATION -->
-      <fieldset class="form__section grid gap-3">
-        <expansion-panel :panel-name="$t('education')">
-          <template #title>
-            <legend class="form__legend">
-              {{ $t("education") }}
-            </legend>
-          </template>
-          <template #content>
-            <div>
-              <cv-display-checkbox
-                class="form__display-checkbox"
-                :display-section="formSettings.displayEducation"
-                section-name="education"
-              />
-              <cv-dynamic-section
-                section-name="education"
-                :entries="formSettings.education"
-              />
-            </div>
-          </template>
-        </expansion-panel>
-      </fieldset>
-      <!-- EDUCATION -->
-
-      <!-- PROJECTS -->
-      <fieldset class="form__section grid gap-3">
-        <expansion-panel :panel-name="$t('projects')">
-          <template #title>
-            <legend class="form__legend">
-              {{ $t("projects") }}
-            </legend>
-          </template>
-          <template #content>
-            <div>
-              <cv-display-checkbox
-                class="form__display-checkbox"
-                :display-section="formSettings.displayProjects"
-                section-name="projects"
-              />
-              <cv-dynamic-section
-                section-name="projects"
-                :entries="formSettings.projects"
-              />
-            </div>
-          </template>
-        </expansion-panel>
-      </fieldset>
-      <!-- PROJECTS -->
+      <!-- HISTORY SECTIONS -->
+      <CvSettingsHistorySection
+        v-for="(value, key) in SectionNameList"
+        :key="key"
+        :form-settings="formSettings"
+        :section="key"
+        :name="value"
+      />
+      <!-- HISTORY SECTIONS -->
 
       <!-- CTA -->
       <div class="form__section flex flex-col p-6 gap-3">
@@ -605,7 +550,7 @@ function getCurrentColor(colorValue: string): {
       background-color 0.1s linear,
       color 0.1s linear;
 
-    & + & {
+    &+& {
       margin-top: 0.5rem;
     }
 

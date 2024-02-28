@@ -32,6 +32,7 @@ export interface Cv {
   activeColor: string
 }
 export interface CvEvent {
+  id: string
   title: string
   location: string
   from: Date | any
@@ -39,6 +40,8 @@ export interface CvEvent {
   current: boolean
   summary: string
 }
+
+export type OptionalSection = 'displaySocial' | 'displayEducation' | 'displayProjects'
 
 export type SkillType = 'jobSkills' | 'softSkills' | 'languages'
 
@@ -51,4 +54,9 @@ export interface DefaultSkill {
   skillType: 'jobSkills' | 'softSkills'
 }
 
-export type SectionName = 'education' | 'work' | 'projects'
+export const SectionNameList = {
+  work: 'experience',
+  education: 'education',
+  projects: 'projects',
+} as const
+export type SectionName = keyof typeof SectionNameList

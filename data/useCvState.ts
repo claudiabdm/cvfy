@@ -79,7 +79,8 @@ export function useCvState() {
   }
 
   function addEntry(e: { sectionName: SectionName }) {
-    state.formSettings[e.sectionName].push({
+    state.formSettings[e.sectionName].unshift({
+      id: crypto.randomUUID(),
       title: '',
       location: '',
       from: new Date(),
@@ -92,7 +93,7 @@ export function useCvState() {
   function removeEntry(e: { sectionName: SectionName, entry: CvEvent }) {
     state.formSettings[e.sectionName] = state.formSettings[
       e.sectionName
-    ].filter(entry => entry.title !== e.entry.title)
+    ].filter(entry => entry.id !== e.entry.id)
   }
 
   function uploadCV(e: any): void {
