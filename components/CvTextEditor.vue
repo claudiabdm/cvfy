@@ -4,13 +4,13 @@ import StarterKit from '@tiptap/starter-kit'
 
 const props = withDefaults(
   defineProps<{
-    id: string
+    id?: string
     modelValue?: string | null
     readOnly: boolean
     class: string
   }>(),
   {
-    id: '',
+    id: undefined,
     modelValue: '',
     readOnly: false,
     class: '',
@@ -29,7 +29,7 @@ const editor = useEditor({
       return !props.readOnly
     },
     attributes: {
-      id: `${String(props.id)}-editor`,
+      ...(props.id && { id: `${String(props.id)}-editor` }),
       class: props.class,
     },
   },
@@ -63,6 +63,7 @@ watch(
 
 <style lang="postcss">
 .tiptap {
+
   ul,
   ol {
     @apply pl-4;
