@@ -28,8 +28,8 @@ function focusEditor(id: string) {
     </button>
     <ul class="col-span-full">
       <li
-        v-for="(entry, index) in entries"
-        :key="index"
+        v-for="entry in entries"
+        :key="entry.id"
       >
         <expansion-panel
           :panel-name="`${entry.title}`"
@@ -59,7 +59,7 @@ function focusEditor(id: string) {
               <div class="form__group col-span-full">
                 <label
                   class="form__label"
-                  :for="`entryTitle--${entry.title}`"
+                  :for="`entryTitle--${entry.id}`"
                 >
                   <template v-if="sectionName === 'education'">🎓</template>
                   <template v-else-if="sectionName === 'projects'">✨</template>
@@ -67,7 +67,7 @@ function focusEditor(id: string) {
                   {{ $t("title") }}
                 </label>
                 <input
-                  :id="`entryTitle--${entry.title}`"
+                  :id="`entryTitle--${entry.id}`"
                   v-model="entry.title"
                   class="form__control"
                   type="text"
@@ -76,10 +76,10 @@ function focusEditor(id: string) {
               <div class="form__group col-span-full">
                 <label
                   class="form__label"
-                  :for="`entryLocation-${entry.title}`"
+                  :for="`entryLocation-${entry.id}`"
                 >📍 {{ $t("location") }}</label>
                 <input
-                  :id="`entryLocation-${entry.title}`"
+                  :id="`entryLocation-${entry.id}`"
                   v-model="entry.location"
                   class="form__control"
                   type="text"
@@ -88,10 +88,10 @@ function focusEditor(id: string) {
               <div class="form__group col-span-full">
                 <label
                   class="form__label"
-                  :for="`entryFrom-${entry.title}`"
+                  :for="`entryFrom-${entry.id}`"
                 >📆 {{ $t("from") }}</label>
                 <input
-                  :id="`entryFrom-${entry.title}`"
+                  :id="`entryFrom-${entry.id}`"
                   v-model="entry.from"
                   class="form__control"
                   type="date"
@@ -100,7 +100,7 @@ function focusEditor(id: string) {
               <div class="form__group col-span-full">
                 <label
                   class="form__label flex justify-between"
-                  :for="`entryTo-${entry.title}`"
+                  :for="`entryTo-${entry.id}`"
                 >
                   📆 {{ $t("to") }}
                   <label class="form__label flex items-center">
@@ -114,7 +114,7 @@ function focusEditor(id: string) {
                 </label>
                 <input
                   v-if="!entry.current"
-                  :id="`entryTo-${entry.title}`"
+                  :id="`entryTo-${entry.id}`"
                   v-model="entry.to"
                   class="form__control"
                   type="date"
@@ -123,13 +123,14 @@ function focusEditor(id: string) {
               <div class="form__group col-span-full">
                 <label
                   class="form__label"
-                  :for="`entrySummary-${entry.title}`"
-                  @click="focusEditor(`entrySummary-${entry.title}`)"
+                  :for="`entrySummary-${entry.id}`"
+                  @click="focusEditor(`entrySummary-${entry.id}`)"
                 >📝 {{ $t("summary") }}</label>
                 <CvTextEditor
-                  :id="`entrySummary-${entry.title}`"
+                  :id="`entrySummary-${entry.id}`"
                   v-model="entry.summary"
                   class="form__control"
+                  :read-only="false"
                 />
               </div>
             </div>

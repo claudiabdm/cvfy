@@ -32,6 +32,7 @@ export interface Cv {
   activeColor: string
 }
 export interface CvEvent {
+  id: string
   title: string
   location: string
   from: Date | any

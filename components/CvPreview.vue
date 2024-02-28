@@ -26,7 +26,7 @@ export default defineComponent({
     })
 
     function orderEvents(arr: CvEvent[]): CvEvent[] {
-      return arr.sort(
+      return [...arr].sort(
         (a, b) => new Date(b.from).getTime() - new Date(a.from).getTime(),
       )
     }
@@ -324,7 +324,7 @@ export default defineComponent({
           <ul class="cv__event mt-3">
             <li
               v-for="job in work"
-              :key="job.title"
+              :key="job.id"
               class="cv__event-elem"
             >
               <h5 class="cv__section-title cv__section-title--sm">
@@ -364,7 +364,7 @@ export default defineComponent({
           <ul class="cv__event mt-3">
             <li
               v-for="edu in education"
-              :key="edu.title"
+              :key="edu.id"
               class="cv__event-elem"
             >
               <h5 class="cv__section-title cv__section-title--sm">
@@ -404,7 +404,7 @@ export default defineComponent({
           <ul class="cv__event mt-3">
             <li
               v-for="project in projects"
-              :key="project.title"
+              :key="project.id"
               class="cv__event-elem"
             >
               <h5 class="cv__section-title cv__section-title--sm">
