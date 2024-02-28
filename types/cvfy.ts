@@ -54,9 +54,9 @@ export interface DefaultSkill {
   skillType: 'jobSkills' | 'softSkills'
 }
 
-export const SectionNameList = [
-  'work',
-  'education',
-  'projects',
-] as const
-export type SectionName = typeof SectionNameList[number]
+export const SectionNameList = {
+  work: 'experience',
+  education: 'education',
+  projects: 'projects',
+} as const
+export type SectionName = keyof typeof SectionNameList

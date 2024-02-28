@@ -1,14 +1,15 @@
 <script lang="ts" setup>
-import type { Cv, OptionalSection, SectionName } from '~/types/cvfy'
+import type { Cv, OptionalSection, SectionName, SectionNameList } from '~/types/cvfy'
 
 const props = defineProps<
   {
     formSettings: Cv
-    name: SectionName
+    section: SectionName
+    name: typeof SectionNameList[SectionName]
   }
 >()
 
-const displaySection = computed(() => `display${props.name[0].toLocaleUpperCase}${props.name.slice(1)}` as OptionalSection)
+const displaySection = computed(() => `display${props.section[0].toLocaleUpperCase}${props.section.slice(1)}` as OptionalSection)
 </script>
 
 <template>
@@ -22,14 +23,14 @@ const displaySection = computed(() => `display${props.name[0].toLocaleUpperCase}
       <template #content>
         <div>
           <CvDisplayCheckbox
-            v-if="name !== 'work'"
+            v-if="section !== 'work'"
             class="form__display-checkbox"
             :display-section="formSettings[displaySection]"
             :section-name="name"
           />
           <CvDynamicSection
-            :section-name="name"
-            :entries="formSettings[name]"
+            :section-name="section"
+            :entries="formSettings[section]"
           />
         </div>
       </template>

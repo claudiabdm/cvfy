@@ -415,10 +415,11 @@ function getCurrentColor(colorValue: string): {
 
       <!-- HISTORY SECTIONS -->
       <CvSettingsHistorySection
-        v-for="section in SectionNameList"
-        :key="section"
+        v-for="(value, key) in SectionNameList"
+        :key="key"
         :form-settings="formSettings"
-        :name="section"
+        :section="key"
+        :name="value"
       />
       <!-- HISTORY SECTIONS -->
 
