@@ -40,6 +40,8 @@ export interface CvEvent {
   summary: string
 }
 
+export type OptionalSection = 'displaySocial' | 'displayEducation' | 'displayProjects'
+
 export type SkillType = 'jobSkills' | 'softSkills' | 'languages'
 
 export interface LanguagesSkill {
@@ -51,4 +53,9 @@ export interface DefaultSkill {
   skillType: 'jobSkills' | 'softSkills'
 }
 
-export type SectionName = 'education' | 'work' | 'projects'
+export const SectionNameList = [
+  'work',
+  'education',
+  'projects',
+] as const
+export type SectionName = typeof SectionNameList[number]
