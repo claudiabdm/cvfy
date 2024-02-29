@@ -40,5 +40,3 @@ export default defineComponent({
     </label>
   </div>
 </template>
-
-<style scoped></style>
