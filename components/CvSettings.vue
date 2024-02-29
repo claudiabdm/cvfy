@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import CvSettingsHistorySection from './CvSettingsHistorySection.vue'
 import { SectionNameList } from '~/types/cvfy'
 import { useCvState } from '~/data/useCvState'
 
@@ -458,7 +457,7 @@ function getCurrentColor(colorValue: string): {
   </div>
 </template>
 
-<style lang="postcss">
+<style lang="postcss" scoped>
 .settings {
   @apply bg-slate-50 bg-opacity-100 shadow-lg font-bold z-10;
 
@@ -492,177 +491,6 @@ function getCurrentColor(colorValue: string): {
       height: 30px;
       font-size: 0.5rem;
     }
-  }
-}
-
-.form {
-  @apply font-light;
-
-  &__section {
-    @apply mb-3;
-  }
-
-  &__legend {
-    @apply text-lg font-bold tracking-wide;
-
-    &--small {
-      @apply text-sm/normal;
-    }
-  }
-
-  &__group {
-    @apply flex flex-col px-1;
-  }
-
-  &__label {
-    @apply mb-1 font-normal text-slate-600 text-sm/normal;
-
-    &:focus {
-      @apply text-purple-700;
-    }
-  }
-
-  &__control {
-    @apply shadow rounded px-2 py-1 border border-transparent font-light w-full bg-white;
-    transition: all 0.1s linear;
-    outline: none;
-
-    &:focus {
-      @apply border;
-      border-color: var(--primary);
-    }
-
-    &--checkbox {
-      @apply mr-1;
-      width: 1.25rem;
-      height: 1.25rem;
-      background: none;
-      box-shadow: none;
-    }
-  }
-
-  &__btn {
-    margin: 0.5rem 0.2rem 0.25rem;
-    color: #fff;
-    background-color: var(--primary);
-    @apply text-white p-2 rounded shadow font-light justify-center items-center text-center;
-    transition:
-      background-color 0.1s linear,
-      color 0.1s linear;
-
-    &+& {
-      margin-top: 0.5rem;
-    }
-
-    &:hover {
-      background-color: var(--primary-darker);
-      cursor: pointer;
-    }
-
-    &--color-theme {
-      background-color: #fff;
-
-      &:hover {
-        color: #fff;
-      }
-    }
-
-    &--pink {
-      color: var(--pink);
-
-      &:hover {
-        background-color: var(--pink);
-      }
-    }
-
-    &--purple {
-      color: var(--purple);
-
-      &:hover {
-        background-color: var(--purple);
-      }
-    }
-
-    &--indigo {
-      color: var(--indigo);
-
-      &:hover {
-        background-color: var(--indigo-darker);
-      }
-    }
-
-    &--blue {
-      color: var(--blue);
-
-      &:hover {
-        background-color: var(--blue-darker);
-      }
-    }
-
-    &--green {
-      color: var(--green);
-
-      &:hover {
-        background-color: var(--green-darker);
-      }
-    }
-
-    &--black {
-      color: var(--black);
-
-      &:hover {
-        background-color: var(--black-darker);
-      }
-    }
-
-    &--tag {
-      @apply flex gap-2 py-1;
-      align-items: center;
-
-      &:hover {
-        @apply bg-purple-700;
-      }
-    }
-
-    &--delete {
-      @apply bg-red-400;
-
-      &:hover {
-        @apply bg-red-500;
-      }
-    }
-
-    &--ghost {
-      @apply bg-white text-slate-700;
-
-      &:hover {
-        @apply bg-slate-700 text-white;
-      }
-    }
-
-    &--color-selected {
-      background-color: var(--primary);
-      color: #fff;
-    }
-
-    &--active {
-      @apply bg-slate-700 text-white;
-      box-shadow: none;
-    }
-  }
-
-  &__icon {
-    fill: #fff;
-    width: 1.25rem;
-    height: 1.25rem;
-
-    &:hover {
-      opacity: 0.6;
-    }
-  }
-
-  &__display-checkbox {
-    @apply mb-6;
   }
 }
 </style>

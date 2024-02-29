@@ -100,6 +100,7 @@ useHead({
 </template>
 
 <style lang="postcss">
+@import '@/assets/styles/form.postcss';
 @media screen and (min-width: 1024px) {
   .main {
     @apply flex h-screen overflow-hidden;
