@@ -1,7 +1,11 @@
 <script setup lang="ts">
 const CVFY_IMAGE = 'https://cvfy.xyz/CvFy-no-border.png'
 
+const route = useRoute()
 const { t, locale } = useI18n()
+
+const href = `https://cvfy.xyz${route.path}`
+
 useHead({
   htmlAttrs: {
     lang: locale,
@@ -15,7 +19,7 @@ useHead({
     },
     {
       rel: 'canonical',
-      href: 'https://cvfy.xyz/',
+      href,
     },
   ],
   meta: [
@@ -60,6 +64,11 @@ useHead({
       content: t('title-tag'),
     },
     {
+      hid: 'twitter:url',
+      name: 'twitter:url',
+      content: href,
+    },
+    {
       hid: 'twitter:description',
       name: 'twitter:description',
       content: t('description'),
@@ -84,16 +93,16 @@ useHead({
 </script>
 
 <template>
-  <div class="main">
+  <main class="font-sans main">
     <CvSettings />
     <CvPreview />
-  </div>
+  </main>
 </template>
 
-<style lang="postcss" scoped>
+<style lang="postcss">
 @media screen and (min-width: 1024px) {
   .main {
-    @apply flex h-full;
+    @apply flex h-screen overflow-hidden;
   }
 }
 </style>

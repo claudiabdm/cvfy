@@ -19,40 +19,15 @@ export default defineNuxtConfig({
   app: {
     // Global page headers (https://go.nuxtjs.dev/config-head)
     head: {
-      title:
-        'CvFy - Create, visulize and save your CV as PDF in a few minutes and free!',
       meta: [
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-        {
-          hid: 'author',
-          name: 'author',
-          content: 'claudiabdm',
-        },
         {
           hid: 'google-site-verification',
           name: 'google-site-verification',
           content: 'CGbgWpLEg4fyBPWujKEYS3rrwZR4mMU7XfsDEGArchg',
         },
-        {
-          hid: 'twitter:card',
-          name: 'twitter:card',
-          content: 'summary_large_image',
-        },
-        {
-          hid: 'twitter:url',
-          name: 'twitter:url',
-          content: 'https://cvfy.xyz/',
-        },
-        {
-          hid: 'twitter:image',
-          name: 'twitter:image',
-          content: 'icon.png',
-        },
       ],
-      htmlAttrs: {
-        lang: 'es',
-      },
     },
   },
 
