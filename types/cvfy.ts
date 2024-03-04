@@ -54,6 +54,8 @@ export interface DefaultSkill {
   skillType: 'jobSkills' | 'softSkills'
 }
 
+export type Skill = DefaultSkill['skill'] | LanguagesSkill['skill']
+
 export const SectionNameList = {
   work: 'experience',
   education: 'education',
