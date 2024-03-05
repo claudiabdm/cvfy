@@ -61,7 +61,7 @@ function handleUpdateSkill() {
 
 function handleRemoveSkill(tag: string) {
   if (props.tagListName === 'languages') {
-    const langTag = (props.modelValue as LanguagesSkill['skill'][]).find(l => `${l.lang}: ${l.level}` === tag)
+    const langTag = (props.modelValue as LanguagesSkill['skill'][]).find(l => l.lang === tag.split(':')[0])
     if (langTag) {
       removeSkill<LanguagesSkill>(({
         skill: langTag,
