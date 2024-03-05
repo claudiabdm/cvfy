@@ -8,8 +8,6 @@ const {
   clearForm,
   resetForm,
   setUpCvSettings,
-  addSkill,
-  removeSkill,
 } = useCvState()
 const switchLocalePath = useSwitchLocalePath()
 const i18n = useI18n()
@@ -294,26 +292,20 @@ function getCurrentColor(colorValue: string): {
           </template>
           <template #content>
             <div>
-              <cv-input-tags
+              <CvInputTags
+                v-model="formSettings.jobSkills"
                 tag-list-name="jobSkills"
                 :tag-list-label="`🛠 ${$t('technical-skills')}`"
-                :tag-list="formSettings.jobSkills"
-                @add-tag="addSkill($event)"
-                @remove-tag="removeSkill($event)"
               />
-              <cv-input-tags
+              <CvInputTags
+                v-model="formSettings.softSkills"
                 tag-list-name="softSkills"
                 :tag-list-label="`🧸 ${$t('soft-skills')}`"
-                :tag-list="formSettings.softSkills"
-                @add-tag="addSkill($event)"
-                @remove-tag="removeSkill($event)"
               />
-              <cv-input-tags
+              <CvInputTags
+                v-model="formSettings.languages"
                 tag-list-name="languages"
                 :tag-list-label="`🌎 ${$t('languages')}`"
-                :tag-list-lang="formSettings.languages"
-                @add-tag="addSkill($event)"
-                @remove-tag="removeSkill($event)"
               />
             </div>
           </template>
