@@ -3,12 +3,13 @@ import {
   cvSettingTemplate,
   cvSettingsEmptyTemplate,
 } from './example-cv-settings'
-import type {
-  Cv,
-  CvEvent,
-  DefaultSkill,
-  LanguagesSkill,
-  SectionName,
+import {
+  type Cv,
+  type CvEvent,
+  type DefaultSkill,
+  type LanguagesSkill,
+  type SectionName,
+  SectionNameList,
 } from '~/types/cvfy'
 
 const state = reactive({
@@ -32,6 +33,7 @@ export function useCvState() {
     else {
       const cvSettingsObj = JSON.parse(cvSettings)
       state.formSettings = { ...cvSettingsEmptyTemplate, ...cvSettingsObj }
+      patchId(state.formSettings)
     }
     localStorage.setItem(locale, JSON.stringify(state.formSettings))
     state.isLoading = false
@@ -104,6 +106,7 @@ export function useCvState() {
         ...cvSettingsEmptyTemplate,
         ...data.formSettings,
       }
+      patchId(state.formSettings)
     }
     fr.readAsText(e.target.files[0])
   }
@@ -133,6 +136,17 @@ export function useCvState() {
       | 'displayEducation'
       | 'displayProjects'
     state.formSettings[propName] = e.status
+  }
+
+  function patchId(formSettings: Cv) {
+  // Make sure that older cvs have id in each entry of a section
+    for (const key in SectionNameList) {
+      const section = key as SectionName
+      for (const e of formSettings[section]) {
+        if (!e.id)
+          e.id = crypto.randomUUID()
+      }
+    }
   }
 
   return {

@@ -18,6 +18,7 @@ export const cvSettingTemplate: Cv = {
   website: 'www.MsKnope.com',
   education: [
     {
+      id: '1',
       title: 'A Environmental and Public Affairs',
       location: 'Indiana University, Bloomington, Indiana',
       from: new Date(1993, 9, 1),
@@ -28,6 +29,7 @@ export const cvSettingTemplate: Cv = {
   ],
   work: [
     {
+      id: '1',
       title: 'Deputy Director Parks Department',
       location: 'City of Pawnee, Indiana',
       from: new Date(2009, 1, 1),
@@ -37,6 +39,7 @@ export const cvSettingTemplate: Cv = {
         '<ul><li><p>In placerat nisi pellentesque felis blandit, vel varius justo eleifend.</p></li><li><p>Etiam porttitor tortor vel lobortis ultricies.</p></li><li><p>Nam non libero accumsan, sagittis nibh vitae, auctor ligula.</p></li><li><p>Sed hendrerit dui a ante porttitor, vitae tristique ipsum laoreet.</p></li><li><p>Suspendisse interdum mauris a lectus dignissim, vitae aliquet ante tempor.</p></li></ul>',
     },
     {
+      id: '2',
       title: 'City Councilor',
       location: 'City of Pawnee, Indiana',
       from: new Date(2012, 1, 1),
@@ -48,6 +51,7 @@ export const cvSettingTemplate: Cv = {
   ],
   projects: [
     {
+      id: '3',
       title: 'Lot 48',
       location: 'City of Pawnee, Indiana',
       from: new Date(2009, 1, 1),
