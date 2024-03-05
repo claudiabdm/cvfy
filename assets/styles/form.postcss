@@ -45,18 +45,13 @@
     }
   
     &__btn {
-      margin: 0.5rem 0.2rem 0.25rem;
-      color: #fff;
-      background-color: var(--primary);
       @apply text-white p-2 rounded shadow font-light justify-center items-center text-center;
+      margin: 0.5rem 0.2rem 0.25rem;
+      background-color: var(--primary);
       transition:
         background-color 0.1s linear,
         color 0.1s linear;
-  
-      &+& {
-        margin-top: 0.5rem;
-      }
-  
+
       &:hover {
         background-color: var(--primary-darker);
         cursor: pointer;
@@ -115,15 +110,6 @@
   
         &:hover {
           background-color: var(--black-darker);
-        }
-      }
-  
-      &--tag {
-        @apply flex gap-2 py-1;
-        align-items: center;
-  
-        &:hover {
-          @apply bg-purple-700;
         }
       }
   
