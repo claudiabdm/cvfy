@@ -128,6 +128,7 @@ export default defineComponent({
       <div
         ref="cvSide"
         class="cv__side"
+        :class="{ 'cv__side--with-img': formSettings.profileImageDataUri }"
       >
         <CvProfileImageViewer
           v-if="formSettings.profileImageDataUri"
@@ -508,11 +509,16 @@ p {
   }
 
   &__main {
+    @apply pr-8 pl-5 py-8;
     height: min-content;
   }
 
   &__side {
-    @apply flex flex-col px-6 pt-8 pb-10;
+    @apply flex flex-col pl-8 pr-5  py-8;
+
+    &--with-img {
+      @apply py-7;
+    }
   }
 
   &__pages {
@@ -599,7 +605,7 @@ p {
   }
 
   &__bar {
-    @apply my-5 border-slate-50 border-2;
+    @apply my-4 border-slate-50 border-2;
     list-style: none;
     padding: 0;
 
@@ -610,10 +616,6 @@ p {
     li+li {
       @apply mt-3;
     }
-  }
-
-  &__main {
-    @apply px-8 py-10;
   }
 
   &__event {
