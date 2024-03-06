@@ -36,7 +36,7 @@ onMounted(setUpCvSettings)
 watch(
   () => formSettings.value,
   (newValue, oldValue) => {
-    localStorage.setItem(`cvSettings-${i18n.locale}`, JSON.stringify(newValue))
+    localStorage.setItem(`cvSettings-${i18n.locale.value}`, JSON.stringify(newValue))
     if (newValue.activeColor !== oldValue.activeColor) {
       const newColor = getCurrentColor(newValue.activeColor)
       changeColor(newColor.color, newColor.darker)
@@ -57,7 +57,7 @@ const availableLocales = computed(() => {
 
 function downloadPdf(): void {
   const oldTitle = document.title
-  document.title = `CV_${formSettings.value.name}_${formSettings.value.lastName}_${i18n.locale}`
+  document.title = `CV_${formSettings.value.name}_${formSettings.value.lastName}_${i18n.locale.value}`
   window.print()
   document.title = oldTitle
 }
