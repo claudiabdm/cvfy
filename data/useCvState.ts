@@ -22,7 +22,7 @@ export function useCvState() {
   const i18n = useI18n()
 
   function setUpCvSettings(): void {
-    const locale = `cvSettings-${i18n.locale}`
+    const locale = `cvSettings-${i18n.locale.value}`
     const cvSettings = localStorage.getItem(locale)
 
     if (cvSettings == null) {
@@ -116,14 +116,14 @@ export function useCvState() {
       ...cvSettingTemplate,
     }
     localStorage.setItem(
-      `cvSettings-${i18n.locale}`,
+      `cvSettings-${i18n.locale.value}`,
       JSON.stringify(state.formSettings),
     )
   }
 
   function clearForm(): void {
     state.formSettings = cvSettingsEmptyTemplate
-    localStorage.removeItem(`cvSettings-${i18n.locale}`)
+    localStorage.removeItem(`cvSettings-${i18n.locale.value}`)
   }
 
   function changeDisplaySection(e: {
