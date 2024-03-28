@@ -290,7 +290,7 @@ export default defineComponent({
               <a
                 target="_blank"
                 rel="noopener"
-                :href="formSettings.website"
+                :href="formSettings.website.includes('https') ? formSettings.website : `https://${formSettings.website}`"
               >{{
                 formSettings.website
               }}</a>
@@ -514,7 +514,7 @@ p {
   }
 
   &__side {
-    @apply flex flex-col pl-8 pr-5  py-8;
+    @apply flex flex-col pl-8 pr-5 py-8;
 
     &--with-img {
       @apply py-7;
