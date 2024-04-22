@@ -73,5 +73,9 @@ watch(
   li::marker {
     color: var(--primary);
   }
+
+  li:first-child, li + li {
+    margin-bottom: 0.5rem;
+  }
 }
 </style>

@@ -322,7 +322,7 @@ export default defineComponent({
           <h4 class="cv__section-title cv__section-title--main">
             {{ $t("experience") }}
           </h4>
-          <ul class="cv__event mt-3">
+          <ul class="cv__event">
             <li
               v-for="job in work"
               :key="job.id"
@@ -362,7 +362,7 @@ export default defineComponent({
           <h4 class="cv__section-title cv__section-title--main">
             {{ $t("education") }}
           </h4>
-          <ul class="cv__event mt-3">
+          <ul class="cv__event">
             <li
               v-for="edu in education"
               :key="edu.id"
@@ -402,7 +402,7 @@ export default defineComponent({
           <h4 class="cv__section-title cv__section-title--main">
             {{ $t("projects") }}
           </h4>
-          <ul class="cv__event mt-3">
+          <ul class="cv__event">
             <li
               v-for="project in projects"
               :key="project.id"
@@ -448,7 +448,7 @@ export default defineComponent({
 
 <style lang="postcss">
 p {
-  @apply leading-relaxed;
+  @apply leading-normal;
 }
 
 .credit {
@@ -554,13 +554,14 @@ p {
   }
 
   &__section-title {
-    @apply text-lg uppercase mb-2 font-bold tracking-wide;
+    @apply text-lg uppercase mb-1 font-bold tracking-wide;
 
     &--sm {
       @apply text-sm/normal;
     }
 
     &--main {
+      @apply mb-2;
       color: var(--primary);
     }
   }
@@ -620,7 +621,7 @@ p {
 
   &__event {
     &-elem+&-elem {
-      @apply mt-6;
+      @apply mt-3;
     }
   }
 }
