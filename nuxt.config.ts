@@ -36,7 +36,6 @@ export default defineNuxtConfig({
 
   // Modules (https://go.nuxtjs.dev/config-modules)
   modules: [
-    // https://go.nuxtjs.dev/pwa
     'nuxt-module-eslint-config',
     '@nuxtjs/i18n',
     '@nuxtjs/sitemap',
@@ -115,24 +114,18 @@ export default defineNuxtConfig({
   },
 
   pwa: {
-    includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'mask-icon.svg'],
+    devOptions: {
+      enabled: true,
+    },
+    registerType: 'autoUpdate',
+    pwaAssets: {
+      config: true,
+    },
     manifest: {
       name: en['title-tag'],
       short_name: 'CvFy',
       description: en.description,
       theme_color: '#f3f4f6',
-      icons: [
-        {
-          src: 'pwa-192x192.png',
-          sizes: '192x192',
-          type: 'image/png',
-        },
-        {
-          src: 'pwa-512x512.png',
-          sizes: '512x512',
-          type: 'image/png',
-        },
-      ],
     },
   },
 

@@ -8,6 +8,7 @@
     "build": "nuxi build",
     "start": "nuxi start",
     "generate": "nuxi generate",
+    "preview": "nuxi preview",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
   },
@@ -24,12 +25,15 @@
     "@nuxtjs/i18n": "^8.0.1",
     "@nuxtjs/sitemap": "^5.1.0",
     "@nuxtjs/tailwindcss": "^6.11.2",
-    "@vite-pwa/nuxt": "^0.5.0",
+    "@vite-pwa/assets-generator": "^0.2.4",
+    "@vite-pwa/nuxt": "^0.7.0",
     "babel-eslint": "^10.1.0",
     "eslint": "^8.57.0",
     "nuxt-module-eslint-config": "^0.1.0",
     "postcss": "8.4.35",
     "postcss-nested": "6.0.1",
+    "sharp": "^0.33.4",
+    "sharp-ico": "^0.1.5",
     "typescript": "^5.3.3"
   }
 }
