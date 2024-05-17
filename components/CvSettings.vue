@@ -486,7 +486,7 @@ function getCurrentColor(colorValue: string): {
 
   @media screen and (min-width: 1024px) {
     & {
-      @apply overflow-y-auto w-5/12;
+      @apply overflow-y-auto;
     }
   }
 

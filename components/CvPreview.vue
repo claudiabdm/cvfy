@@ -5,7 +5,22 @@ const { formSettings, isLoading } = useCvState()
 </script>
 
 <template>
-  <div class="cvWrapper">
+  <div
+    class="
+    cvWrapper
+    font-normal
+    text-slate-800 text-sm/normal
+    bg-white
+    relative
+    w-full
+    overflow-y-auto
+    overflow-x-hidden
+    p-6
+    flex
+    flex-col
+    items-center
+    "
+  >
     <div
       tabindex="0"
       aria-label="CV preview"
@@ -55,8 +70,6 @@ p {
 }
 
 .cvWrapper {
-  @apply font-normal text-slate-800 text-sm/normal relative w-full bg-white overflow-y-auto overflow-x-hidden p-6;
-
   @media print {
     position: unset;
     margin: 0;
@@ -86,7 +99,6 @@ p {
   min-width: 21cm;
   max-width: 21cm;
   min-height: var(--height);
-  margin: auto;
   word-break: break-word;
   transform: scale(0.4);
   transform-origin: top;
