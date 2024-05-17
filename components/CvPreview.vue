@@ -16,9 +16,6 @@ const { formSettings, isLoading } = useCvState()
     overflow-y-auto
     overflow-x-hidden
     p-6
-    flex
-    flex-col
-    items-center
     "
   >
     <div
@@ -99,20 +96,22 @@ p {
   min-width: 21cm;
   max-width: 21cm;
   min-height: var(--height);
+  margin: auto;
   word-break: break-word;
   transform: scale(0.4);
-  transform-origin: top;
+  transform-origin: calc(100vw - 11cm) 0;
 
   @media screen and (min-width: 425px) {
-    transform: scale(0.65);
+    transform: scale(0.45);
   }
 
   @media screen and (min-width: 768px) {
-    transform: scale(0.9);
+    transform: scale(0.8);
   }
 
   @media screen and (min-width: 1024px) {
     transform: scale(0.7);
+    transform-origin: top;
   }
 
   &__pages {
