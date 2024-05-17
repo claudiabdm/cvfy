@@ -11,8 +11,10 @@ const {
 } = useCvState()
 const switchLocalePath = useSwitchLocalePath()
 const i18n = useI18n()
+const { downloadPdf } = usePrint()
 
 const config = {
+  layouts: ['one-column', 'two-column'],
   colors: [
     { name: 'pink', color: '#9D174D', darker: '#831843' },
     { name: 'purple', color: '#5B21B6', darker: '#4C1D95' },
@@ -31,7 +33,9 @@ const config = {
   ],
 }
 
-onMounted(setUpCvSettings)
+onMounted(() => {
+  setUpCvSettings()
+})
 
 watch(
   () => formSettings.value,
@@ -54,13 +58,6 @@ const formSettingsHref = computed(() => {
 const availableLocales = computed(() => {
   return i18n.localeCodes.value.filter((locale: any) => !locale.includes('-'))
 })
-
-function downloadPdf(): void {
-  const oldTitle = document.title
-  document.title = `CV_${formSettings.value.name}_${formSettings.value.lastName}_${i18n.locale.value}`
-  window.print()
-  document.title = oldTitle
-}
 
 function changeColor(color: string, darker: string): void {
   formSettings.value.activeColor = color
@@ -140,6 +137,36 @@ function getCurrentColor(colorValue: string): {
         </div>
       </fieldset>
       <!-- LANGUAGE -->
+
+      <!-- LAYOUT -->
+      <fieldset class="form__section px-6 py-3">
+        <legend class="form__legend">
+          {{ $t("layout-theme") }}
+        </legend>
+        <div class="flex flex-wrap gap-2 justify-start">
+          <label
+            v-for="layout in config.layouts"
+            :key="layout"
+            tabindex="0"
+            class="form__btn form__btn--ghost capitalize"
+            :class="[
+              {
+                'form__btn--active':
+                  layout === formSettings.layout,
+              },
+            ]"
+          >
+            {{ $t(layout) }}
+            <input
+              v-model="formSettings.layout"
+              :value="layout"
+              type="radio"
+              class="sr-only"
+            >
+          </label>
+        </div>
+      </fieldset>
+      <!-- LAYOUT -->
 
       <!-- COLOR THEME -->
       <fieldset class="form__section px-6 py-3">
@@ -296,16 +323,19 @@ function getCurrentColor(colorValue: string): {
                 v-model="formSettings.jobSkills"
                 tag-list-name="jobSkills"
                 :tag-list-label="`🛠 ${$t('technical-skills')}`"
+                :display="Boolean(formSettings.displayJobSkills)"
               />
               <CvInputTags
                 v-model="formSettings.softSkills"
                 tag-list-name="softSkills"
                 :tag-list-label="`🧸 ${$t('soft-skills')}`"
+                :display="Boolean(formSettings.displaySoftSkills)"
               />
               <CvInputTags
                 v-model="formSettings.languages"
                 tag-list-name="languages"
                 :tag-list-label="`🌎 ${$t('languages')}`"
+                :display="Boolean(formSettings.displayLanguages)"
               />
             </div>
           </template>
@@ -323,8 +353,8 @@ function getCurrentColor(colorValue: string): {
           </template>
           <template #content>
             <div>
-              <cv-display-checkbox
-                class="form__display-checkbox"
+              <CvDisplayCheckbox
+                class="form__display-checkbox mb-10"
                 :display-section="formSettings.displaySocial"
                 section-name="social"
               />
@@ -434,7 +464,8 @@ function getCurrentColor(colorValue: string): {
           rel="noopener"
           :download="`CV_${formSettings.name}_${formSettings.lastName}_${$i18n.locale}.json`"
           class="form__btn flex justify-center"
-        >{{ $t("download-cv-settings") }} (JSON)</a>
+        >{{ $t("download-cv-settings") }}
+          (JSON)</a>
         <button
           type="button"
           class="form__btn flex flex-col justify-center"

@@ -63,7 +63,8 @@ watch(
 
 <style lang="postcss">
 .tiptap {
-
+  font-weight: 300;
+  line-height: 1.5;
   ul,
   ol {
     @apply pl-4;
@@ -72,10 +73,6 @@ watch(
 
   li::marker {
     color: var(--primary);
-  }
-
-  li:first-child, li + li {
-    margin-bottom: 0.5rem;
   }
 }
 </style>

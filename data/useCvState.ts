@@ -135,6 +135,9 @@ export function useCvState() {
       .toUpperCase()}${e.sectionName.slice(1)}` as
       | 'displayEducation'
       | 'displayProjects'
+      | 'displayJobSkills'
+      | 'displaySoftSkills'
+      | 'displayLanguages'
     state.formSettings[propName] = e.status
   }
 

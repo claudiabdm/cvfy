@@ -24,7 +24,7 @@ const displaySection = computed(() => `display${props.section[0].toLocaleUpperCa
         <div>
           <CvDisplayCheckbox
             v-if="section !== 'work'"
-            class="form__display-checkbox"
+            class="mb-10"
             :display-section="formSettings[displaySection]"
             :section-name="name"
           />

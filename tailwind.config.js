@@ -1,5 +1,3 @@
-const defaultTheme = require('tailwindcss/defaultTheme')
-
 export default {
   theme: {
     fontFamily: {
@@ -8,7 +6,7 @@ export default {
     },
     extend: {
       colors: {
-        primary: defaultTheme.colors.purple,
+        primary: 'var(--primary)',
       },
     },
     future: {

@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import type { Cv } from '~/types/cvfy'
 
-defineProps<{ profileImageDataUri: Cv['profileImageDataUri'] }>()
+defineProps<Pick<Cv, 'profileImageDataUri'>>()
 </script>
 
 <template>
   <img
-    class="mb-4 border-white border-8 object-cover aspect-square"
-    :src="profileImageDataUri"
+    class="object-cover aspect-square max-w-[212px] max-h-[212px]"
+    :src="profileImageDataUri ?? ''"
     alt="Your profile image"
   >
 </template>

@@ -1,7 +1,8 @@
 import { type Cv, LEVELS } from '~/types/cvfy'
 
 export const cvSettingTemplate: Cv = {
-  jobTitle: 'Deputy Director Parks Department',
+  layout: 'two-column',
+  jobTitle: 'Deputy Director of Parks and Recreations',
   name: 'Leslie',
   lastName: 'Knope',
   email: 'lknope@parksdept.com',
@@ -12,15 +13,15 @@ export const cvSettingTemplate: Cv = {
   jobSkills: ['Microsoft', 'Word', 'Excel', 'PerfectMind'],
   softSkills: ['Positivity', 'Leadership', 'Public Speaking'],
   languages: [{ lang: 'English', level: LEVELS[4] }],
-  linkedin: '',
-  twitter: '',
+  linkedin: 'leslieknope',
+  twitter: 'leslieknope',
   github: '',
-  website: 'www.MsKnope.com',
+  website: 'MsKnope.com',
   education: [
     {
       id: '1',
-      title: 'A Environmental and Public Affairs',
-      location: 'Indiana University, Bloomington, Indiana',
+      title: 'Environmental and Public Affairs',
+      location: 'Indiana University',
       from: new Date(1993, 9, 1),
       to: new Date(1993, 4, 1),
       current: false,
@@ -30,8 +31,8 @@ export const cvSettingTemplate: Cv = {
   work: [
     {
       id: '1',
-      title: 'Deputy Director Parks Department',
-      location: 'City of Pawnee, Indiana',
+      title: 'Deputy Director of Parks',
+      location: 'Pawnee, Indiana',
       from: new Date(2009, 1, 1),
       to: new Date(2012, 1, 1),
       current: true,
@@ -41,7 +42,7 @@ export const cvSettingTemplate: Cv = {
     {
       id: '2',
       title: 'City Councilor',
-      location: 'City of Pawnee, Indiana',
+      location: 'Pawnee, Indiana',
       from: new Date(2012, 1, 1),
       to: new Date(),
       current: true,
@@ -64,10 +65,14 @@ export const cvSettingTemplate: Cv = {
   displaySocial: true,
   displayEducation: true,
   displayProjects: false,
+  displayJobSkills: true,
+  displaySoftSkills: true,
+  displayLanguages: true,
   activeColor: '#5B21B6',
 }
 
 export const cvSettingsEmptyTemplate: Cv = {
+  layout: 'two-column',
   profileImageDataUri: null,
   jobTitle: '',
   name: '',

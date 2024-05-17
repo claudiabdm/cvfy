@@ -1,7 +1,4 @@
-<script
-  setup
-  lang="ts"
->
+<script setup lang="ts">
 import { useCvState } from '~/data/useCvState'
 import type { DefaultSkill, LanguagesSkill, Level, Skill, SkillType } from '~/types/cvfy'
 
@@ -9,6 +6,7 @@ const props = defineProps<{
   tagListName: SkillType
   modelValue: Skill[]
   tagListLabel: string
+  display: boolean
 }>()
 
 const emit = defineEmits<{
@@ -102,6 +100,10 @@ function onDrop() {
       class="form__label"
       :for="tagListName"
     >{{ tagListLabel }}
+      <CvDisplayCheckbox
+        :display-section="display"
+        :section-name="`${tagListName}`"
+      />
     </label>
     <div class="flex gap-3">
       <template v-if="tagListName === 'languages'">
@@ -155,18 +157,17 @@ function onDrop() {
   </div>
 </template>
 
-<style
-  lang="postcss"
-  scoped
->
+<style lang="postcss" scoped>
 .tags {
   @apply flex flex-wrap gap-3 mt-3 text-xs/normal items-stretch w-full;
 
   &__tag {
     @apply flex justify-between items-end gap-3 m-0 px-2 py-1 h-fit;
+
     &[draggable] {
       @apply cursor-move select-none;
     }
+
     &:hover {
       @apply bg-purple-700;
     }

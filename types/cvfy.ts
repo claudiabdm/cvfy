@@ -8,6 +8,7 @@ export const LEVELS = [
 
 export type Level = (typeof LEVELS)[number]
 export interface Cv {
+  layout?: 'one-column' | 'two-column'
   profileImageDataUri?: string | null
   jobTitle: string
   name: string
@@ -17,8 +18,11 @@ export interface Cv {
   phoneNumber: string
   aboutme: string
   jobSkills: string[]
+  displayJobSkills?: boolean
   softSkills: string[]
+  displaySoftSkills?: boolean
   languages: { lang: string, level: Level }[]
+  displayLanguages?: boolean
   linkedin: string
   twitter: string
   github: string
@@ -43,7 +47,10 @@ export interface CvEvent {
 
 export type OptionalSection = 'displaySocial' | 'displayEducation' | 'displayProjects'
 
-export type SkillType = 'jobSkills' | 'softSkills' | 'languages'
+export type SkillType =
+  'jobSkills' |
+  'softSkills' |
+  'languages'
 
 export interface LanguagesSkill {
   skill: { lang: string, level: Level }
@@ -51,7 +58,7 @@ export interface LanguagesSkill {
 }
 export interface DefaultSkill {
   skill: string
-  skillType: 'jobSkills' | 'softSkills'
+  skillType: Exclude<SkillType, 'languages'>
 }
 
 export type Skill = DefaultSkill['skill'] | LanguagesSkill['skill']
