@@ -1,46 +1,24 @@
-<script lang="ts">
-import { computed, defineComponent, reactive, toRefs } from 'vue'
+<script lang="ts" setup>
+import { computed } from 'vue'
 import { useCvState } from '~/data/useCvState'
 import { LEVELS, type Level } from '~/types/cvfy'
 
-export default defineComponent({
-  name: 'CvInputLang',
-  props: {
-    tagListName: {
-      type: String,
-      default: '',
-    },
-  },
-  setup() {
-    const state = reactive({
-      tagInputLang: { lang: '', level: '' as Level },
-    })
+const tagInputLang = ref({ lang: '', level: '' as Level })
 
-    const { addSkill, removeSkill } = useCvState()
+const { addSkill } = useCvState()
 
-    const tagInputLangEmpty = computed(() => {
-      return state.tagInputLang.lang === ''
-    })
-
-    function cleanInput(): void {
-      state.tagInputLang.lang = ''
-    }
-
-    function updateSkill() {
-      addSkill({ skill: state.tagInputLang, skillType: 'languages' })
-      cleanInput()
-    }
-
-    return {
-      ...toRefs(state),
-      LEVELS,
-      tagInputLangEmpty,
-      cleanInput,
-      updateSkill,
-      removeSkill,
-    }
-  },
+const tagInputLangEmpty = computed(() => {
+  return tagInputLang.value.lang === ''
 })
+
+function cleanInput(): void {
+  tagInputLang.value.lang = ''
+}
+
+function updateSkill() {
+  addSkill({ skill: tagInputLang.value, skillType: 'languages' })
+  cleanInput()
+}
 </script>
 
 <template>
