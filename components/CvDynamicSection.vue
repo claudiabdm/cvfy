@@ -2,7 +2,7 @@
 import type { CvEvent, SectionName } from '~/types/cvfy'
 import { useCvState } from '~/data/useCvState'
 
-const { sectionName = null, entries = [] } = defineProps<{
+const { sectionName, entries = [] } = defineProps<{
   sectionName: SectionName
   entries: CvEvent[]
 }>()
@@ -77,7 +77,14 @@ function focusEditor(id: string) {
                 <label
                   class="form__label"
                   :for="`entryLocation-${entry.id}`"
-                >📍 {{ $t("location") }}</label>
+                >
+                  <template v-if="sectionName === 'projects'">
+                    🔗 Link
+                  </template>
+                  <template v-else>
+                    📍 {{ $t("location") }}
+                  </template>
+                </label>
                 <input
                   :id="`entryLocation-${entry.id}`"
                   v-model="entry.location"
@@ -89,7 +96,8 @@ function focusEditor(id: string) {
                 <label
                   class="form__label"
                   :for="`entryFrom-${entry.id}`"
-                >📆 {{ $t("from") }}</label>
+                >📆 {{ $t("from")
+                }}</label>
                 <input
                   :id="`entryFrom-${entry.id}`"
                   v-model="entry.from"
@@ -125,7 +133,8 @@ function focusEditor(id: string) {
                   class="form__label"
                   :for="`entrySummary-${entry.id}`"
                   @click="focusEditor(`entrySummary-${entry.id}`)"
-                >📝 {{ $t("summary") }}</label>
+                >📝 {{ $t("summary")
+                }}</label>
                 <CvTextEditor
                   :id="`entrySummary-${entry.id}`"
                   v-model="entry.summary"
