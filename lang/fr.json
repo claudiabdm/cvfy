@@ -16,6 +16,7 @@
   "current": "Actuel",
   "cv-language": "Langue du CV",
   "cv-settings": "Paramètres du CV",
+  "layout-theme": "Layout theme",
   "color-theme": "Couleur du thème",
   "pink": "rose",
   "purple": "violet",
@@ -58,5 +59,7 @@
   "limited-working": "Travail limité",
   "professional-working": "Travail professionnel",
   "full-professional": "Plein professionnel",
+  "one-column": "one-column",
+  "two-column": "two-column",
   "native-bilingual": "Natif/Bilingue"
 }

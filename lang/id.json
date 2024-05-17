@@ -16,6 +16,7 @@
   "current": "Saat Ini",
   "cv-language": "Pilih Bahasa CV",
   "cv-settings": "Pengaturan CV",
+  "layout-theme": "Layout theme",
   "color-theme": "Warna Tema",
   "pink": "Merah Muda",
   "purple": "Ungu",
@@ -53,5 +54,12 @@
   "title-tag": "CvFy - Buat CV Anda sebagai PDF dalam beberapa menit!",
   "projects": "Proyek",
   "social": "Sosial Media",
-  "display-section": "Display section on CV"
+  "display-section": "Display section on CV",
+  "elementary": "Elementary",
+  "limited-working": "Limited Working",
+  "professional-working": "Professional Working",
+  "full-professional": "Full Professional",
+  "one-column": "one-column",
+  "two-column": "two-column",
+  "native-bilingual": "Native/Bilingual"
 }

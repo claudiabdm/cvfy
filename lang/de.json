@@ -16,6 +16,7 @@
   "current": "Heute",
   "cv-language": "CV Sprache",
   "cv-settings": "CV Einstellungen",
+  "layout-theme": "Layout theme",
   "color-theme": "Farbschema",
   "pink": "pink",
   "purple": "violett",
@@ -53,5 +54,12 @@
   "title-tag": "CvFy - Erstelle einen Lebenslauf als PDF in wenigen Minuten!",
   "projects": "Projekte",
   "social": "Web",
-  "display-section": "Abschnitt im CV anzeigen"
+  "display-section": "Abschnitt im CV anzeigen",
+  "elementary": "Elementary",
+  "limited-working": "Limited Working",
+  "professional-working": "Professional Working",
+  "full-professional": "Full Professional",
+  "one-column": "one-column",
+  "two-column": "two-column",
+  "native-bilingual": "Native/Bilingual"
 }

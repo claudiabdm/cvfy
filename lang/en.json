@@ -16,6 +16,7 @@
   "current": "Current",
   "cv-language": "CV language",
   "cv-settings": "CV settings",
+  "layout-theme": "Layout theme",
   "color-theme": "Color theme",
   "pink": "pink",
   "purple": "purple",
@@ -58,5 +59,7 @@
   "limited-working": "Limited Working",
   "professional-working": "Professional Working",
   "full-professional": "Full Professional",
+  "one-column": "one-column",
+  "two-column": "two-column",
   "native-bilingual": "Native/Bilingual"
 }

@@ -16,6 +16,7 @@
   "current": "当前",
   "cv-language": "简历语言",
   "cv-settings": "简历设置",
+  "layout-theme": "Layout theme",
   "color-theme": "颜色主题",
   "pink": "粉红色",
   "purple": "紫色",
@@ -58,5 +59,7 @@
   "limited-working": "有限工作",
   "professional-working": "专业工作",
   "full-professional": "完全专业",
+  "one-column": "one-column",
+  "two-column": "two-column",
   "native-bilingual": "母语 / 双语"
 }
