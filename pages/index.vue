@@ -94,7 +94,7 @@ useHead({
 
 <template>
   <main class="font-sans main">
-    <CvSettings class="basis-1/4" />
+    <CvSettings class="basis-1/4 min-w-80" />
     <CvPreview class="basis-3/4" />
   </main>
 </template>

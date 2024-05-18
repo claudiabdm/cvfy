@@ -16,31 +16,36 @@ const { formSettings, isLoading } = useCvState()
     overflow-y-auto
     overflow-x-hidden
     p-6
+    flex
+    flex-col
+    items-center
     "
   >
-    <div
-      tabindex="0"
-      aria-label="CV preview"
-      class="cv shadow-lg mt-6 bg-white relative"
-      :class="[
-        { blur: isLoading },
-        formSettings.layout === 'one-column' && 'p-10 flex flex-col gap-4',
-        formSettings.layout === 'two-column' && 'grid grid-cols-3',
-      ]"
-    >
-      <template v-if="formSettings.layout === 'one-column'">
-        <CvPreviewOneColumn
-          :form-settings="formSettings"
-          :is-loading="isLoading"
-        />
-      </template>
+    <div style="min-height: var(--height);">
+      <div
+        tabindex="0"
+        aria-label="CV preview"
+        class="cv shadow-lg mt-6 bg-white relative"
+        :class="[
+          { blur: isLoading },
+          formSettings.layout === 'one-column' && 'p-10 flex flex-col gap-4',
+          formSettings.layout === 'two-column' && 'grid grid-cols-3',
+        ]"
+      >
+        <template v-if="formSettings.layout === 'one-column'">
+          <CvPreviewOneColumn
+            :form-settings="formSettings"
+            :is-loading="isLoading"
+          />
+        </template>
 
-      <template v-if="formSettings.layout === 'two-column'">
-        <CvPreviewTwoColumn
-          :form-settings="formSettings"
-          :is-loading="isLoading"
-        />
-      </template>
+        <template v-if="formSettings.layout === 'two-column'">
+          <CvPreviewTwoColumn
+            :form-settings="formSettings"
+            :is-loading="isLoading"
+          />
+        </template>
+      </div>
     </div>
 
     <div class="credit">
@@ -57,7 +62,7 @@ const { formSettings, isLoading } = useCvState()
   </div>
 </template>
 
-<style lang="postcss">
+<style lang="postcss" scoped>
 p {
   @apply leading-normal;
 }
@@ -96,10 +101,9 @@ p {
   min-width: 21cm;
   max-width: 21cm;
   min-height: var(--height);
-  margin: auto;
   word-break: break-word;
   transform: scale(0.4);
-  transform-origin: calc(100vw - 11cm) 0;
+  transform-origin: center top;
 
   @media screen and (min-width: 425px) {
     transform: scale(0.45);
@@ -129,7 +133,7 @@ p {
     }
   }
 
-  &__section-title {
+  :deep(&__section-title) {
     @apply text-base uppercase mb-1 font-bold tracking-wide;
 
     &--sm {
@@ -143,7 +147,7 @@ p {
     }
   }
 
-  &__icon-wrapper {
+  :deep(&__icon-wrapper) {
     @apply flex font-light gap-1 items-center;
 
     a,
@@ -152,14 +156,14 @@ p {
     }
   }
 
-  &__icon {
+  :deep(&__icon) {
     @apply fill-current rounded;
     width: 16px;
     height: 16px;
     min-width: 16px;
   }
 
-  &__list {
+  :deep(&__list) {
     font-weight: 300;
     list-style: inside;
 
@@ -168,7 +172,7 @@ p {
     }
   }
 
-  &__event {
+  :deep(&__event) {
     display: flex;
     flex-direction: column;
     gap: 8px;
