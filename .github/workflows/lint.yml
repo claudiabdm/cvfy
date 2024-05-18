@@ -23,16 +23,16 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          cache: yarn
+          cache: npm
 
       - name: Install dependencies
-        run: yarn --frozen-lockfile
+        run: npm run --frozen-lockfile
 
       - name: Prepare Nuxt
-        run: yarn nuxi prepare
+        run: npm run nuxi prepare
 
       - name: Run ESLint
-        run: yarn lint
+        run: npm run lint
 
       - name: Fix all auto-fixable errors
-        run: yarn lint:fix
+        run: npm run lint:fix
