@@ -2,7 +2,7 @@
 
 [![MadeWithVueJs.com shield](https://madewithvuejs.com/storage/repo-shields/3280-shield.svg)](https://madewithvuejs.com/p/cvfy/shield-link)
 
-![CvFy](/static/CvFy.png)
+![CvFy](/public/CvFy.png)
 
 CvFy is an open-sourced multilingual app that makes CV creation faster and easier.
 
