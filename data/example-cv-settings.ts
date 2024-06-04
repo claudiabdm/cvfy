@@ -1,7 +1,9 @@
+import { photoUri } from './example-profile-photo'
 import { type Cv, LEVELS } from '~/types/cvfy'
 
 export const cvSettingTemplate: Cv = {
   layout: 'two-column',
+  profileImageDataUri: photoUri,
   jobTitle: 'Deputy Director of Parks and Recreations',
   name: 'Leslie',
   lastName: 'Knope',
@@ -13,6 +15,7 @@ export const cvSettingTemplate: Cv = {
   jobSkills: ['Microsoft', 'Word', 'Excel', 'PerfectMind'],
   softSkills: ['Positivity', 'Leadership', 'Public Speaking'],
   languages: [{ lang: 'English', level: LEVELS[4] }],
+  interests: ['Politics', 'Organize my agenda'],
   linkedin: 'leslieknope',
   twitter: 'leslieknope',
   github: '',
@@ -25,7 +28,8 @@ export const cvSettingTemplate: Cv = {
       from: new Date(1993, 9, 1),
       to: new Date(1993, 4, 1),
       current: false,
-      summary: '<p>Summa cum Laude</p>',
+      summary:
+        '<ul><li><p>Sed ut lorem viverra urna malesuada interdum in ut risus.</p></li><li><p>Duis at sem non justo aliquam iaculis.</p></li><li><p>Quisque lobortis nibh non turpis interdum ornare.</p></li><li><p>Sed et diam nec arcu tempor suscipit sit amet at tellus.</p></li><li><p>Duis quis diam imperdiet, pharetra lacus eget, fringilla odio.</p></li></ul>',
     },
   ],
   work: [
@@ -64,10 +68,11 @@ export const cvSettingTemplate: Cv = {
   ],
   displaySocial: true,
   displayEducation: true,
-  displayProjects: false,
+  displayProjects: true,
   displayJobSkills: true,
   displaySoftSkills: true,
   displayLanguages: true,
+  displayInterests: true,
   activeColor: '#5B21B6',
 }
 
@@ -84,6 +89,7 @@ export const cvSettingsEmptyTemplate: Cv = {
   jobSkills: [],
   softSkills: [],
   languages: [],
+  interests: [],
   linkedin: '',
   twitter: '',
   github: '',
