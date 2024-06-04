@@ -169,7 +169,7 @@ function onDrop() {
     }
 
     &:hover {
-      @apply bg-purple-700;
+      background-color: var(--primary-darker);
     }
   }
 
