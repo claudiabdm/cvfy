@@ -39,6 +39,8 @@ defineProps<{ formSettings: Cv, isLoading: boolean }>()
       :display-soft-skills="formSettings.displaySoftSkills"
       :languages="formSettings.languages"
       :display-languages="formSettings.displayLanguages"
+      :interests="formSettings.interests"
+      :display-interests="formSettings.displayInterests"
     />
 
     <CvPreviewSocial

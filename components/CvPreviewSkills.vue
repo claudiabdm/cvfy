@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type { Cv } from '~/types/cvfy'
 
-const props = defineProps<Pick<Cv, 'jobSkills' | 'softSkills' | 'languages' | 'layout' | 'displayJobSkills' | 'displaySoftSkills' | 'displayLanguages'>>()
+defineProps<Pick<Cv, 'jobSkills' | 'softSkills' | 'languages' | 'interests' | 'layout' | 'displayJobSkills' | 'displaySoftSkills' | 'displayLanguages' | 'displayInterests'>>()
 </script>
 
 <template>
@@ -10,53 +10,29 @@ const props = defineProps<Pick<Cv, 'jobSkills' | 'softSkills' | 'languages' | 'l
       class="cv__section-title"
       :class="layout === 'one-column' ? 'cv__section-title--main' : 'sr-only'"
     >
-      {{ $t("skills") }}
+      <span>
+        {{ $t("skills") }}
+      </span>
+      <span
+        v-if="displayInterests"
+        class="slash"
+      >/</span>
+      <span v-if="displayInterests">
+        {{ $t("interests") }}
+      </span>
     </h4>
-    <section
-      v-if="displayJobSkills"
-      class="cv__section"
-      :class="layout === 'one-column' && 'flex gap-1 mb-1'"
-    >
-      <h3
-        class="capitalize"
-        :class="layout === 'one-column' ? 'two-dots inline flex-shrink-0' : 'cv__section-title'"
-      >
-        {{ $t("technical-skills") }}
-      </h3>
-      <ul :class="layout === 'one-column' ? 'flex flex-wrap' : 'cv__tags'">
-        <li
-          v-for="skill in props.jobSkills"
-          :key="`preview${skill}`"
-          :class="layout === 'one-column' ? 'font-light comma' : 'cv__tag'"
-        >
-          {{ skill }}
-        </li>
-      </ul>
-    </section>
-    <section
-      v-if="displaySoftSkills"
-      class="cv__section"
-      :class="layout === 'one-column' && 'flex gap-1 mb-1'"
-    >
-      <h3
-        class="capitalize"
-        :class="layout === 'one-column' ? 'two-dots inline flex-shrink-0' : 'cv__section-title'"
-      >
-        {{ $t("soft-skills") }}
-      </h3>
-      <ul
-        class="font-light"
-        :class="layout === 'one-column' ? 'flex flex-wrap' : 'cv__list'"
-      >
-        <li
-          v-for="skill in props.softSkills"
-          :key="`preview${skill}`"
-          :class="layout === 'one-column' && 'comma'"
-        >
-          {{ skill }}
-        </li>
-      </ul>
-    </section>
+    <CvPreviewSkill
+      :skill-name="$t('technical-skills')"
+      :display="displayJobSkills"
+      :skills="jobSkills"
+      :layout="layout"
+    />
+    <CvPreviewSkill
+      :skill-name="$t('soft-skills')"
+      :display="displaySoftSkills"
+      :skills="softSkills"
+      :layout="layout"
+    />
     <section
       v-if="displayLanguages"
       class="cv__section"
@@ -86,22 +62,40 @@ const props = defineProps<Pick<Cv, 'jobSkills' | 'softSkills' | 'languages' | 'l
         </li>
       </ul>
     </section>
+    <CvPreviewSkill
+      :skill-name="$t('interests')"
+      :display="displayInterests"
+      :skills="interests"
+      :layout="layout"
+    />
   </section>
 </template>
 
 <style class="postcss" scoped>
-.comma {
+:deep(.comma) {
   white-space: preserve;
 }
 
-ul :not(li:last-child).comma::after {
+:deep(ul) :not(li:last-child).comma::after {
   content: ', ';
 }
 
-.two-dots {
+:deep(.two-dots) {
 
   &::after {
     content: ': ';
+  }
+}
+
+.slash {
+  flex-shrink: 0;
+  white-space: preserve;
+
+  &::before {
+    content: ' ';
+  }
+  &::after {
+    content: ' ';
   }
 }
 </style>

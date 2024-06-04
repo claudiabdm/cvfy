@@ -23,6 +23,8 @@ export interface Cv {
   displaySoftSkills?: boolean
   languages: { lang: string, level: Level }[]
   displayLanguages?: boolean
+  interests: string[]
+  displayInterests?: boolean
   linkedin: string
   twitter: string
   github: string
@@ -50,7 +52,8 @@ export type OptionalSection = 'displaySocial' | 'displayEducation' | 'displayPro
 export type SkillType =
   'jobSkills' |
   'softSkills' |
-  'languages'
+  'languages' |
+  'interests'
 
 export interface LanguagesSkill {
   skill: { lang: string, level: Level }

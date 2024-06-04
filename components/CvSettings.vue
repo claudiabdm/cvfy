@@ -337,6 +337,12 @@ function getCurrentColor(colorValue: string): {
                 :tag-list-label="`🌎 ${$t('languages')}`"
                 :display="Boolean(formSettings.displayLanguages)"
               />
+              <CvInputTags
+                v-model="formSettings.interests"
+                tag-list-name="interests"
+                :tag-list-label="`🧸 ${$t('interests')}`"
+                :display="Boolean(formSettings.displayInterests)"
+              />
             </div>
           </template>
         </expansion-panel>
