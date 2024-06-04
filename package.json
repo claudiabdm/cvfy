@@ -8,6 +8,7 @@
     "build": "nuxi build",
     "start": "nuxi start",
     "generate": "nuxi generate",
+    "prepare": "nuxi prepare",
     "preview": "nuxi preview",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"

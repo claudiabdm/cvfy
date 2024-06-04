@@ -26,10 +26,10 @@ jobs:
           cache: npm
 
       - name: Install dependencies
-        run: npm run --frozen-lockfile
+        run: npm install
 
       - name: Prepare Nuxt
-        run: npm run nuxi prepare
+        run: npm run prepare
 
       - name: Run ESLint
         run: npm run lint
