@@ -6,6 +6,7 @@ defineProps<{
   skills: string[]
   skillName: string
   layout: Cv['layout']
+  withTags?: boolean
 }>()
 </script>
 
@@ -23,12 +24,12 @@ defineProps<{
     </h3>
     <ul
       class="font-light"
-      :class="layout === 'one-column' ? 'flex flex-wrap' : 'cv__list'"
+      :class="[{ 'flex flex-wrap': layout === 'one-column' }, { cv__list: layout !== 'one-column' && !withTags }, { cv__tags: withTags }]"
     >
       <li
         v-for="skill in skills"
         :key="`preview${skill}`"
-        :class="layout === 'one-column' && 'comma'"
+        :class="[{ comma: layout === 'one-column' }, { cv__tag: withTags }]"
       >
         {{ skill }}
       </li>

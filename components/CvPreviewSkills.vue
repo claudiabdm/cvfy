@@ -26,6 +26,7 @@ defineProps<Pick<Cv, 'jobSkills' | 'softSkills' | 'languages' | 'interests' | 'l
       :display="displayJobSkills"
       :skills="jobSkills"
       :layout="layout"
+      :with-tags="true"
     />
     <CvPreviewSkill
       :skill-name="$t('soft-skills')"
