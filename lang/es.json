@@ -12,7 +12,7 @@
   "contact": "Contacto",
   "professional-skills": "Habilidades profesionales",
   "soft-skills": "Habilidades Personales",
-  "interests": "Interests",
+  "interests": "Intereses",
   "languages": "Idiomas",
   "current": "Presente",
   "cv-language": "Idioma del CV",
@@ -62,5 +62,12 @@
   "full-professional": "Professional Completa",
   "one-column": "una-columna",
   "two-column": "dos-columnas",
+  "home": "Inicio",
+  "hero-paragraph": "CvFy es un creador de CVs multilingüe de código abierto y privacy-friendly que te ayuda a crear tu CV y descargarlo en PDF en tan solo unos minutos.",
+  "hero-title-1": "Crea tu",
+  "hero-title-2": "CV gratis",
+  "hero-title-3": "y se el dueño de tus datos",
+  "get-started": "Comenzar",
+  "create-cv": "Crear CV",
   "native-bilingual": "Nativo/Bilingüe"
 }
