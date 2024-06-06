@@ -1,8 +1,9 @@
 export default {
   theme: {
     fontFamily: {
-      sans: ['Roboto', 'sans-serif'],
-      serif: ['Roboto Slab', 'serif'],
+      app: ['Helvetica', 'sans-serif'],
+      landing: ['Inter', 'sans-serif'],
+      logo: ['Roboto Slab', 'serif'],
     },
     extend: {
       colors: {
@@ -16,4 +17,7 @@ export default {
       layers: ['utilities'],
     },
   },
+  plugins: [
+    require('@domchristie/tailwind-utopia'),
+  ],
 }

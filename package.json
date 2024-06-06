@@ -14,6 +14,8 @@
     "lint:fix": "eslint . --fix"
   },
   "dependencies": {
+    "@nuxt/fonts": "^0.7.0",
+    "@nuxt/image": "^1.7.0",
     "@tiptap/pm": "^2.2.4",
     "@tiptap/starter-kit": "^2.2.4",
     "@tiptap/vue-3": "^2.2.4",
@@ -22,6 +24,7 @@
   },
   "devDependencies": {
     "@antfu/eslint-config": "^2.6.4",
+    "@domchristie/tailwind-utopia": "^1.1.1",
     "@nuxt/types": "2.17.3",
     "@nuxtjs/i18n": "^8.0.1",
     "@nuxtjs/sitemap": "^5.1.0",
@@ -35,6 +38,7 @@
     "postcss-nested": "6.0.1",
     "sharp": "^0.33.4",
     "sharp-ico": "^0.1.5",
+    "tailwind-utopia": "github:cwsdigital/tailwind-utopia",
     "typescript": "^5.3.3"
   }
 }

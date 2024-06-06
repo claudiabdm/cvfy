@@ -78,10 +78,8 @@ function getCurrentColor(colorValue: string): {
 
 <template>
   <div class="settings">
-    <h2 class="title">
-      <span class="title__text">
-        {{ $t("cv-settings") }}
-      </span>
+    <div class="flex justify-between items-center title mt-2 px-6">
+      <LandingLogo />
       <a
         class="buy-me-a-coffee"
         href="https://ko-fi.com/X8X4COWK0"
@@ -97,6 +95,11 @@ function getCurrentColor(colorValue: string): {
           alt="Buy me a coffee button"
         >
       </a>
+    </div>
+    <h2 class="flex flex-wrap text-xl/normal pt-10 px-6 tracking-wide uppercase">
+      <span class="title__text">
+        {{ $t("cv-settings") }}
+      </span>
     </h2>
     <form
       class="form mb-10"
@@ -503,23 +506,13 @@ function getCurrentColor(colorValue: string): {
   }
 }
 
-.title {
-  @apply flex flex-wrap text-xl/normal pt-8 px-6 pb-6 tracking-wide uppercase;
-  align-items: center;
-  justify-content: space-between;
+.buy-me-a-coffee {
+  flex-shrink: 1;
 
-  .title__text {
-    flex-shrink: 0;
-  }
-
-  .buy-me-a-coffee {
-    flex-shrink: 1;
-
-    &__image {
-      width: 118px;
-      height: 30px;
-      font-size: 0.5rem;
-    }
+  &__image {
+    width: 118px;
+    height: 30px;
+    font-size: 0.5rem;
   }
 }
 </style>

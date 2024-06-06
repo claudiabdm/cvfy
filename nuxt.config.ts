@@ -41,6 +41,8 @@ export default defineNuxtConfig({
     '@nuxtjs/sitemap',
     '@nuxtjs/tailwindcss',
     '@vite-pwa/nuxt',
+    '@nuxt/fonts',
+    '@nuxt/image',
   ],
 
   eslintConfig: {
