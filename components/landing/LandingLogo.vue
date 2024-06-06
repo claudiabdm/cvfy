@@ -1,12 +1,16 @@
+<script lang="ts" setup>
+const localePath = useLocalePath()
+</script>
+
 <template>
-  <h1 class="[grid-area:logo]">
+  <h1>
     <NuxtLink
-      to="/"
-      class="bg-none font-logo uppercase tracking-widest"
+      :to="localePath('/')"
+      class="bg-none font-bold text-fl-lg font-logo uppercase tracking-widest"
       active-class="bg-none"
     >
       <span
-        class="font-bold text-fl-lg text-transparent bg-gradient-to-br from-violet-800 to-fuchsia-700 bg-clip-text hover:opacity-80"
+        class="text-transparent bg-gradient-to-br from-violet-800 to-fuchsia-700 bg-clip-text hover:opacity-80"
       >
         CvFy
       </span>

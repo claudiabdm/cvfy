@@ -78,7 +78,7 @@ function getCurrentColor(colorValue: string): {
 
 <template>
   <div class="settings">
-    <h1 class="flex justify-between items-center title mt-2 px-6">
+    <div class="flex justify-between items-center title mt-2 px-6">
       <LandingLogo />
       <a
         class="buy-me-a-coffee"
@@ -95,7 +95,7 @@ function getCurrentColor(colorValue: string): {
           alt="Buy me a coffee button"
         >
       </a>
-    </h1>
+    </div>
     <h2 class="flex flex-wrap text-xl/normal pt-10 px-6 tracking-wide uppercase">
       <span class="title__text">
         {{ $t("cv-settings") }}
