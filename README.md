@@ -27,4 +27,4 @@ Demo: https://cvfy.xyz/
 - PostCSS
 - TailwindCSS
 - Nuxt 3
-- Netlify
+- Cloudflare Pages
