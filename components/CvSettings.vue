@@ -78,7 +78,7 @@ function getCurrentColor(colorValue: string): {
 
 <template>
   <div class="settings">
-    <div class="flex justify-between items-center title mt-2 px-6">
+    <div class="flex justify-between items-center title pt-2 px-6">
       <LandingLogo />
       <a
         class="buy-me-a-coffee"
