@@ -1,9 +1,8 @@
-import { photoUri } from './example-profile-photo'
 import { type Cv, LEVELS } from '~/types/cvfy'
 
 export const cvSettingTemplate: Cv = {
   layout: 'two-column',
-  profileImageDataUri: photoUri,
+  profileImageDataUri: '/knope_campaign_rect.webp',
   jobTitle: 'Deputy Director of Parks and Recreations',
   name: 'Leslie',
   lastName: 'Knope',
