@@ -20,6 +20,8 @@ const IMAGES = [
         format="webp"
         sizes="100px md:250px"
         :src="url"
+        loading="eager"
+        preload
       />
     </div>
   </div>
