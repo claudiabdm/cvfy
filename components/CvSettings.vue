@@ -30,6 +30,7 @@ const config = {
     { name: 'zh-name', code: 'zh' },
     { name: 'de-name', code: 'de' },
     { name: 'ar-name', code: 'ar' },
+    { name: 'pt-name', code: 'pt' },
   ],
 }
 
