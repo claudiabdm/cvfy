@@ -137,9 +137,3 @@ useHead({
     </main>
   </div>
 </template>
-
-<style lang="postcss" scoped>
-:root {
-  --header-height: 104px;
-}
-</style>

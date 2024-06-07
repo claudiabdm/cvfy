@@ -57,3 +57,11 @@ definePageMeta({
     </div>
   </section>
 </template>
+
+<style lang="postcss" scoped>
+:root {
+  --header-height: calc(104px + calc(1.97rem
+        /* 31.52px */
+        + 4.50 * var(--fluid-bp)));
+}
+</style>
