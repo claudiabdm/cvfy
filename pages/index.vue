@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+const localePath = useLocalePath()
 definePageMeta({
   titleI18n: 'title-tag',
   layout: 'landing',
@@ -21,7 +22,7 @@ definePageMeta({
         {{ $t('hero-paragraph') }}
       </p>
       <LandingLink
-        to="create"
+        :to="localePath('create')"
         cta
       >
         <span>{{ $t('get-started') }}</span>

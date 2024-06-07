@@ -3,6 +3,7 @@ const CVFY_IMAGE = 'https://cvfy.xyz/CvFy-no-border.png'
 
 const { locale, t } = useI18n()
 const route = useRoute()
+const localePath = useLocalePath()
 const HREF = `https://cvfy.xyz${route.path}`
 const GITHUB = 'https://github.com/claudiabdm/cvfy'
 
@@ -123,7 +124,7 @@ useHead({
           </LandingLink>
           <LandingLangSwitch />
           <LandingLink
-            to="create"
+            :to="localePath('create')"
             cta
           >
             {{ $t('create-cv') }}
