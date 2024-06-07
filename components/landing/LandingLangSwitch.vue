@@ -1,6 +1,8 @@
 <script lang="ts" setup>
 const { locale, locales, setLocale } = useI18n()
 
+const selected = ref(locale)
+
 function handleSelect(e: Event) {
   if (e.target && 'value' in e.target) {
     const value = e.target.value as string
@@ -34,15 +36,15 @@ function handleSelect(e: Event) {
     >Choose a language:</label>
     <select
       id="language"
+      v-model="selected"
       class="w-full pl-8 py-2 appearance-none bg-slate-100 rounded uppercase hover:opacity-80"
-      :value="locale"
       @change="handleSelect"
     >
       <option
         v-for="loc in locales"
         :key="loc.code"
         :value="loc.code"
-        :selected="loc.code === locale"
+        :selected="loc.code === selected"
       >
         {{ loc.code }}
       </option>

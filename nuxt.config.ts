@@ -99,7 +99,7 @@ export default defineNuxtConfig({
         name: 'Chinese',
       },
     ],
-    lazy: true,
+    lazy: false,
     langDir: 'lang/',
     defaultLocale: 'en',
     detectBrowserLanguage: {
