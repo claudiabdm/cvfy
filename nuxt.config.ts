@@ -98,6 +98,11 @@ export default defineNuxtConfig({
         file: 'zh.json',
         name: 'Chinese',
       },
+      {
+        code: 'pt',
+        file: 'pt.json',
+        name: 'Portuguese',
+      },
     ],
     lazy: false,
     langDir: 'lang/',
