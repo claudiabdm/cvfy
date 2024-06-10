@@ -1,0 +1,44 @@
+# Builds deploy preview when opening a PR
+on:
+    pull_request:
+      types: [opened]
+  
+  jobs:
+    publish:
+      runs-on: ubuntu-latest
+      name: Deploy Preview to Cloudflare Pages
+      steps:
+        - name: Checkout
+          uses: actions/checkout@v4
+  
+        - name: Set up Node.js
+          uses: actions/setup-node@v4
+          with:
+            cache: npm
+  
+        - name: Install dependencies
+          run: npm install
+  
+        - name: Build dist folder
+          run: npm run generate
+  
+        - name: Deploy to Cloudflare Pages
+          id: deploy
+          uses: cloudflare/wrangler-action@v3
+          with:
+            apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+            accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+            command: pages deploy dist --project-name=cvfy
+        
+        - name: Create Comment
+          uses: actions/github-script@v6
+          with:
+            script: |
+                github.rest.issues.createComment({
+                body: '
+                # Deploying CvFy with Cloudflare Pages
+                | Name                    | Result |
+                | ----------------------- | - |
+                | **Branch Preview URL**: | https://${github.ref_name}.cvfy.pages.dev |
+                '
+                })

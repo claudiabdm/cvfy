@@ -1,5 +1,7 @@
 # Builds deploy preview when opening a PR
-on: pull_request
+on: 
+  pull_request: 
+    types: [synchronize]
 
 jobs:
   publish:
@@ -28,13 +30,16 @@ jobs:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           command: pages deploy dist --project-name=cvfy
 
-      - name: Print Deploy Preview URL
-        env:
-          DEPLOYMENT_URL: ${{ steps.deploy.outputs.deployment-url }}
-        run: echo $DEPLOYMENT_URL
-
-      - name: print wrangler command output
-        env:
-          CMD_OUTPUT: ${{ steps.deploy.outputs }}
-        run: echo $CMD_OUTPUT
-
+      - name: Create Comment
+        uses: actions/github-script@v6
+        with:
+          script: |
+              github.rest.issues.createComment({
+              body: '
+              # Deploying CvFy with Cloudflare Pages
+              | Name                    | Result |
+              | ----------------------- | - |
+              | **Commit**            | ${github.sha} |
+              | **Commit Preview URL**: | ${steps.deploy.outputs.deployment-url} |
+              '
+              })
