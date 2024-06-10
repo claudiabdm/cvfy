@@ -14,6 +14,9 @@ jobs:
         with:
           cache: npm
 
+      - name: Install dependencies
+        run: npm install
+
       - name: Build dist folder
         run: npm run generate
 
