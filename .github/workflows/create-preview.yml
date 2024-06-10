@@ -3,7 +3,7 @@ name: Create preview
 
 on: 
   pull_request: 
-    types: [synchronize]
+    types: [opened]
 
 jobs:
   publish:
