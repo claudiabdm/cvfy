@@ -1,4 +1,6 @@
-# Builds deploy preview when opening a PR
+# Builds deploy preview when sync a PR
+name: Deploy preview
+
 on: 
   pull_request: 
     types: [synchronize]
@@ -29,17 +31,25 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           command: pages deploy dist --project-name=cvfy
+      
+      - name: Create short commit sha
+        id: vars
+        run: echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+
 
       - name: Create Comment
-        uses: actions/github-script@v6
+        uses: actions/github-script@v7
         with:
           script: |
               github.rest.issues.createComment({
+               issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
               body: `
               # Deploying CvFy with Cloudflare Pages
               | Name                    | Result |
               | ----------------------- | - |
-              | **Commit**            | ${{github.sha}} |
+              | **Commit**              | ${{steps.vars.outputs.sha_short}} |
               | **Commit Preview URL**: | ${{steps.deploy.outputs.deployment-url}} |
               `
               })
