@@ -36,5 +36,10 @@ jobs:
         run: npm run lint
         
       - name: Fix all auto-fixable errors
+        id: fix-lint
         if:  ${{ failure() && steps.lint.conclusion == 'failure' }}
         run: npm run lint:fix
+
+      - name: Rerun ESLint
+        if:  ${{ success() && steps.lint.conclusion == 'fix-lint' }}
+        run: npm run lint
