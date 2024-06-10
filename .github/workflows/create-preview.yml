@@ -1,5 +1,5 @@
 # Creates deploy preview when opening a PR
-name: Create preview
+name: Create Branch Preview
 
 on: 
   pull_request: 

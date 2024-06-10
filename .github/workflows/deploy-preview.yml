@@ -35,18 +35,3 @@ jobs:
       - name: Create short commit sha
         id: vars
         run: echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
-
-
-      - name: Create Comment
-        uses: actions/github-script@v7
-        with:
-          script: |
-              github.rest.issues.createComment({
-               issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: `
-              ###  👩🏻‍💻 ${{steps.vars.outputs.sha_short}} Commit Preview
-              ${{steps.deploy.outputs.deployment-url}}
-              `
-              })
