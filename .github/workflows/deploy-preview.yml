@@ -18,7 +18,7 @@ jobs:
         uses: cloudflare/pages-action@v1
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          accountId: 6f1fca66954798898b3799b57dd4823e
           projectName: cvfy
           directory: ./dist
           wranglerVersion: '3'
