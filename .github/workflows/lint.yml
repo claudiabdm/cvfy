@@ -32,7 +32,9 @@ jobs:
         run: npm run prepare
 
       - name: Run ESLint
+        id: lint
         run: npm run lint
-
+        
       - name: Fix all auto-fixable errors
+        if:  ${{ failure() && steps.lint.conclusion == 'failure' }}
         run: npm run lint:fix
