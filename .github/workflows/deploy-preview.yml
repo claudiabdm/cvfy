@@ -39,7 +39,7 @@ jobs:
               # Deploying CvFy with Cloudflare Pages
               | Name                    | Result |
               | ----------------------- | - |
-              | **Commit**            | ${github.sha} |
-              | **Commit Preview URL**: | ${steps.deploy.outputs.deployment-url} |
+              | **Commit**            | ${{github.sha}} |
+              | **Commit Preview URL**: | ${{steps.deploy.outputs.deployment-url}} |
               '
               })

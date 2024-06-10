@@ -39,6 +39,6 @@ on:
                 # Deploying CvFy with Cloudflare Pages
                 | Name                    | Result |
                 | ----------------------- | - |
-                | **Branch Preview URL**: | https://${github.ref_name}.cvfy.pages.dev |
+                | **Branch Preview URL**: | https://${{github.ref_name}}.cvfy.pages.dev |
                 '
                 })
