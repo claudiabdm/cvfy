@@ -46,10 +46,7 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               body: `
-              # Deploying CvFy with Cloudflare Pages
-              | Name                    | Result |
-              | ----------------------- | - |
-              | **Commit**              | ${{steps.vars.outputs.sha_short}} |
-              | **Commit Preview URL**: | ${{steps.deploy.outputs.deployment-url}} |
+              ###  ${{steps.vars.outputs.sha_short}} Commit Preview 👩🏻‍💻
+              ${{steps.deploy.outputs.deployment-url}}
               `
               })
