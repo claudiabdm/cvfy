@@ -41,7 +41,7 @@ jobs:
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 body: `
-                ### Branch Preview 👩🏻‍💻
+                ### 👩🏻‍💻 ${{github.head_ref}} Branch Preview
                 https://${{github.head_ref}}.cvfy.pages.dev
                 `
               })
