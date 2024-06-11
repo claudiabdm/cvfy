@@ -32,9 +32,5 @@ jobs:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           command: pages deploy dist --project-name=cvfy --branch=${{github.head_ref}}
       
-      - name: Create short commit sha
-        id: vars
-        run: echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
-
-      - name: Test
-        run: echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+      - name: Print deployment url
+        run: echo ${{steps.deploy.outputs.deployment-url}}
