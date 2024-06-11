@@ -1,0 +1,37 @@
+# Builds deploy preview when sync a PR
+name: Deploy preview
+
+on: 
+  pull_request: 
+    types: [synchronize]
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    name: Deploy Preview to Cloudflare Pages
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          cache: npm
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build dist folder
+        run: npm run generate
+
+      - name: Deploy to Cloudflare Pages
+        id: deploy
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy dist --project-name=cvfy
+      
+      - name: Create short commit sha
+        id: vars
+        run: echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
