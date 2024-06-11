@@ -30,7 +30,7 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy dist --project-name=cvfy
+          command: pages deploy dist --project-name=cvfy --branch=${{github.head_ref}}
       
       - name: Create Comment
         uses: actions/github-script@v7
