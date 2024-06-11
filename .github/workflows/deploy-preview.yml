@@ -30,8 +30,11 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy dist --project-name=cvfy
+          command: pages deploy dist --project-name=cvfy --branch=${{github.head_ref}}
       
       - name: Create short commit sha
         id: vars
+        run: echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+
+      - name: Test
         run: echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
