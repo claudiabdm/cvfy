@@ -456,6 +456,13 @@ function getCurrentColor(colorValue: string): {
 
       <!-- CTA -->
       <div class="form__section flex flex-col p-6 gap-3">
+        <button
+          type="button"
+          class="form__btn flex flex-col justify-center"
+          @click="downloadPdf"
+        >
+          <span>{{ $t("download-cv-pdf") }}</span>
+        </button>
         <label
           tabindex="0"
           class="form__btn flex justify-center"
@@ -476,14 +483,6 @@ function getCurrentColor(colorValue: string): {
           class="form__btn flex justify-center"
         >{{ $t("download-cv-settings") }}
           (JSON)</a>
-        <button
-          type="button"
-          class="form__btn flex flex-col justify-center"
-          @click="downloadPdf"
-        >
-          <span>{{ $t("download-cv-pdf") }}</span>
-          <span>({{ $t("chrome-recommended") }})</span>
-        </button>
       </div>
       <!-- CTA -->
     </form>
