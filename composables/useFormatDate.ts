@@ -3,6 +3,7 @@ export default function useFormatDate() {
 
   return function formatDate(date: Date): string {
     const options: Intl.DateTimeFormatOptions = {
+      timeZone: 'UTC',
       year: 'numeric',
       month: 'short',
     }
