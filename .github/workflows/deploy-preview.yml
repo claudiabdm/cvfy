@@ -1,36 +1,60 @@
-# Builds deploy preview when sync a PR
-name: Deploy preview
+#################### 🚧 WARNING: READ THIS BEFORE USING THIS FILE 🚧 ####################
+#
+#
+#
+# IF YOU DON'T KNOW WHAT YOU'RE DOING, YOU CAN EASILY LEAK SECRETS BY USING A
+# `pull_request_target` WORKFLOW INSTEAD OF `pull_request`! SERIOUSLY, DO NOT
+# BLINDLY COPY AND PASTE THIS FILE WITHOUT UNDERSTANDING THE FULL IMPLICATIONS
+# OF WHAT YOU'RE DOING! WE HAVE TESTED THIS FOR OUR OWN USE CASES, WHICH ARE
+# NOT NECESSARILY THE SAME AS YOURS! WHILE WE AREN'T EXPOSING ANY OF OUR SECRETS,
+# ONE COULD EASILY DO SO BY MODIFYING OR ADDING A STEP TO THIS WORKFLOW!
+#
+#
+#
+#################### 🚧 WARNING: READ THIS BEFORE USING THIS FILE 🚧 ####################
 
-on: 
-  pull_request: 
-    types: [synchronize]
+name: Preview Deployment
+on:
+  pull_request_target:
+
+# cancel in-progress runs on new commits to same PR (github.event.number)
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.number || github.sha }}
+  cancel-in-progress: true
 
 jobs:
-  publish:
-    runs-on: ubuntu-latest
-    name: Deploy Preview to Cloudflare Pages
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+  deploy-preview:
+      permissions:
+          contents: read
+          pull-requests: write
+          deployments: write
+      runs-on: ubuntu-latest
+      name: Deploy Preview to Cloudflare Pages
+      steps:
+          - name: Checkout
+            uses: actions/checkout@v4
+            with:
+                ref: ${{ github.event.pull_request.head.ref }}
+                repository: ${{ github.event.pull_request.head.repo.full_name }}
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          cache: npm
+          - name: Set up Node.js
+            uses: actions/setup-node@v4
+            with:
+              cache: npm
+        
+          - name: Install dependencies
+            run: npm install
+        
+          - name: Build dist folder
+            run: npm run generate
 
-      - name: Install dependencies
-        run: npm install
-
-      - name: Build dist folder
-        run: npm run generate
-
-      - name: Deploy to Cloudflare Pages
-        id: deploy
-        uses: cloudflare/wrangler-action@v3
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy dist --project-name=cvfy --branch=${{github.head_ref}}
-      
-      - name: Print deployment url
-        run: echo ${{steps.deploy.outputs.deployment-url}}
+          - name: Deploy to Cloudflare Pages
+            id: cloudflare-pages-deploy
+            uses: AdrianGonz97/refined-cf-pages-action@v1
+            with:
+                apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+                accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+                githubToken: ${{ secrets.GITHUB_TOKEN }}
+                projectName: cvfy
+                directory: ./dist
+                deploymentName: Preview
