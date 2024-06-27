@@ -33,17 +33,11 @@ const { formSettings, isLoading } = useCvState()
         ]"
       >
         <template v-if="formSettings.layout === 'one-column'">
-          <CvPreviewOneColumn
-            :form-settings="formSettings"
-            :is-loading="isLoading"
-          />
+          <CvPreviewOneColumn />
         </template>
 
         <template v-if="formSettings.layout === 'two-column'">
-          <CvPreviewTwoColumn
-            :form-settings="formSettings"
-            :is-loading="isLoading"
-          />
+          <CvPreviewTwoColumn />
         </template>
       </div>
     </div>

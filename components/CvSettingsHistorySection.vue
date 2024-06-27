@@ -1,14 +1,15 @@
 <script lang="ts" setup>
-import type { Cv, OptionalSection, SectionName, SectionNameList } from '~/types/cvfy'
+import { useCvState } from '~/data/useCvState'
+import type { OptionalSection, SectionName, SectionNameList } from '~/types/cvfy'
 
 const props = defineProps<
   {
-    formSettings: Cv
     section: SectionName
     name: typeof SectionNameList[SectionName]
   }
 >()
 
+const { formSettings } = useCvState()
 const displaySection = computed(() => `display${props.section[0].toLocaleUpperCase}${props.section.slice(1)}` as OptionalSection)
 </script>
 

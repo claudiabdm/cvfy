@@ -1,13 +1,11 @@
 <script lang="ts" setup>
-import type { Cv } from '~/types/cvfy'
+import { useCvState } from '~/data/useCvState'
 
-defineProps<Pick<Cv, 'name' | 'lastName'>>()
+const { formSettings } = useCvState()
 </script>
 
 <template>
-  <h2
-    class="text-primary text-xl/normal uppercase font-bold tracking-wide"
-  >
-    {{ name }} {{ lastName }}
+  <h2 class="text-primary text-xl/normal uppercase font-bold tracking-wide">
+    {{ formSettings.name }} {{ formSettings.lastName }}
   </h2>
 </template>

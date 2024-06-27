@@ -1,13 +1,14 @@
 <script setup lang="ts">
-import type { Cv } from '~/types/cvfy'
+import { useCvState } from '~/data/useCvState'
 
-defineProps<Pick<Cv, 'profileImageDataUri'>>()
+const { formSettings } = useCvState()
 </script>
 
 <template>
   <img
+    v-if="formSettings.profileImageDataUri"
     class="object-cover aspect-square max-w-[212px] max-h-[212px]"
-    :src="profileImageDataUri ?? ''"
+    :src="formSettings.profileImageDataUri ?? ''"
     alt="Your profile image"
   >
 </template>

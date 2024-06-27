@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-import type { Cv } from '~/types/cvfy'
+import { useCvState } from '~/data/useCvState'
 
-defineProps<{ formSettings: Cv, isLoading: boolean }>()
+const { formSettings } = useCvState()
 </script>
 
 <template>
@@ -9,82 +9,39 @@ defineProps<{ formSettings: Cv, isLoading: boolean }>()
     class="flex flex-col gap-4 p-6 py-7 col-span-1 bg-slate-50"
     :class="formSettings.profileImageDataUri ? 'py-7' : 'py-8'"
   >
-    <CvProfileImageViewer
-      v-if="formSettings.profileImageDataUri"
-      class="border-white border-8"
-      :profile-image-data-uri="formSettings.profileImageDataUri"
-    />
+    <CvProfileImageViewer class="border-white border-8" />
 
     <div>
-      <CvPreviewName
-        :name="formSettings.name"
-        :last-name="formSettings.lastName"
-      />
-      <CvPreviewTitle :job-title="formSettings.jobTitle" />
+      <CvPreviewName />
+      <CvPreviewTitle />
     </div>
 
-    <CvPreviewContact
-      :layout="formSettings.layout"
-      :email="formSettings.email"
-      :phone-number="formSettings.phoneNumber"
-      :location="formSettings.location"
-    />
+    <CvPreviewContact />
 
-    <CvPreviewSkills
-      class="flex flex-col gap-6"
-      :layout="formSettings.layout"
-      :job-skills="formSettings.jobSkills"
-      :display-job-skills="formSettings.displayJobSkills"
-      :soft-skills="formSettings.softSkills"
-      :display-soft-skills="formSettings.displaySoftSkills"
-      :languages="formSettings.languages"
-      :display-languages="formSettings.displayLanguages"
-      :interests="formSettings.interests"
-      :display-interests="formSettings.displayInterests"
-    />
+    <CvPreviewSkills class="flex flex-col gap-6" />
 
-    <CvPreviewSocial
-      :layout="formSettings.layout"
-      :linkedin="formSettings.linkedin"
-      :twitter="formSettings.twitter"
-      :website="formSettings.website"
-      :github="formSettings.github"
-      :display-social="formSettings.displaySocial"
-    />
+    <CvPreviewSocial />
   </div>
   <div class="pr-8 pl-5 py-8 col-span-2">
-    <CvPreviewAbout
-      :layout="formSettings.layout"
-      :aboutme="formSettings.aboutme"
-    />
+    <CvPreviewAbout />
 
     <hr class="cv__bar">
 
-    <CvPreviewExperience
-      :layout="formSettings.layout"
-      :work="formSettings.work"
-    />
+    <CvPreviewExperience />
 
     <hr
       v-if="formSettings.displayEducation"
       class="cv__bar"
     >
 
-    <CvPreviewEducation
-      v-if="formSettings.displayEducation"
-      :layout="formSettings.layout"
-      :education="formSettings.education"
-    />
+    <CvPreviewEducation />
 
     <hr
       v-if="formSettings.displayProjects"
       class="cv__bar"
     >
 
-    <CvPreviewProjects
-      v-if="formSettings.displayProjects"
-      :projects="formSettings.projects"
-    />
+    <CvPreviewProjects />
   </div>
 </template>
 

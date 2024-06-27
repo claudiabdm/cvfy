@@ -1,19 +1,22 @@
 <script lang="ts" setup>
-import type { Cv } from '~/types/cvfy'
 import useFormatDate from '~/composables/useFormatDate'
 import { orderEvents } from '~/utils/functions'
+import { useCvState } from '~/data/useCvState'
 
-const props = defineProps<Pick<Cv, 'projects'>>()
+const { formSettings } = useCvState()
 
 const projectsSorted = computed(() => {
-  return orderEvents(props.projects)
+  return orderEvents(formSettings.value.projects)
 })
 
 const formatDate = useFormatDate()
 </script>
 
 <template>
-  <section class="cv__section cv__section--main w-full">
+  <section
+    v-if="formSettings.displayProjects"
+    class="cv__section cv__section--main w-full"
+  >
     <h4 class="cv__section-title cv__section-title--main">
       {{ $t("projects") }}
     </h4>
