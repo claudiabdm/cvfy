@@ -142,7 +142,7 @@ export function useCvState() {
   }
 
   function patchId(formSettings: Cv) {
-  // Make sure that older cvs have id in each entry of a section
+    // Make sure that older cvs have id in each entry of a section
     for (const key in SectionNameList) {
       const section = key as SectionName
       for (const e of formSettings[section]) {

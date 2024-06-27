@@ -3,11 +3,15 @@ import { useCvState } from '~/data/useCvState'
 
 const CVFY_IMAGE = 'https://cvfy.xyz/CvFy-no-border.png'
 
+const { setUpCvSettings } = useCvState()
 const route = useRoute()
 const { t, locale } = useI18n()
-const { formSettings, isLoading } = useCvState()
 
 const href = `https://cvfy.xyz${route.path}`
+
+onMounted(() => {
+  setUpCvSettings()
+})
 
 useHead({
   htmlAttrs: {
@@ -98,11 +102,7 @@ useHead({
 <template>
   <main class="font-app main">
     <CvSettings class="basis-1/4 min-w-80" />
-    <CvPreview
-      :form-settings="formSettings"
-      :is-loading="isLoading"
-      class="basis-3/4"
-    />
+    <CvPreview class="basis-3/4" />
   </main>
 </template>
 

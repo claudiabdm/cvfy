@@ -1,14 +1,14 @@
 <script lang="ts" setup>
-import type { Cv } from '~/types/cvfy'
 import useFormatDate from '~/composables/useFormatDate'
 import { orderEvents } from '~/utils/functions'
+import { useCvState } from '~/data/useCvState'
 
-const props = defineProps<Pick<Cv, 'work' | 'layout'>>()
+const { formSettings } = useCvState()
 
 const formatDate = useFormatDate()
 
 const workSorted = computed(() => {
-  return orderEvents(props.work)
+  return orderEvents(formSettings.value.work)
 })
 </script>
 

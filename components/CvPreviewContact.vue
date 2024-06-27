@@ -1,33 +1,33 @@
 <script lang="ts" setup>
-import type { Cv } from '~/types/cvfy'
+import { useCvState } from '~/data/useCvState'
 
-const props = defineProps<Pick<Cv, 'email' | 'phoneNumber' | 'location' | 'layout'>>()
+const { formSettings } = useCvState()
 
 const emailHref = computed(() => {
-  return `mailto:${props.email}`
+  return `mailto:${formSettings.value.email}`
 })
 const phoneNumberHref = computed(() => {
-  return `tel:${props.phoneNumber}`
+  return `tel:${formSettings.value.phoneNumber}`
 })
 </script>
 
 <template>
   <section
     class="cv__section"
-    :class="layout === 'one-column' && 'mt-0'"
+    :class="formSettings.layout === 'one-column' && 'mt-0'"
   >
     <h4
       class="cv__section-title"
-      :class="[{ 'sr-only': layout === 'one-column' }]"
+      :class="[{ 'sr-only': formSettings.layout === 'one-column' }]"
     >
       {{ $t("contact") }}
     </h4>
     <div
       class="flex"
-      :class="layout === 'one-column' ? 'flex-wrap gap-2' : 'flex-col'"
+      :class="formSettings.layout === 'one-column' ? 'flex-wrap gap-2' : 'flex-col'"
     >
       <div
-        v-if="email"
+        v-if="formSettings.email"
         class="cv__icon-wrapper"
       >
         <svg class="cv__icon">
@@ -36,10 +36,10 @@ const phoneNumberHref = computed(() => {
         <a
           :href="emailHref"
           rel="noopener"
-        >{{ email }}</a>
+        >{{ formSettings.email }}</a>
       </div>
       <div
-        v-if="phoneNumber"
+        v-if="formSettings.phoneNumber"
         class="cv__icon-wrapper"
       >
         <svg class="cv__icon">
@@ -49,17 +49,17 @@ const phoneNumberHref = computed(() => {
           :href="phoneNumberHref"
           rel="noopener"
         >{{
-          phoneNumber
+          formSettings.phoneNumber
         }}</a>
       </div>
       <div
-        v-if="location"
+        v-if="formSettings.location"
         class="cv__icon-wrapper"
       >
         <svg class="cv__icon">
           <use href="@/assets/sprite.svg#location" />
         </svg>
-        <span tabindex="0">{{ location }}</span>
+        <span tabindex="0">{{ formSettings.location }}</span>
       </div>
     </div>
   </section>

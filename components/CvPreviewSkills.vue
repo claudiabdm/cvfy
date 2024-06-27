@@ -1,73 +1,70 @@
 <script lang="ts" setup>
-import type { Cv } from '~/types/cvfy'
+import { useCvState } from '~/data/useCvState'
 
-defineProps<Pick<Cv, 'jobSkills' | 'softSkills' | 'languages' | 'interests' | 'layout' | 'displayJobSkills' | 'displaySoftSkills' | 'displayLanguages' | 'displayInterests'>>()
+const { formSettings } = useCvState()
 </script>
 
 <template>
   <section class="cv__section">
     <h4
       class="cv__section-title"
-      :class="layout === 'one-column' ? 'cv__section-title--main' : 'sr-only'"
+      :class="formSettings.layout === 'one-column' ? 'cv__section-title--main' : 'sr-only'"
     >
       <span>
         {{ $t("skills") }}
       </span>
       <span
-        v-if="displayInterests"
+        v-if="formSettings.displayInterests"
         class="slash"
       >/</span>
-      <span v-if="displayInterests">
+      <span v-if="formSettings.displayInterests">
         {{ $t("interests") }}
       </span>
     </h4>
     <CvPreviewSkill
       :skill-name="$t('technical-skills')"
-      :display="displayJobSkills"
-      :skills="jobSkills"
-      :layout="layout"
+      :display="formSettings.displayJobSkills"
+      :skills="formSettings.jobSkills"
       :with-tags="true"
     />
     <CvPreviewSkill
       :skill-name="$t('soft-skills')"
-      :display="displaySoftSkills"
-      :skills="softSkills"
-      :layout="layout"
+      :display="formSettings.displaySoftSkills"
+      :skills="formSettings.softSkills"
     />
     <section
-      v-if="displayLanguages"
+      v-if="formSettings.displayLanguages"
       class="cv__section"
-      :class="layout === 'one-column' && 'flex gap-1 mb-1'"
+      :class="formSettings.layout === 'one-column' && 'flex gap-1 mb-1'"
     >
       <h3
         class="capitalize"
-        :class="layout === 'one-column' ? 'two-dots inline flex-shrink-0' : 'cv__section-title'"
+        :class="formSettings.layout === 'one-column' ? 'two-dots inline flex-shrink-0' : 'cv__section-title'"
       >
         {{ $t("languages") }}
       </h3>
 
-      <ul :class="layout === 'one-column' && 'flex flex-wrap break-words'">
+      <ul :class="formSettings.layout === 'one-column' && 'flex flex-wrap break-words'">
         <li
-          v-for="lang in languages"
+          v-for="lang in formSettings.languages"
           :key="`preview${lang.lang}`"
-          :class="layout === 'one-column' ? 'comma' : 'flex justify-between pr-4'"
+          :class="formSettings.layout === 'one-column' ? 'comma' : 'flex justify-between pr-4'"
         >
-          <span :class="layout === 'one-column' && 'font-light'">
+          <span :class="formSettings.layout === 'one-column' && 'font-light'">
             {{ lang.lang }}
           </span>
           <span class="font-light">
-            <template v-if="layout === 'one-column'"> (</template>{{
+            <template v-if="formSettings.layout === 'one-column'"> (</template>{{
               $t(lang.level)
-            }}<template v-if="layout === 'one-column'">)</template>
+            }}<template v-if="formSettings.layout === 'one-column'">)</template>
           </span>
         </li>
       </ul>
     </section>
     <CvPreviewSkill
       :skill-name="$t('interests')"
-      :display="displayInterests"
-      :skills="interests"
-      :layout="layout"
+      :display="formSettings.displayInterests"
+      :skills="formSettings.interests"
     />
   </section>
 </template>
@@ -95,6 +92,7 @@ defineProps<Pick<Cv, 'jobSkills' | 'softSkills' | 'languages' | 'interests' | 'l
   &::before {
     content: ' ';
   }
+
   &::after {
     content: ' ';
   }

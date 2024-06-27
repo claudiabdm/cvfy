@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-import type { Cv } from '~/types/cvfy'
+import { useCvState } from '~/data/useCvState'
 
-defineProps<Pick<Cv, 'languages'>>()
+const { formSettings } = useCvState()
 </script>
 
 <template>
@@ -11,7 +11,7 @@ defineProps<Pick<Cv, 'languages'>>()
     </h4>
     <ul>
       <li
-        v-for="lang in languages"
+        v-for="lang in formSettings.languages"
         :key="`preview${lang.lang}`"
         class="flex justify-between pr-4"
       >

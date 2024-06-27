@@ -1,26 +1,26 @@
 <script lang="ts" setup>
-import type { Cv } from '~/types/cvfy'
+import { useCvState } from '~/data/useCvState'
 
-defineProps<Pick<Cv, 'linkedin' | 'displaySocial' | 'twitter' | 'github' | 'website' | 'layout'>>()
+const { formSettings } = useCvState()
 </script>
 
 <template>
   <section
-    v-if="displaySocial"
+    v-if="formSettings.displaySocial"
     class="cv__section"
   >
     <h4
       class="cv__section-title"
-      :class="layout === 'one-column' && 'sr-only'"
+      :class="formSettings.layout === 'one-column' && 'sr-only'"
     >
       {{ $t("social") }}
     </h4>
     <div
       class="flex"
-      :class="layout === 'one-column' ? 'flex-row flex-wrap gap-2' : 'flex-col'"
+      :class="formSettings.layout === 'one-column' ? 'flex-row flex-wrap gap-2' : 'flex-col'"
     >
       <div
-        v-if="linkedin"
+        v-if="formSettings.linkedin"
         class="cv__icon-wrapper"
       >
         <svg class="cv__icon">
@@ -29,11 +29,11 @@ defineProps<Pick<Cv, 'linkedin' | 'displaySocial' | 'twitter' | 'github' | 'webs
         <a
           target="_blank"
           rel="noopener"
-          :href="`https://linkedin.com/in/${linkedin}`"
-        >{{ linkedin }}</a>
+          :href="`https://linkedin.com/in/${formSettings.linkedin}`"
+        >{{ formSettings.linkedin }}</a>
       </div>
       <div
-        v-if="twitter"
+        v-if="formSettings.twitter"
         class="cv__icon-wrapper"
       >
         <svg class="cv__icon">
@@ -42,11 +42,11 @@ defineProps<Pick<Cv, 'linkedin' | 'displaySocial' | 'twitter' | 'github' | 'webs
         <a
           target="_blank"
           rel="noopener"
-          :href="`https://twitter.com/${twitter}`"
-        >{{ twitter }}</a>
+          :href="`https://twitter.com/${formSettings.twitter}`"
+        >{{ formSettings.twitter }}</a>
       </div>
       <div
-        v-if="github"
+        v-if="formSettings.github"
         class="cv__icon-wrapper"
       >
         <svg class="cv__icon">
@@ -55,11 +55,11 @@ defineProps<Pick<Cv, 'linkedin' | 'displaySocial' | 'twitter' | 'github' | 'webs
         <a
           target="_blank"
           rel="noopener"
-          :href="`https://github.com/${github}`"
-        >{{ github }}</a>
+          :href="`https://github.com/${formSettings.github}`"
+        >{{ formSettings.github }}</a>
       </div>
       <div
-        v-if="website"
+        v-if="formSettings.website"
         class="cv__icon-wrapper"
       >
         <svg class="cv__icon">
@@ -68,9 +68,9 @@ defineProps<Pick<Cv, 'linkedin' | 'displaySocial' | 'twitter' | 'github' | 'webs
         <a
           target="_blank"
           rel="noopener"
-          :href="website.includes('https') ? website : `https://${website}`"
+          :href="formSettings.website.includes('https') ? formSettings.website : `https://${formSettings.website}`"
         >{{
-          website
+          formSettings.website
         }}</a>
       </div>
     </div>

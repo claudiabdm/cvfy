@@ -7,7 +7,6 @@ const {
   uploadCV,
   clearForm,
   resetForm,
-  setUpCvSettings,
 } = useCvState()
 const switchLocalePath = useSwitchLocalePath()
 const i18n = useI18n()
@@ -33,10 +32,6 @@ const config = {
     { name: 'pt-name', code: 'pt' },
   ],
 }
-
-onMounted(() => {
-  setUpCvSettings()
-})
 
 watch(
   () => formSettings.value,
@@ -448,7 +443,6 @@ function getCurrentColor(colorValue: string): {
       <CvSettingsHistorySection
         v-for="(value, key) in SectionNameList"
         :key="key"
-        :form-settings="formSettings"
         :section="key"
         :name="value"
       />
