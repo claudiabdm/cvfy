@@ -1,4 +1,6 @@
 <script setup lang="ts">
+
+console.log('test')
 import { useCvState } from '~/data/useCvState'
 
 const CVFY_IMAGE = 'https://cvfy.xyz/CvFy-no-border.png'
