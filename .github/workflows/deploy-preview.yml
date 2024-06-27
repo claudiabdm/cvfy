@@ -1,36 +1,30 @@
-# Builds deploy preview when sync a PR
-name: Deploy preview
-
-on: 
-  pull_request: 
-    types: [synchronize]
+name: Preview Deployment
+on:
+  pull_request_target:
 
 jobs:
-  publish:
+  deploy-preview:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+      deployments: write
     name: Deploy Preview to Cloudflare Pages
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
+        uses: actions/checkout@v3
         with:
-          cache: npm
+          ref: ${{ github.event.pull_request.head.ref }}
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
 
-      - name: Install dependencies
-        run: npm install
-
-      - name: Build dist folder
-        run: npm run generate
+      # Run your install/build steps here
 
       - name: Deploy to Cloudflare Pages
-        id: deploy
-        uses: cloudflare/wrangler-action@v3
+        uses: AdrianGonz97/refined-cf-pages-action@v1
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy dist --project-name=cvfy --branch=${{github.head_ref}}
-      
-      - name: Print deployment url
-        run: echo ${{steps.deploy.outputs.deployment-url}}
+          githubToken: ${{ secrets.GITHUB_TOKEN }}
+          projectName: cvfy
+          directory: ./dist
+          deploymentName: Preview
