@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { resizeImageFromReader } from '~/utils/functions'
+
 const emit = defineEmits<{
   (event: 'update:modelValue', value: string | null | undefined): void
 }>()
@@ -38,40 +40,6 @@ function fileToDataUri(blob: Blob) {
       { once: true },
     )
   })
-}
-
-function resizeImageFromReader(readerResult: string) {
-  const img = new Image()
-  img.src = readerResult
-  return new Promise<string>(resolve =>
-    img.addEventListener(
-      'load',
-      () => {
-        const resizedImage = resizeImage(img)
-        resolve(resizedImage)
-      },
-      { once: true },
-    ),
-  )
-}
-
-function resizeImage(imgToResize: HTMLImageElement, resizingFactor = 0.25) {
-  const canvas = document.createElement('canvas')
-  const context = canvas.getContext('2d')
-
-  const originalWidth = imgToResize.width
-  const originalHeight = imgToResize.height
-
-  const canvasWidth = originalWidth * resizingFactor
-  const canvasHeight = originalHeight * resizingFactor
-
-  canvas.width = canvasWidth
-  canvas.height = canvasHeight
-
-  if (context)
-    context.drawImage(imgToResize, 0, 0, canvasWidth, canvasHeight)
-
-  return canvas.toDataURL()
 }
 </script>
 

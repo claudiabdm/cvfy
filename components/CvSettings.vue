@@ -105,7 +105,7 @@ function getCurrentColor(colorValue: string): {
         <button
           class="form__btn form__btn--ghost"
           type="button"
-          @click="resetForm"
+          @click="async () => await resetForm()"
         >
           {{ $t("reset-settings") }}
         </button>
