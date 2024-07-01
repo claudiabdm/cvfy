@@ -23,6 +23,7 @@ const { formSettings, isLoading } = useCvState()
   >
     <div style="min-height: var(--height);">
       <div
+        id="cvPreview"
         tabindex="0"
         aria-label="CV preview"
         class="cv shadow-lg mt-6 bg-white relative"
