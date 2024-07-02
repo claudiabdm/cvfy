@@ -8,11 +8,12 @@ const { formSettings } = useCvState()
   <section class="cv__section cv__section--main">
     <h4
       class="cv__section-title cv__section-title--main"
+      data-cv-elem="aboutmeTitle"
       :class="formSettings.layout === 'one-column' && 'sr-only'"
     >
       {{ $t("about-me") }}
     </h4>
-    <p class="font-light">
+    <p data-cv-elem="aboutmeText" class="font-light">
       <!-- Avoids unnecessary spaces at the begging while still allowing break lines -->
       <span class="whitespace-pre-wrap">{{ formSettings.aboutme }}</span>
     </p>

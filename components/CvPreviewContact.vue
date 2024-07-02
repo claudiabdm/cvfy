@@ -17,6 +17,7 @@ const phoneNumberHref = computed(() => {
     :class="formSettings.layout === 'one-column' && 'mt-0'"
   >
     <h4
+      data-cv-elem="contact"
       class="cv__section-title"
       :class="[{ 'sr-only': formSettings.layout === 'one-column' }]"
     >
@@ -28,6 +29,7 @@ const phoneNumberHref = computed(() => {
     >
       <div
         v-if="formSettings.email"
+        data-cv-elem="email"
         class="cv__icon-wrapper"
       >
         <svg class="cv__icon">
@@ -40,6 +42,7 @@ const phoneNumberHref = computed(() => {
       </div>
       <div
         v-if="formSettings.phoneNumber"
+        data-cv-elem="phoneNumber"
         class="cv__icon-wrapper"
       >
         <svg class="cv__icon">
@@ -54,6 +57,7 @@ const phoneNumberHref = computed(() => {
       </div>
       <div
         v-if="formSettings.location"
+        data-cv-elem="location"
         class="cv__icon-wrapper"
       >
         <svg class="cv__icon">

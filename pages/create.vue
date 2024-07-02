@@ -9,8 +9,8 @@ const { t, locale } = useI18n()
 
 const href = `https://cvfy.xyz${route.path}`
 
-onMounted(() => {
-  setUpCvSettings()
+onMounted(async () => {
+  await setUpCvSettings()
 })
 
 useHead({

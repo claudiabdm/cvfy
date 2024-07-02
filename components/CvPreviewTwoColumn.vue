@@ -6,6 +6,7 @@ const { formSettings } = useCvState()
 
 <template>
   <div
+    data-cv-elem="cvSideBg"
     class="flex flex-col gap-4 p-6 py-7 col-span-1 bg-slate-50"
     :class="formSettings.profileImageDataUri ? 'py-7' : 'py-8'"
   >

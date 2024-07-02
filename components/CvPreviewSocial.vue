@@ -10,6 +10,7 @@ const { formSettings } = useCvState()
     class="cv__section"
   >
     <h4
+      data-cv-elem="social"
       class="cv__section-title"
       :class="formSettings.layout === 'one-column' && 'sr-only'"
     >
@@ -21,6 +22,7 @@ const { formSettings } = useCvState()
     >
       <div
         v-if="formSettings.linkedin"
+        data-cv-elem="linkedin"
         class="cv__icon-wrapper"
       >
         <svg class="cv__icon">
@@ -34,6 +36,7 @@ const { formSettings } = useCvState()
       </div>
       <div
         v-if="formSettings.twitter"
+        data-cv-elem="twitter"
         class="cv__icon-wrapper"
       >
         <svg class="cv__icon">
@@ -47,6 +50,7 @@ const { formSettings } = useCvState()
       </div>
       <div
         v-if="formSettings.github"
+        data-cv-elem="github"
         class="cv__icon-wrapper"
       >
         <svg class="cv__icon">
@@ -60,6 +64,7 @@ const { formSettings } = useCvState()
       </div>
       <div
         v-if="formSettings.website"
+        data-cv-elem="website"
         class="cv__icon-wrapper"
       >
         <svg class="cv__icon">
