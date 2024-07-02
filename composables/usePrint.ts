@@ -1,7 +1,9 @@
 import PDFDocument from 'pdfkit/js/pdfkit.standalone'
 import blobStream from 'blob-stream/.js'
 import { useCvState } from '~/data/useCvState'
-import type { Cv } from '~/types/cvfy'
+
+const pxToPtRatio = 3 / 4
+const lineGap = 5
 
 export default function usePrint() {
   const { formSettings } = useCvState()
@@ -13,7 +15,7 @@ export default function usePrint() {
     // const printMargin = cssPagedMedia('margin')
     docTitle.value = document.title
 
-    const font = await fetch('fonts/Helvetica-Light.ttf')
+    const font = await fetch('/fonts/Helvetica-Light.ttf')
     helveticaLight.value = await font.arrayBuffer()
 
     // addEventListener('beforeprint', () => {
@@ -45,27 +47,22 @@ export default function usePrint() {
     // changeDocTitle()
     const doc = generatePDF()
 
-    // pipe the document to a blob
-    const stream = doc.pipe(blobStream())
+    if (doc) {
+      const stream = doc.pipe(blobStream())
 
-    // add your content to the document here, as usual
+      doc.end()
+      stream.on('finish', () => {
+        const blob = stream.toBlob('application/pdf')
+        const url = URL.createObjectURL(blob)
 
-    // get a blob when you're done
-    doc.end()
-    stream.on('finish', () => {
-      // get a blob you can do whatever you like with
-      const blob = stream.toBlob('application/pdf')
-
-      // or get a blob URL for display in the browser
-      const url = URL.createObjectURL(blob)
-
-      const a = document.createElement('a')
-      a.href = url
-      a.download = document.title
-      document.body.appendChild(a)
-      a.click()
-      document.body.removeChild(a)
-    })
+        const a = document.createElement('a')
+        a.href = url
+        a.download = document.title
+        document.body.appendChild(a)
+        a.click()
+        document.body.removeChild(a)
+      })
+    }
   }
 
   // function changeDocTitle() {
@@ -73,6 +70,9 @@ export default function usePrint() {
   // }
 
   function generatePDF() {
+    if (!helveticaLight.value)
+      return
+
     const doc = new PDFDocument({
       size: 'A4',
       margins: {
@@ -81,13 +81,19 @@ export default function usePrint() {
         bottom: 32,
         left: 28,
       },
+      lang: i18n.locale.value,
     })
+
+    doc.registerFont('Helvetica-Light', helveticaLight.value)
 
     const elemRectInPDF = initRectInPDF(doc)
 
-    doc
-      .rect(0, 0, doc.page.width * 0.33, doc.page.height)
-      .fill('#f8fafc')
+    if (formSettings.value.layout === 'two-column') {
+      const cvSideBgWidth = elemRectInPDF('cvSideBg')[2]
+      doc
+        .rect(0, 0, cvSideBgWidth, doc.page.height)
+        .fill('#f8fafc')
+    }
 
     // Image
     if (formSettings.value.profileImageDataUri) {
@@ -112,34 +118,100 @@ export default function usePrint() {
     doc
       .fillColor(formSettings.value.activeColor)
       .font('Helvetica-Bold')
-      .fontSize((3 / 4) * 20)
-      .lineGap(1.5)
+      .fontSize(pxToPtRatio * 20)
       .text(`${formSettings.value.name.toLocaleUpperCase()} ${formSettings.value.lastName.toLocaleUpperCase()}`, nameX, nameY)
 
     // Title
     addTitle(doc, { text: formSettings.value.jobTitle, rect: elemRectInPDF('jobTitle') })
 
+    // About me
+    if (formSettings.value.layout === 'two-column')
+      addTitle(doc, { text: i18n.t('about-me'), rect: elemRectInPDF('aboutmeTitle'), color: formSettings.value.activeColor })
+    const [elemX, elemY, elemWidth] = elemRectInPDF('aboutmeText')
+    doc
+      .fillColor('#1e293b')
+      .font('Helvetica-Light')
+      .fontSize(pxToPtRatio * 14)
+      .lineGap(lineGap)
+      .text(formSettings.value.aboutme, elemX, elemY, { width: elemWidth })
+
     // Contact
     if (formSettings.value.layout === 'two-column')
       addTitle(doc, { text: i18n.t('contact'), rect: elemRectInPDF('contact') })
-    const contactInfo = [{ info: 'email', prelink: 'mailto:' }, { info: 'phoneNumber', prelink: 'tel:' }, { info: 'location', prelink: undefined }] as const
-    for (const { info, prelink } of contactInfo) {
-      const [infoX, infoY, infoWidth] = elemRectInPDF(info)
-      if (helveticaLight.value) {
+    const contactInfo = [
+      { name: 'email', text: formSettings.value.email, link: `mailto:${formSettings.value.email}` },
+      { name: 'phoneNumber', text: formSettings.value.phoneNumber, link: `tel:${formSettings.value.phoneNumber}` },
+      { name: 'location', text: formSettings.value.location, link: undefined },
+    ]
+    addListWithLinks(doc, contactInfo, { elemRectInPDF })
+
+    // Social
+    const socialInfo = [
+      { name: 'linkedin', text: formSettings.value.linkedin, link: 'https://linkedin.com/in/' },
+      { name: 'twitter', text: formSettings.value.twitter, link: 'https://twitter.com/' },
+      { name: 'github', text: formSettings.value.github, link: 'https://github.com/' },
+      { name: 'website', text: formSettings.value.website, link: formSettings.value.website.includes('https') ? formSettings.value.website : `https://${formSettings.value.website}` },
+    ]
+    addListWithLinks(doc, socialInfo, { elemRectInPDF })
+
+    // Skills
+    if (formSettings.value.layout === 'two-column') {
+      addTitle(doc, { text: i18n.t('technical-skills'), rect: elemRectInPDF('jobSkillsTitle') })
+      addTags(doc, formSettings.value.jobSkills, { elemRectInPDF, color: formSettings.value.activeColor })
+
+      addTitle(doc, { text: i18n.t('soft-skills'), rect: elemRectInPDF('softSkillsTitle') })
+      addList(doc, formSettings.value.softSkills, { elemRectInPDF, bulletColor: formSettings.value.activeColor })
+
+      addTitle(doc, { text: i18n.t('soft-skills'), rect: elemRectInPDF('languagesTitle') })
+      for (const lang of formSettings.value.languages) {
+        const [langX, langY] = elemRectInPDF(`${lang.lang}Lang`)
+        const [levelX] = elemRectInPDF(`${lang.lang}Level`)
         doc
           .fillColor('#1e293b')
-          .font(helveticaLight.value)
-          .fontSize((3 / 4) * 13)
-          .lineGap(1.5)
-          .text(formSettings.value[info], infoX, infoY, { width: infoWidth, link: `${prelink ?? ''}${formSettings.value[info]}` })
+          .fontSize(pxToPtRatio * 14)
+          .font('Helvetica')
+          .text(lang.lang, langX, langY)
+          .font('Helvetica-Light')
+          .text(i18n.t(lang.level), levelX, langY)
       }
+
+      addTitle(doc, { text: i18n.t('interests'), rect: elemRectInPDF('interestsTitle') })
+      addList(doc, formSettings.value.interests, { elemRectInPDF, bulletColor: formSettings.value.activeColor })
+
+      addTitle(doc, { text: i18n.t('social'), rect: elemRectInPDF('social') })
+      const socialInfo = [
+        { name: 'linkedin', text: formSettings.value.linkedin, link: 'https://linkedin.com/in/' },
+        { name: 'twitter', text: formSettings.value.twitter, link: 'https://twitter.com/' },
+        { name: 'github', text: formSettings.value.github, link: 'https://github.com/' },
+        { name: 'website', text: formSettings.value.website, link: formSettings.value.website.includes('https') ? formSettings.value.website : `https://${formSettings.value.website}` },
+      ]
+      addListWithLinks(doc, socialInfo, { elemRectInPDF })
     }
 
-    // Technical Skills
-    // Soft Skills
-    // Languages
-    // Interests
-    // Social
+    if (formSettings.value.layout === 'one-column') {
+      addTitle(doc, {
+        text: `${i18n.t('skills')}${formSettings.value.displayInterests && ` / ${i18n.t('interests')}`}`,
+        rect: elemRectInPDF('skills'),
+        color: formSettings.value.activeColor,
+        withLine: true,
+      })
+      const skillsText = [
+        { skillName: i18n.t('technical-skills'), skillRect: elemRectInPDF('jobSkillsTitle'), skillList: formSettings.value.jobSkills.join(', ') },
+        { skillName: i18n.t('soft-skills'), skillRect: elemRectInPDF('softSkillsTitle'), skillList: formSettings.value.softSkills.join(', ') },
+        { skillName: i18n.t('languages'), skillRect: elemRectInPDF('languagesTitle'), skillList: formSettings.value.languages.map(l => `${l.lang} (${i18n.t(l.level)})`).join(', ') },
+        { skillName: i18n.t('interests'), skillRect: elemRectInPDF('interestsTitle'), skillList: formSettings.value.interests.join(', ') },
+      ]
+      doc
+        .fillColor('#1e293b')
+        .fontSize(pxToPtRatio * 14)
+      for (const skill of skillsText) {
+        doc
+          .font('Helvetica')
+          .text(`${skill.skillName}: `, skill.skillRect[0], skill.skillRect[1])
+          .font('Helvetica-Light')
+          .text(skill.skillList, skill.skillRect[0] + skill.skillRect[2] + 2, skill.skillRect[1], { lineGap })
+      }
+    }
 
     return doc
   }
@@ -171,11 +243,60 @@ function initRectInPDF(doc: PDFKit.PDFDocument) {
   }
 }
 
-function addTitle(doc: PDFKit.PDFDocument, { text, rect, color = '#1e293b' }: { text: string, rect: [x: number, y: number, width: number, height: number], color?: string }) {
-  return doc
+function addTitle(doc: PDFKit.PDFDocument, { text, rect, color = '#1e293b', withLine = false }: { text: string, rect: [x: number, y: number, width: number, height: number], color?: string, withLine?: boolean }) {
+  const titleDoc = doc
     .fillColor(color)
     .font('Helvetica-Bold')
-    .fontSize((3 / 4) * 15)
-    .lineGap(1.5)
-    .text(text.toLocaleUpperCase(), rect[0], rect[1], { width: rect[2] })
+    .fontSize(pxToPtRatio * 16)
+    .text(text.toLocaleUpperCase(), rect[0], rect[1], { width: rect[2], height: rect[3] })
+  if (withLine) {
+    titleDoc
+      .lineWidth(2)
+      .lineCap('round')
+      .moveTo(rect[0] + rect[2], rect[1] + (rect[3] / 4))
+      .lineTo(doc.page.width - doc.page.margins.right, rect[1] + (rect[3] / 4))
+      .stroke(color)
+  }
+  return titleDoc
+}
+
+function addListWithLinks(doc: PDFKit.PDFDocument, list: { name: string, text: string, link?: string }[], { elemRectInPDF }: { elemRectInPDF: ReturnType<typeof initRectInPDF> }) {
+  for (const { name, text, link } of list) {
+    const [elemX, elemY, elemWidth] = elemRectInPDF(name)
+    doc
+      .fillColor('#1e293b')
+      .font('Helvetica-Light')
+      .fontSize(pxToPtRatio * 14)
+      .text(text, elemX, elemY, { width: elemWidth, link })
+  }
+}
+
+function addList(doc: PDFKit.PDFDocument, list: string[], { elemRectInPDF, bulletColor }: { elemRectInPDF: ReturnType<typeof initRectInPDF>, bulletColor?: string }) {
+  const bulletRadius = 2
+  for (const elem of list) {
+    const [elemX, elemY, , elemHeight] = elemRectInPDF(`${elem}Li`)
+    doc
+      .circle(elemX + bulletRadius, elemY + (elemHeight / 2) - (bulletRadius * 2), bulletRadius)
+      .fill(bulletColor)
+      .fillColor('#1e293b')
+      .font('Helvetica-Light')
+      .text(elem, elemX + bulletRadius + 8, elemY)
+  }
+}
+
+function addTags(doc: PDFKit.PDFDocument, list: string[], { elemRectInPDF, color }: { elemRectInPDF: ReturnType<typeof initRectInPDF>, color?: string }) {
+  const lineWidth = 4
+  for (const skill of list) {
+    const [skillX, skillY, skillWidth, skillHeight] = elemRectInPDF(`${skill}Li`)
+    const [skillTextX, skillTextY] = elemRectInPDF(`${skill}Text`)
+    doc
+      .rect(skillX + (lineWidth / 2), skillY + (lineWidth / 2), skillWidth - lineWidth, skillHeight - lineWidth)
+      .lineWidth(lineWidth)
+      .lineJoin('round')
+      .fillAndStroke(color)
+      .fillColor('#fff')
+      .font('Helvetica-Light')
+      .fontSize(pxToPtRatio * 12)
+      .text(skill, skillTextX, skillTextY)
+  }
 }
