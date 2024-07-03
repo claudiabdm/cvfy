@@ -223,7 +223,7 @@ export default function usePrint() {
         text: i18n.t(text),
         rect,
         color: formSettings.value.activeColor,
-        withLine: true,
+        withLine: formSettings.value.layout === 'one-column',
       })
       doc
         .fillColor('#1e293b')
@@ -285,7 +285,7 @@ function addTitle(doc: PDFKit.PDFDocument, { text, rect, color = '#1e293b', with
     titleDoc
       .lineWidth(2)
       .lineCap('round')
-      .moveTo(rect[0] + rect[2] + (10 * pxToPtRatio), rect[1] + (rect[3] / 4))
+      .moveTo(rect[0] + rect[2] + (15 * pxToPtRatio), rect[1] + (rect[3] / 4))
       .lineTo(doc.page.width - doc.page.margins.right, rect[1] + (rect[3] / 4))
       .stroke(color)
   }
