@@ -1,6 +1,7 @@
 import PDFDocument from 'pdfkit/js/pdfkit.standalone'
 import blobStream from 'blob-stream/.js'
 import { useCvState } from '~/data/useCvState'
+import type { SectionName } from '~/types/cvfy'
 
 const pxToPtRatio = 3 / 4
 const lineGap = 5
@@ -9,6 +10,7 @@ export default function usePrint() {
   const { formSettings } = useCvState()
   const i18n = useI18n()
   const docTitle = ref<string>()
+  const formatDate = useFormatDate()
   const helveticaLight = ref<ArrayBuffer>()
 
   onMounted(async () => {
@@ -130,8 +132,8 @@ export default function usePrint() {
     const [elemX, elemY, elemWidth] = elemRectInPDF('aboutmeText')
     doc
       .fillColor('#1e293b')
-      .font('Helvetica-Light')
       .fontSize(pxToPtRatio * 14)
+      .font('Helvetica-Light')
       .lineGap(lineGap)
       .text(formSettings.value.aboutme, elemX, elemY, { width: elemWidth })
 
@@ -154,7 +156,6 @@ export default function usePrint() {
     ]
     addListWithLinks(doc, socialInfo, { elemRectInPDF })
 
-    // Skills
     if (formSettings.value.layout === 'two-column') {
       addTitle(doc, { text: i18n.t('technical-skills'), rect: elemRectInPDF('jobSkillsTitle') })
       addTags(doc, formSettings.value.jobSkills, { elemRectInPDF, color: formSettings.value.activeColor })
@@ -213,6 +214,37 @@ export default function usePrint() {
       }
     }
 
+    const historySections = [{ name: 'work', text: 'experience' }, 'education', 'projects'] as const
+
+    for (const section of historySections) {
+      const text = typeof section === 'string' ? section : section.text
+      const rect = elemRectInPDF(text)
+      addTitle(doc, {
+        text: i18n.t(text),
+        rect,
+        color: formSettings.value.activeColor,
+        withLine: true,
+      })
+      doc
+        .fillColor('#1e293b')
+        .fontSize(pxToPtRatio * 14)
+      const prop: SectionName = typeof section === 'string' ? section : section.name
+      for (const event of formSettings.value[prop]) {
+        const [titleX, titleY, titleWidth] = elemRectInPDF(`${prop}${event.id}Title`)
+        const [locationX, locationY] = elemRectInPDF(`${prop}${event.id}Location`)
+        const [dateX, dateY, dateWidth] = elemRectInPDF(`${prop}${event.id}Date`)
+
+        const date = `${formatDate(event.from)} - ${event.current ? i18n.t('current') : formatDate(event.to)}`
+
+        doc
+          .font('Helvetica-Bold')
+          .text(event.title, titleX, titleY, { width: titleWidth })
+          .font('Helvetica')
+          .text(event.location, locationX, locationY, { width: dateX - locationX })
+          .text(date, dateX, dateY, { width: dateWidth })
+      }
+    }
+
     return doc
   }
 
@@ -253,7 +285,7 @@ function addTitle(doc: PDFKit.PDFDocument, { text, rect, color = '#1e293b', with
     titleDoc
       .lineWidth(2)
       .lineCap('round')
-      .moveTo(rect[0] + rect[2], rect[1] + (rect[3] / 4))
+      .moveTo(rect[0] + rect[2] + (10 * pxToPtRatio), rect[1] + (rect[3] / 4))
       .lineTo(doc.page.width - doc.page.margins.right, rect[1] + (rect[3] / 4))
       .stroke(color)
   }
@@ -265,8 +297,8 @@ function addListWithLinks(doc: PDFKit.PDFDocument, list: { name: string, text: s
     const [elemX, elemY, elemWidth] = elemRectInPDF(name)
     doc
       .fillColor('#1e293b')
-      .font('Helvetica-Light')
       .fontSize(pxToPtRatio * 14)
+      .font('Helvetica-Light')
       .text(text, elemX, elemY, { width: elemWidth, link })
   }
 }
@@ -299,4 +331,8 @@ function addTags(doc: PDFKit.PDFDocument, list: string[], { elemRectInPDF, color
       .fontSize(pxToPtRatio * 12)
       .text(skill, skillTextX, skillTextY)
   }
+}
+
+function addParagraph(doc: PDFKit.PDFDocument) {
+
 }

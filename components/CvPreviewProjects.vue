@@ -18,7 +18,9 @@ const formatDate = useFormatDate()
     class="cv__section cv__section--main w-full"
   >
     <h4 class="cv__section-title cv__section-title--main">
-      {{ $t("projects") }}
+      <span data-cv-elem="projects">
+        {{ $t("projects") }}
+      </span>
     </h4>
     <ul class="cv__event">
       <li
@@ -26,10 +28,13 @@ const formatDate = useFormatDate()
         :key="project.id"
       >
         <div class="flex justify-between">
-          <h5 class="cv__section-title cv__section-title--sm">
+          <h5
+            :data-cv-elem="`projects${project.id}Title`"
+            class="cv__section-title cv__section-title--sm"
+          >
             {{ project.title }}
           </h5>
-          <span>
+          <span :data-cv-elem="`projects${project.id}Date`">
             {{ formatDate(project.from) }} –
             <template v-if="project.current">{{
               $t("current")
