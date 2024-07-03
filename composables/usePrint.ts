@@ -1,10 +1,21 @@
 import PDFDocument from 'pdfkit/js/pdfkit.standalone'
 import blobStream from 'blob-stream/.js'
+import SVGtoPDF from 'svg-to-pdfkit'
 import { useCvState } from '~/data/useCvState'
-import type { SectionName } from '~/types/cvfy'
+import { IconsPDF, type SectionName } from '~/types/cvfy'
 
-const pxToPtRatio = 3 / 4
-const lineGap = 5
+const ICONS: Partial<Record<typeof IconsPDF[number]['name'], string>> = {}
+
+for (const i of IconsPDF) {
+  const icon = (await import(`~/assets/icons/PDF/${i.icon}.svg?raw`)).default
+  if (typeof icon === 'string')
+    ICONS[i.name] = icon
+}
+
+const PX_TO_PT_RATIO = 3 / 4
+const LINE_GAP = 5
+
+type ListWithIcons = Array<{ name: typeof IconsPDF[number]['name'], text: string, link?: string }>
 
 export default function usePrint() {
   const { formSettings } = useCvState()
@@ -120,7 +131,7 @@ export default function usePrint() {
     doc
       .fillColor(formSettings.value.activeColor)
       .font('Helvetica-Bold')
-      .fontSize(pxToPtRatio * 20)
+      .fontSize(PX_TO_PT_RATIO * 20)
       .text(`${formSettings.value.name.toLocaleUpperCase()} ${formSettings.value.lastName.toLocaleUpperCase()}`, nameX, nameY)
 
     // Title
@@ -132,29 +143,29 @@ export default function usePrint() {
     const [elemX, elemY, elemWidth] = elemRectInPDF('aboutmeText')
     doc
       .fillColor('#1e293b')
-      .fontSize(pxToPtRatio * 14)
+      .fontSize(PX_TO_PT_RATIO * 14)
       .font('Helvetica-Light')
-      .lineGap(lineGap)
+      .lineGap(LINE_GAP)
       .text(formSettings.value.aboutme, elemX, elemY, { width: elemWidth })
 
     // Contact
     if (formSettings.value.layout === 'two-column')
       addTitle(doc, { text: i18n.t('contact'), rect: elemRectInPDF('contact') })
-    const contactInfo = [
+    const contactInfo: ListWithIcons = [
       { name: 'email', text: formSettings.value.email, link: `mailto:${formSettings.value.email}` },
       { name: 'phoneNumber', text: formSettings.value.phoneNumber, link: `tel:${formSettings.value.phoneNumber}` },
       { name: 'location', text: formSettings.value.location, link: undefined },
     ]
-    addListWithLinks(doc, contactInfo, { elemRectInPDF })
+    addListWithIcons(doc, contactInfo, { elemRectInPDF })
 
     // Social
-    const socialInfo = [
-      { name: 'linkedin', text: formSettings.value.linkedin, link: 'https://linkedin.com/in/' },
-      { name: 'twitter', text: formSettings.value.twitter, link: 'https://twitter.com/' },
-      { name: 'github', text: formSettings.value.github, link: 'https://github.com/' },
+    const socialInfo: ListWithIcons = [
+      { name: 'linkedin', text: formSettings.value.linkedin, link: `https://linkedin.com/in/${formSettings.value.linkedin}` },
+      { name: 'twitter', text: formSettings.value.twitter, link: `https://twitter.com/${formSettings.value.twitter}` },
+      { name: 'github', text: formSettings.value.github, link: `https://github.com/${formSettings.value.github}` },
       { name: 'website', text: formSettings.value.website, link: formSettings.value.website.includes('https') ? formSettings.value.website : `https://${formSettings.value.website}` },
     ]
-    addListWithLinks(doc, socialInfo, { elemRectInPDF })
+    addListWithIcons(doc, socialInfo, { elemRectInPDF })
 
     if (formSettings.value.layout === 'two-column') {
       addTitle(doc, { text: i18n.t('technical-skills'), rect: elemRectInPDF('jobSkillsTitle') })
@@ -169,7 +180,7 @@ export default function usePrint() {
         const [levelX] = elemRectInPDF(`${lang.lang}Level`)
         doc
           .fillColor('#1e293b')
-          .fontSize(pxToPtRatio * 14)
+          .fontSize(PX_TO_PT_RATIO * 14)
           .font('Helvetica')
           .text(lang.lang, langX, langY)
           .font('Helvetica-Light')
@@ -180,13 +191,6 @@ export default function usePrint() {
       addList(doc, formSettings.value.interests, { elemRectInPDF, bulletColor: formSettings.value.activeColor })
 
       addTitle(doc, { text: i18n.t('social'), rect: elemRectInPDF('social') })
-      const socialInfo = [
-        { name: 'linkedin', text: formSettings.value.linkedin, link: 'https://linkedin.com/in/' },
-        { name: 'twitter', text: formSettings.value.twitter, link: 'https://twitter.com/' },
-        { name: 'github', text: formSettings.value.github, link: 'https://github.com/' },
-        { name: 'website', text: formSettings.value.website, link: formSettings.value.website.includes('https') ? formSettings.value.website : `https://${formSettings.value.website}` },
-      ]
-      addListWithLinks(doc, socialInfo, { elemRectInPDF })
     }
 
     if (formSettings.value.layout === 'one-column') {
@@ -204,13 +208,13 @@ export default function usePrint() {
       ]
       doc
         .fillColor('#1e293b')
-        .fontSize(pxToPtRatio * 14)
+        .fontSize(PX_TO_PT_RATIO * 14)
       for (const skill of skillsText) {
         doc
           .font('Helvetica')
           .text(`${skill.skillName}: `, skill.skillRect[0], skill.skillRect[1])
           .font('Helvetica-Light')
-          .text(skill.skillList, skill.skillRect[0] + skill.skillRect[2] + 2, skill.skillRect[1], { lineGap })
+          .text(skill.skillList, skill.skillRect[0] + skill.skillRect[2] + 2, skill.skillRect[1], { lineGap: LINE_GAP })
       }
     }
 
@@ -227,7 +231,7 @@ export default function usePrint() {
       })
       doc
         .fillColor('#1e293b')
-        .fontSize(pxToPtRatio * 14)
+        .fontSize(PX_TO_PT_RATIO * 14)
       const prop: SectionName = typeof section === 'string' ? section : section.name
       for (const event of formSettings.value[prop]) {
         const [titleX, titleY, titleWidth] = elemRectInPDF(`${prop}${event.id}Title`)
@@ -265,41 +269,44 @@ function initRectInPDF(doc: PDFKit.PDFDocument) {
   const wRatioPtPx = docWidthPt / docWidthPx
   const hRatioPtPx = docHeightPt / docHeightPx
 
-  return function elemRectInPDF(id: string): [x: number, y: number, width: number, height: number] {
+  return function elemRectInPDF(id: string): [x: number, y: number, width: number, height: number, elem?: Element] {
     const elem = cvPreview?.querySelector(`[data-cv-elem="${id}"]`)
     const elemRect = elem?.getBoundingClientRect()
     const [elemX, elemWidth] = [(elemRect?.left ?? 0) - left, elemRect?.width].map(n => (n ?? 0) * wRatioPtPx)
     const [elemY, elemHeight] = [(elemRect?.top ?? 0) - top, elemRect?.height].map(n => (n ?? 0) * hRatioPtPx)
 
-    return [elemX, elemY, elemWidth, elemHeight]
+    return [elemX, elemY, elemWidth, elemHeight, elem ?? undefined]
   }
 }
 
-function addTitle(doc: PDFKit.PDFDocument, { text, rect, color = '#1e293b', withLine = false }: { text: string, rect: [x: number, y: number, width: number, height: number], color?: string, withLine?: boolean }) {
+function addTitle(doc: PDFKit.PDFDocument, { text, rect, color = '#1e293b', withLine = false }: { text: string, rect: [x: number, y: number, width: number, height: number, elem?: Element], color?: string, withLine?: boolean }) {
   const titleDoc = doc
     .fillColor(color)
     .font('Helvetica-Bold')
-    .fontSize(pxToPtRatio * 16)
+    .fontSize(PX_TO_PT_RATIO * 16)
     .text(text.toLocaleUpperCase(), rect[0], rect[1], { width: rect[2], height: rect[3] })
   if (withLine) {
     titleDoc
       .lineWidth(2)
       .lineCap('round')
-      .moveTo(rect[0] + rect[2] + (15 * pxToPtRatio), rect[1] + (rect[3] / 4))
+      .moveTo(rect[0] + rect[2] + (15 * PX_TO_PT_RATIO), rect[1] + (rect[3] / 4))
       .lineTo(doc.page.width - doc.page.margins.right, rect[1] + (rect[3] / 4))
       .stroke(color)
   }
   return titleDoc
 }
 
-function addListWithLinks(doc: PDFKit.PDFDocument, list: { name: string, text: string, link?: string }[], { elemRectInPDF }: { elemRectInPDF: ReturnType<typeof initRectInPDF> }) {
+function addListWithIcons(doc: PDFKit.PDFDocument, list: ListWithIcons, { elemRectInPDF }: { elemRectInPDF: ReturnType<typeof initRectInPDF> }) {
   for (const { name, text, link } of list) {
     const [elemX, elemY, elemWidth] = elemRectInPDF(name)
     doc
       .fillColor('#1e293b')
-      .fontSize(pxToPtRatio * 14)
+      .fontSize(PX_TO_PT_RATIO * 14)
       .font('Helvetica-Light')
-      .text(text, elemX, elemY, { width: elemWidth, link })
+      .text(text, elemX + 14, elemY, { width: elemWidth, link })
+    const icon = ICONS[name]
+    if (icon)
+      SVGtoPDF(doc, icon, elemX, elemY - 2, { width: 12, height: 12, useCSS: true })
   }
 }
 
@@ -328,11 +335,7 @@ function addTags(doc: PDFKit.PDFDocument, list: string[], { elemRectInPDF, color
       .fillAndStroke(color)
       .fillColor('#fff')
       .font('Helvetica-Light')
-      .fontSize(pxToPtRatio * 12)
+      .fontSize(PX_TO_PT_RATIO * 12)
       .text(skill, skillTextX, skillTextY)
   }
-}
-
-function addParagraph(doc: PDFKit.PDFDocument) {
-
 }
