@@ -29,7 +29,7 @@ useHead({
       href,
     },
   ],
-  script: [{ src: 'https://github.com/devongovett/blob-stream/releases/download/v0.1.3/blob-stream.js', defer: true, fetchpriority: 'low' }],
+  script: [{ src: 'https://github.com/devongovett/blob-stream/releases/download/v0.1.3/blob-stream.js', defer: true, fetchpriority: 'low', tagPosition: 'bodyClose' }],
   meta: [
     {
       hid: 'description',
