@@ -1,16 +1,7 @@
 import PDFDocument from 'pdfkit/js/pdfkit.standalone'
-import blobStream from 'blob-stream/.js'
 import SVGtoPDF from 'svg-to-pdfkit'
 import { useCvState } from '~/data/useCvState'
-import { IconsPDF, type SectionName } from '~/types/cvfy'
-
-const ICONS: Partial<Record<typeof IconsPDF[number]['name'], string>> = {}
-
-for (const i of IconsPDF) {
-  const icon = (await import(`~/assets/icons/PDF/${i.icon}.svg?raw`)).default
-  if (typeof icon === 'string')
-    ICONS[i.name] = icon
-}
+import type { IconsPDF, SectionName } from '~/types/cvfy'
 
 const PX_TO_PT_RATIO = 3 / 4
 const LINE_GAP = 5
@@ -61,8 +52,7 @@ export default function usePrint() {
     const doc = generatePDF()
 
     if (doc) {
-      const stream = doc.pipe(blobStream())
-
+      const stream = doc.pipe(globalThis.blobStream())
       doc.end()
       stream.on('finish', () => {
         const blob = stream.toBlob('application/pdf')
@@ -298,13 +288,13 @@ function addTitle(doc: PDFKit.PDFDocument, { text, rect, color = '#1e293b', with
 
 function addListWithIcons(doc: PDFKit.PDFDocument, list: ListWithIcons, { elemRectInPDF }: { elemRectInPDF: ReturnType<typeof initRectInPDF> }) {
   for (const { name, text, link } of list) {
-    const [elemX, elemY, elemWidth] = elemRectInPDF(name)
+    const [elemX, elemY, elemWidth, , elem] = elemRectInPDF(name)
     doc
       .fillColor('#1e293b')
       .fontSize(PX_TO_PT_RATIO * 14)
       .font('Helvetica-Light')
       .text(text, elemX + 14, elemY, { width: elemWidth, link })
-    const icon = ICONS[name]
+    const icon = elem?.querySelector('svg')
     if (icon)
       SVGtoPDF(doc, icon, elemX, elemY - 2, { width: 12, height: 12, useCSS: true })
   }

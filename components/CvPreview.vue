@@ -152,7 +152,7 @@ p {
   }
 
   :deep(&__icon) {
-    @apply fill-current rounded;
+    @apply fill-current;
     width: 16px;
     height: 16px;
     min-width: 16px;

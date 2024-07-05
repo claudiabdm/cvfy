@@ -4,8 +4,9 @@ declare module 'pdfkit/js/pdfkit.standalone' {
   export = PDF
 }
 
-declare module 'blob-stream/.js' {
-  import blobStream from 'blob-stream'
+declare module '*.svg' {
+  import type { DefineComponent } from 'vue'
 
-  export = blobStream
+  const component: DefineComponent
+  export default component
 }

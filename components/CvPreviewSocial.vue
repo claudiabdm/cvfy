@@ -1,5 +1,9 @@
 <script lang="ts" setup>
 import { useCvState } from '~/data/useCvState'
+import LinkedinSvg from '~/assets/icons/PDF/linkedin-color.svg'
+import TwitterSvg from '~/assets/icons/PDF/twitter-color.svg'
+import GithubSvg from '~/assets/icons/PDF/github-color.svg'
+import WebsiteSvg from '~/assets/icons/PDF/website.svg'
 
 const { formSettings } = useCvState()
 </script>
@@ -25,9 +29,7 @@ const { formSettings } = useCvState()
         data-cv-elem="linkedin"
         class="cv__icon-wrapper"
       >
-        <svg class="cv__icon">
-          <use href="@/assets/sprite.svg#linkedin-color" />
-        </svg>
+        <LinkedinSvg class="cv__icon" />
         <a
           target="_blank"
           rel="noopener"
@@ -39,9 +41,7 @@ const { formSettings } = useCvState()
         data-cv-elem="twitter"
         class="cv__icon-wrapper"
       >
-        <svg class="cv__icon">
-          <use href="@/assets/sprite.svg#twitter-color" />
-        </svg>
+        <TwitterSvg class="cv__icon" />
         <a
           target="_blank"
           rel="noopener"
@@ -53,9 +53,7 @@ const { formSettings } = useCvState()
         data-cv-elem="github"
         class="cv__icon-wrapper"
       >
-        <svg class="cv__icon">
-          <use href="@/assets/sprite.svg#github-color" />
-        </svg>
+        <GithubSvg class="cv__icon" />
         <a
           target="_blank"
           rel="noopener"
@@ -67,9 +65,7 @@ const { formSettings } = useCvState()
         data-cv-elem="website"
         class="cv__icon-wrapper"
       >
-        <svg class="cv__icon">
-          <use href="@/assets/sprite.svg#website" />
-        </svg>
+        <WebsiteSvg class="cv__icon" />
         <a
           target="_blank"
           rel="noopener"

@@ -70,7 +70,7 @@ export default defineComponent({
               { 'expansion-panel__arrow--open': isOpen },
             ]"
           >
-            <use href="@/assets/sprite.svg#panel-arrow" />
+            <use href="/sprite.svg#panel-arrow" />
           </svg>
         </button>
       </div>
