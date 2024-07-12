@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { SectionNameList } from '~/types/cvfy'
 import { useCvState } from '~/data/useCvState'
+import { useDarkMode } from '~/composables/useDarkMode';
 
 const {
   formSettings,
@@ -10,16 +11,17 @@ const {
 } = useCvState()
 const switchLocalePath = useSwitchLocalePath()
 const i18n = useI18n()
+const { isDark } = useDarkMode()
 const { downloadPdf } = usePrint()
 
 const config = {
   layouts: ['one-column', 'two-column'],
   colors: [
-    { name: 'pink', color: '#9D174D', darker: '#831843' },
-    { name: 'purple', color: '#5B21B6', darker: '#4C1D95' },
-    { name: 'blue', color: '#1E40AF', darker: '#1E3A8A' },
-    { name: 'green', color: '#065F46', darker: '#064E3B' },
-    { name: 'black', color: '#1F2937', darker: '#111827' },
+    { name: 'pink', color: '#9D174D', darker: '#831843', lighter: '#a74e72' },
+    { name: 'purple', color: '#5B21B6', darker: '#4C1D95', lighter: '#8d61d3' },
+    { name: 'blue', color: '#1E40AF', darker: '#1E3A8A', lighter: '#5d78d3' },
+    { name: 'green', color: '#065F46', darker: '#064E3B', lighter: '#4dbe89' },
+    { name: 'black', color: '#1F2937', darker: '#111827', lighter: '#7e8a9c' },
   ],
   languages: [
     { name: 'es-name', code: 'es' },
@@ -39,7 +41,7 @@ watch(
     localStorage.setItem(`cvSettings-${i18n.locale.value}`, JSON.stringify(newValue))
     if (newValue.activeColor !== oldValue.activeColor) {
       const newColor = getCurrentColor(newValue.activeColor)
-      changeColor(newColor.color, newColor.darker)
+      changeColor(newColor.color, isDark ? newColor.lighter : newColor.darker)
     }
   },
   { deep: true },
@@ -55,15 +57,18 @@ const availableLocales = computed(() => {
   return i18n.localeCodes.value.filter((locale: any) => !locale.includes('-'))
 })
 
-function changeColor(color: string, darker: string): void {
+function changeColor(color: string, shade: string): void {
   formSettings.value.activeColor = color
   document.documentElement.style.setProperty('--primary', color)
-  document.documentElement.style.setProperty('--primary-darker', darker)
+  isDark
+    ? document.documentElement.style.setProperty('--primary-lighter', shade)
+    : document.documentElement.style.setProperty('--primary-darker', shade)
 }
 
 function getCurrentColor(colorValue: string): {
   color: string
   darker: string
+  lighter: string
 } {
   return (
     config.colors.find(color => color.color === colorValue)
@@ -185,7 +190,7 @@ function getCurrentColor(colorValue: string): {
                   color.color === formSettings.activeColor,
               },
             ]"
-            @keydown.enter="changeColor(color.color, color.darker)"
+            @keydown.enter="changeColor(color.color, isDark ? color.lighter : color.darker)"
           >
             {{ $t(color.name) }}
             <input
@@ -193,7 +198,7 @@ function getCurrentColor(colorValue: string): {
               type="radio"
               class="sr-only"
               :value="color.color"
-              @change="changeColor(color.color, color.darker)"
+              @change="changeColor(color.color, isDark ? color.lighter : color.darker)"
             >
           </label>
         </div>
@@ -485,7 +490,7 @@ function getCurrentColor(colorValue: string): {
 
 <style lang="postcss" scoped>
 .settings {
-  @apply bg-slate-50 bg-opacity-100 shadow-lg font-bold z-10;
+  @apply bg-slate-50 dark:bg-slate-900 print:bg-white dark:text-slate-50 print:text-black bg-opacity-100 shadow-lg font-bold z-10;
 
   @media screen and (min-width: 1024px) {
     & {
