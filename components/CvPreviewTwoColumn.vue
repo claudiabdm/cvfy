@@ -6,7 +6,7 @@ const { formSettings } = useCvState()
 
 <template>
   <div
-    class="flex flex-col gap-4 p-6 py-7 col-span-1 bg-slate-50"
+    class="flex flex-col gap-4 p-6 py-7 col-span-1 bg-slate-50 dark:bg-slate-700 print:bg-white"
     :class="formSettings.profileImageDataUri ? 'py-7' : 'py-8'"
   >
     <CvProfileImageViewer class="border-white border-8" />
@@ -58,8 +58,7 @@ const { formSettings } = useCvState()
   }
 
   :deep(&__tag) {
-    @apply px-2 py-1 rounded text-white text-xs/normal;
-    background-color: var(--primary);
+    @apply px-2 py-1 rounded text-white print:text-black text-xs/normal bg-[var(--primary)] print:bg-transparent print:px-1;
   }
 
   &__bar {

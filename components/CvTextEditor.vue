@@ -72,7 +72,7 @@ watch(
   }
 
   li::marker {
-    color: var(--primary);
+    @apply text-[--primary] dark:text-[--primary-lighter] print:text-[--primary];
   }
 }
 </style>
