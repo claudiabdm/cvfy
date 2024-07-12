@@ -1,6 +1,7 @@
 const process = require('node:process')
 
 export default {
+  darkMode: 'selector',
   theme: {
     fontFamily: {
       app: ['Helvetica', 'sans-serif'],
@@ -10,6 +11,7 @@ export default {
     extend: {
       colors: {
         primary: 'var(--primary)',
+        'primary-lighter': 'var(--primary-lighter)'
       },
     },
     future: {
