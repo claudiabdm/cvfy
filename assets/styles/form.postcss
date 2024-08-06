@@ -18,7 +18,7 @@
     }
   
     &__label {
-      @apply mb-1 font-normal text-slate-600 text-sm/normal;
+      @apply mb-1 font-normal text-slate-600 dark:text-slate-300 print:text-slate-600 text-sm/normal;
   
       &:focus {
         @apply text-purple-700;
@@ -26,7 +26,7 @@
     }
   
     &__control {
-      @apply shadow rounded px-2 py-1 border border-transparent font-light w-full bg-white;
+      @apply shadow rounded px-2 py-1 border border-transparent font-light w-full bg-white dark:bg-slate-900;
       transition: all 0.1s linear;
       outline: none;
   
@@ -47,7 +47,7 @@
     &__btn {
       @apply text-white p-2 rounded shadow font-light justify-center items-center text-center;
       margin: 0.5rem 0.2rem 0.25rem;
-      background-color: var(--primary);
+      background-color: var(--primary-darker);
       transition:
         background-color 0.1s linear,
         color 0.1s linear;
@@ -58,7 +58,7 @@
       }
   
       &--color-theme {
-        background-color: #fff;
+        @apply bg-white dark:bg-slate-700;
   
         &:hover {
           color: #fff;
@@ -66,7 +66,7 @@
       }
   
       &--pink {
-        color: var(--pink);
+        color: var(--pink-lighter);
   
         &:hover {
           background-color: var(--pink);
@@ -74,7 +74,7 @@
       }
   
       &--purple {
-        color: var(--purple);
+        color: var(--purple-lighter);
   
         &:hover {
           background-color: var(--purple);
@@ -82,7 +82,7 @@
       }
   
       &--indigo {
-        color: var(--indigo);
+        color: var(--indigo-lighter);
   
         &:hover {
           background-color: var(--indigo-darker);
@@ -90,7 +90,7 @@
       }
   
       &--blue {
-        color: var(--blue);
+        color: var(--blue-lighter);
   
         &:hover {
           background-color: var(--blue-darker);
@@ -98,7 +98,7 @@
       }
   
       &--green {
-        color: var(--green);
+        color: var(--green-lighter);
   
         &:hover {
           background-color: var(--green-darker);
@@ -106,7 +106,7 @@
       }
   
       &--black {
-        color: var(--black);
+        color: var(--black-lighter);
   
         &:hover {
           background-color: var(--black-darker);
@@ -122,10 +122,10 @@
       }
   
       &--ghost {
-        @apply bg-white text-slate-700;
+        @apply bg-white dark:bg-slate-700 print:bg-white text-slate-700 dark:text-slate-300 print:text-slate-700;
   
         &:hover {
-          @apply bg-slate-700 text-white;
+          @apply bg-slate-700 dark:bg-slate-600 text-white;
         }
       }
   
@@ -135,7 +135,7 @@
       }
   
       &--active {
-        @apply bg-slate-700 text-white;
+        @apply bg-slate-500 text-white;
         box-shadow: none;
       }
     }

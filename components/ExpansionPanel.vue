@@ -106,7 +106,7 @@ export default defineComponent({
 
 .expansion-panel {
   overflow: hidden;
-  @apply bg-slate-50 bg-opacity-100 relative px-6 py-3;
+  @apply bg-slate-50 dark:bg-slate-800 print:bg-white bg-opacity-100 relative px-6 py-3;
 
   & & {
     @apply p-1;
@@ -117,7 +117,7 @@ export default defineComponent({
   }
 
   &__title {
-    @apply flex items-center justify-between w-full bg-slate-50 bg-opacity-100 z-10 capitalize;
+    @apply flex items-center justify-between w-full bg-slate-50 dark:bg-slate-800 print:bg-white bg-opacity-100 z-10 capitalize;
 
     &:hover {
       cursor: pointer;

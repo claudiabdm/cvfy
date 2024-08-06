@@ -5,7 +5,7 @@ const { formSettings } = useCvState()
 </script>
 
 <template>
-  <h2 class="text-primary text-xl/normal uppercase font-bold tracking-wide">
+  <h2 class="text-primary dark:text-primary-lighter print:text-primary text-xl/normal uppercase font-bold tracking-wide">
     {{ formSettings.name }} {{ formSettings.lastName }}
   </h2>
 </template>
