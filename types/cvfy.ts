@@ -72,3 +72,13 @@ export const SectionNameList = {
   projects: 'projects',
 } as const
 export type SectionName = keyof typeof SectionNameList
+
+export const IconsPDF = [
+  { name: 'email', icon: 'email' },
+  { name: 'phoneNumber', icon: 'phone' },
+  { name: 'location', icon: 'location' },
+  { name: 'linkedin', icon: 'linkedin-color' },
+  { name: 'twitter', icon: 'twitter-color' },
+  { name: 'github', icon: 'github-color' },
+  { name: 'website', icon: 'website' },
+] as const

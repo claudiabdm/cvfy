@@ -23,6 +23,7 @@ const { formSettings, isLoading } = useCvState()
   >
     <div style="min-height: var(--height);">
       <div
+        id="cvPreview"
         tabindex="0"
         aria-label="CV preview"
         class="cv shadow-lg mt-6 bg-white relative"
@@ -151,7 +152,7 @@ p {
   }
 
   :deep(&__icon) {
-    @apply fill-current rounded;
+    @apply fill-current;
     width: 16px;
     height: 16px;
     min-width: 16px;

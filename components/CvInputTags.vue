@@ -149,7 +149,7 @@ function onDrop() {
           @click="handleRemoveSkill(tag)"
         >
           <svg class="form__icon">
-            <use href="@/assets/sprite.svg#close" />
+            <use href="/sprite.svg#close" />
           </svg>
         </button>
       </li>

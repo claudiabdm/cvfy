@@ -21,11 +21,11 @@ const state = reactive({
 export function useCvState() {
   const i18n = useI18n()
 
-  function setUpCvSettings(): void {
+  async function setUpCvSettings({ reset }: { reset?: boolean } = {}): Promise<void> {
     const locale = `cvSettings-${i18n.locale.value}`
     const cvSettings = localStorage.getItem(locale)
 
-    if (cvSettings == null) {
+    if (reset || cvSettings == null) {
       state.formSettings = {
         ...cvSettingTemplate,
       }
@@ -35,6 +35,13 @@ export function useCvState() {
       state.formSettings = { ...cvSettingsEmptyTemplate, ...cvSettingsObj }
       patchId(state.formSettings)
     }
+
+    // Transform image if it's an url instead of data uri
+    if (state.formSettings.profileImageDataUri && !state.formSettings.profileImageDataUri.includes('data:')) {
+      const dataUri = await resizeImageFromReader(state.formSettings.profileImageDataUri)
+      state.formSettings.profileImageDataUri = dataUri
+    }
+
     localStorage.setItem(locale, JSON.stringify(state.formSettings))
     state.isLoading = false
   }
@@ -111,14 +118,15 @@ export function useCvState() {
     fr.readAsText(e.target.files[0])
   }
 
-  function resetForm(): void {
-    state.formSettings = {
-      ...cvSettingTemplate,
-    }
-    localStorage.setItem(
-      `cvSettings-${i18n.locale.value}`,
-      JSON.stringify(state.formSettings),
-    )
+  async function resetForm(): Promise<void> {
+    await setUpCvSettings({ reset: true })
+    // state.formSettings = {
+    //   ...cvSettingTemplate,
+    // }
+    // localStorage.setItem(
+    //   `cvSettings-${i18n.locale.value}`,
+    //   JSON.stringify(state.formSettings),
+    // )
   }
 
   function clearForm(): void {

@@ -92,7 +92,9 @@ function getCurrentColor(colorValue: string): {
         >
       </a>
     </div>
-    <h2 class="flex flex-wrap text-xl/normal pt-10 px-6 tracking-wide uppercase">
+    <h2
+      class="flex flex-wrap text-xl/normal pt-10 px-6 tracking-wide uppercase"
+    >
       <span class="title__text">
         {{ $t("cv-settings") }}
       </span>
@@ -105,7 +107,7 @@ function getCurrentColor(colorValue: string): {
         <button
           class="form__btn form__btn--ghost"
           type="button"
-          @click="resetForm"
+          @click="async () => await resetForm()"
         >
           {{ $t("reset-settings") }}
         </button>
@@ -370,7 +372,7 @@ function getCurrentColor(colorValue: string): {
                     for="linkedin"
                   >
                     <svg class="form__icon rounded mr-1">
-                      <use href="@/assets/sprite.svg#linkedin" />
+                      <use href="/sprite.svg#linkedin" />
                     </svg>
                     Linkedin
                   </label>
@@ -387,7 +389,7 @@ function getCurrentColor(colorValue: string): {
                     for="twitter"
                   >
                     <svg class="form__icon rounded mr-1">
-                      <use href="@/assets/sprite.svg#twitter" />
+                      <use href="/sprite.svg#twitter" />
                     </svg>
                     Twitter
                   </label>
@@ -404,7 +406,7 @@ function getCurrentColor(colorValue: string): {
                     for="github"
                   >
                     <svg class="form__icon mr-1">
-                      <use href="@/assets/sprite.svg#github" />
+                      <use href="/sprite.svg#github" />
                     </svg>
                     GitHub
                   </label>
@@ -421,7 +423,7 @@ function getCurrentColor(colorValue: string): {
                     for="website"
                   >
                     <svg class="form__icon mr-1">
-                      <use href="@/assets/sprite.svg#website" />
+                      <use href="/sprite.svg#website" />
                     </svg>
                     Website
                   </label>

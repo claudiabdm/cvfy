@@ -43,7 +43,14 @@ export default defineNuxtConfig({
     '@vite-pwa/nuxt',
     '@nuxt/fonts',
     '@nuxt/image',
+    'nuxt-svgo',
   ],
+
+  svgo: {
+    defaultImport: 'component',
+    autoImportPath: false,
+    global: false,
+  },
 
   eslintConfig: {
     setup: false,

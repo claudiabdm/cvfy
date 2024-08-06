@@ -9,8 +9,8 @@ const { t, locale } = useI18n()
 
 const href = `https://cvfy.xyz${route.path}`
 
-onMounted(() => {
-  setUpCvSettings()
+onMounted(async () => {
+  await setUpCvSettings()
 })
 
 useHead({
@@ -29,6 +29,7 @@ useHead({
       href,
     },
   ],
+  script: [{ src: 'https://github.com/devongovett/blob-stream/releases/download/v0.1.3/blob-stream.js', defer: true, fetchpriority: 'low', tagPosition: 'bodyClose' }],
   meta: [
     {
       hid: 'description',

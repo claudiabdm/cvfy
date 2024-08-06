@@ -50,7 +50,7 @@ function focusEditor(id: string) {
               @click.stop="removeEntry({ sectionName, entry })"
             >
               <svg class="form__icon">
-                <use href="@/assets/sprite.svg#trash" />
+                <use href="/sprite.svg#trash" />
               </svg>
             </button>
           </template>

@@ -1,5 +1,9 @@
 <script lang="ts" setup>
 import { useCvState } from '~/data/useCvState'
+import LinkedinSvg from '~/assets/icons/PDF/linkedin-color.svg'
+import TwitterSvg from '~/assets/icons/PDF/twitter-color.svg'
+import GithubSvg from '~/assets/icons/PDF/github-color.svg'
+import WebsiteSvg from '~/assets/icons/PDF/website.svg'
 
 const { formSettings } = useCvState()
 </script>
@@ -10,6 +14,7 @@ const { formSettings } = useCvState()
     class="cv__section"
   >
     <h4
+      data-cv-elem="social"
       class="cv__section-title"
       :class="formSettings.layout === 'one-column' && 'sr-only'"
     >
@@ -21,11 +26,10 @@ const { formSettings } = useCvState()
     >
       <div
         v-if="formSettings.linkedin"
+        data-cv-elem="linkedin"
         class="cv__icon-wrapper"
       >
-        <svg class="cv__icon">
-          <use href="@/assets/sprite.svg#linkedin-color" />
-        </svg>
+        <LinkedinSvg class="cv__icon" />
         <a
           target="_blank"
           rel="noopener"
@@ -34,11 +38,10 @@ const { formSettings } = useCvState()
       </div>
       <div
         v-if="formSettings.twitter"
+        data-cv-elem="twitter"
         class="cv__icon-wrapper"
       >
-        <svg class="cv__icon">
-          <use href="@/assets/sprite.svg#twitter-color" />
-        </svg>
+        <TwitterSvg class="cv__icon" />
         <a
           target="_blank"
           rel="noopener"
@@ -47,11 +50,10 @@ const { formSettings } = useCvState()
       </div>
       <div
         v-if="formSettings.github"
+        data-cv-elem="github"
         class="cv__icon-wrapper"
       >
-        <svg class="cv__icon">
-          <use href="@/assets/sprite.svg#github-color" />
-        </svg>
+        <GithubSvg class="cv__icon" />
         <a
           target="_blank"
           rel="noopener"
@@ -60,11 +62,10 @@ const { formSettings } = useCvState()
       </div>
       <div
         v-if="formSettings.website"
+        data-cv-elem="website"
         class="cv__icon-wrapper"
       >
-        <svg class="cv__icon">
-          <use href="@/assets/sprite.svg#website" />
-        </svg>
+        <WebsiteSvg class="cv__icon" />
         <a
           target="_blank"
           rel="noopener"
