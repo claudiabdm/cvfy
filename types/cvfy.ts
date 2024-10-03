@@ -43,6 +43,7 @@ export interface CvEvent {
   location: string
   from: Date | any
   to: Date | any
+  displayDate: boolean
   current: boolean
   summary: string
 }
