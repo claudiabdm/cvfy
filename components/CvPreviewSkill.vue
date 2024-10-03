@@ -15,7 +15,7 @@ const { formSettings } = useCvState()
   <section
     v-if="display"
     class="cv__section"
-    :class="formSettings.layout === 'one-column' && 'flex gap-1 mb-1'"
+    :class="formSettings.layout === 'one-column' && 'flex gap-1'"
   >
     <h3
       class="capitalize"
