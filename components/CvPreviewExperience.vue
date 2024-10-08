@@ -29,8 +29,9 @@ const workSorted = computed(() => {
           <span class="justify-self-center">{{ job.location }}</span>
           <span class="justify-self-end">
             {{ formatDate(job.from) }} –
-            <template v-if="job.current">{{ $t("current")
-            }}</template>
+            <template v-if="job.current">
+              {{ $t("current") }}
+            </template>
             <template v-else>
               {{ formatDate(job.to) }}
             </template>

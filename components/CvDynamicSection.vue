@@ -93,12 +93,11 @@ function focusEditor(id: string) {
                 >
               </div>
               <div class="form__group col-span-full">
-                <label
-                  class="form__label flex justify-between"
-                  :for="`entryFrom-${entry.id}`"
-                >📆 {{ $t("from")
-                  }}
-                  <label class="form__label flex items-center">
+                <div class="form__label flex justify-between">
+                  <label :for="`entryFrom-${entry.id}`">
+                    📆 {{ $t("from") }}
+                  </label>
+                  <label v-if="sectionName !== 'work'" class="form__label flex items-center">
                     <input
                       v-model="entry.displayDate"
                       class="form__control form__control--checkbox"
@@ -106,7 +105,7 @@ function focusEditor(id: string) {
                     >
                     {{ $t("show-date") }}
                   </label>
-                </label>
+                </div>
                 <input
                   :id="`entryFrom-${entry.id}`"
                   v-model="entry.from"
@@ -143,7 +142,7 @@ function focusEditor(id: string) {
                   :for="`entrySummary-${entry.id}`"
                   @click="focusEditor(`entrySummary-${entry.id}`)"
                 >📝 {{ $t("summary")
-                  }}</label>
+                }}</label>
                 <CvTextEditor
                   :id="`entrySummary-${entry.id}`"
                   v-model="entry.summary"

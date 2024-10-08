@@ -25,15 +25,22 @@ const educationSorted = computed(() => {
         v-for="edu in educationSorted"
         :key="edu.id"
       >
-        <div class="gap-3" :class="[edu.displayDate ? 'grid grid-cols-3' : 'flex justify-between']">
+        <div
+          class="gap-3"
+          :class="[edu.displayDate ? 'grid grid-cols-3' : 'flex justify-between']"
+        >
           <h5 class="cv__section-title cv__section-title--sm">
             {{ edu.title }}
           </h5>
           <span class="justify-self-center">{{ edu.location }}</span>
-          <span  v-if="edu.displayDate" class="justify-self-end flex-shrink-0">
-            {{ formatDate(edu.from) }} – 
-            <template v-if="edu.current">{{ $t("current")
-            }}</template>
+          <span
+            v-if="edu.displayDate"
+            class="justify-self-end flex-shrink-0"
+          >
+            {{ formatDate(edu.from) }} –
+            <template v-if="edu.current">
+              {{ $t("current") }}
+            </template>
             <template v-else>{{ formatDate(edu.to) }}</template>
           </span>
         </div>

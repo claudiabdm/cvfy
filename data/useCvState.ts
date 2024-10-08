@@ -34,6 +34,7 @@ export function useCvState() {
       const cvSettingsObj = JSON.parse(cvSettings)
       state.formSettings = { ...cvSettingsEmptyTemplate, ...cvSettingsObj }
       patchId(state.formSettings)
+      patchDisplayDate(state.formSettings)
     }
     localStorage.setItem(locale, JSON.stringify(state.formSettings))
     state.isLoading = false
@@ -89,6 +90,7 @@ export function useCvState() {
       to: new Date(),
       current: false,
       summary: '',
+      displayDate: e.sectionName !== 'education',
     })
   }
 
@@ -107,6 +109,7 @@ export function useCvState() {
         ...data.formSettings,
       }
       patchId(state.formSettings)
+      patchDisplayDate(state.formSettings)
     }
     fr.readAsText(e.target.files[0])
   }
@@ -146,8 +149,21 @@ export function useCvState() {
     for (const key in SectionNameList) {
       const section = key as SectionName
       for (const e of formSettings[section]) {
-        if (!e.id)
+        if (!e.id) {
           e.id = crypto.randomUUID()
+        }
+      }
+    }
+  }
+
+  function patchDisplayDate(formSettings: Cv) {
+    // Make sure that older cvs have the correct default displayDate
+    for (const key in SectionNameList) {
+      const section = key as SectionName
+      for (const e of formSettings[section]) {
+        if (e.displayDate == null) {
+          e.displayDate = section !== 'education'
+        }
       }
     }
   }
