@@ -26,19 +26,30 @@ const formatDate = useFormatDate()
         :key="project.id"
       >
         <div class="flex justify-between">
-          <h5 class="cv__section-title cv__section-title--sm flex">
-            {{ project.title }}
-            <CvPreviewProjectLink v-if="formSettings.layout === 'one-column'" class="ml-2" :href="project.location"/>
+          <h5
+            class="cv__section-title cv__section-title--sm flex gap-2"
+            :class="[{ 'w-full justify-between gap-0': !project.displayDate }]"
+          >
+            <span>{{ project.title }}</span>
+            <CvPreviewProjectLink
+              v-if="formSettings.layout === 'one-column'"
+              :title="project.title"
+              :href="project.location"
+            />
           </h5>
-          <span>
+          <span v-if="project.displayDate">
             {{ formatDate(project.from) }} –
-            <template v-if="project.current">{{
-              $t("current")
-              }}</template>
+            <template v-if="project.current">
+              {{ $t("current") }}
+            </template>
             <template v-else>{{ formatDate(project.to) }}</template>
           </span>
         </div>
-        <CvPreviewProjectLink v-if="formSettings.layout === 'two-column'" class="mb-1" :href="project.location"/>
+        <CvPreviewProjectLink
+          v-if="formSettings.layout === 'two-column'"
+          class="mb-1"
+          :href="project.location"
+        />
         <CvTextEditor
           v-model="project.summary"
           :read-only="true"

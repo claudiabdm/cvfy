@@ -139,4 +139,6 @@ export default defineNuxtConfig({
   sitemap: {
     autoI18n: true,
   },
+
+  compatibilityDate: '2024-10-08',
 })
