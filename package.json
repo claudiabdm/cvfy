@@ -16,11 +16,14 @@
   "dependencies": {
     "@nuxt/fonts": "^0.7.0",
     "@nuxt/image": "^1.7.0",
+    "@pinia/nuxt": "^0.9.0",
+    "@tiptap/extension-text-style": "^2.11.0",
     "@tiptap/pm": "^2.2.4",
     "@tiptap/starter-kit": "^2.2.4",
     "@tiptap/vue-3": "^2.2.4",
     "core-js": "^3.6.5",
-    "nuxt": "^3.13.2"
+    "nuxt": "^3.13.2",
+    "pinia": "^2.3.0"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^2.6.4",

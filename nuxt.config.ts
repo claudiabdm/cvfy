@@ -43,6 +43,7 @@ export default defineNuxtConfig({
     '@vite-pwa/nuxt',
     '@nuxt/fonts',
     '@nuxt/image',
+    '@pinia/nuxt',
   ],
 
   eslintConfig: {

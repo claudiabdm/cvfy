@@ -18,7 +18,7 @@ const { formSettings } = useCvState()
     :class="formSettings.layout === 'one-column' && 'flex gap-1'"
   >
     <h3
-      class="capitalize"
+      class="capitalize font-bold"
       :class="formSettings.layout === 'one-column' ? 'two-dots inline flex-shrink-0' : 'cv__section-title'"
     >
       {{ skillName }}

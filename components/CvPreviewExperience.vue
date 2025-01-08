@@ -17,16 +17,17 @@ const workSorted = computed(() => {
     <h4 class="cv__section-title cv__section-title--main">
       {{ $t("experience") }}
     </h4>
-    <ul class="cv__event">
+    <ul class="cv__event relative">
       <li
         v-for="job in workSorted"
         :key="job.id"
+        class="[&:not(:last-child)]:border-b [&:not(:last-child)]:border-gray-400 [&:not(:last-child)]:pb-4 [&:not(:last-child)]:mb-4"
       >
         <div class="grid grid-cols-3 gap-3">
-          <h5 class="cv__section-title cv__section-title--sm">
+          <h5 class="cv__section-title cv__section-title--sm" :class="[{ 'col-span-2': !job.location }]">
             {{ job.title }}
           </h5>
-          <span class="justify-self-center">{{ job.location }}</span>
+          <span v-if="job.location" class="justify-self-center">{{ job.location }}</span>
           <span class="justify-self-end">
             {{ formatDate(job.from) }} –
             <template v-if="job.current">

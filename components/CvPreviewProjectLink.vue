@@ -8,12 +8,12 @@ defineProps<Props>()
 </script>
 
 <template>
+  <!-- rel="noopener" -->
   <a
     v-if="href"
     class="w-fit flex items-center font-medium italic text-underline before:bg-slate-700"
     target="_blank"
-    rel="noopener"
-    :href="href"
+    :href="`https://${href.replace(/https?:\/\//, '')}`"
     :aria-label="`Open ${title} project in new tab`"
   >
     {{ href.replace(/https?:\/\//, "") }}
