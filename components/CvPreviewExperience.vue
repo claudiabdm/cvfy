@@ -24,10 +24,12 @@ const workSorted = computed(() => {
         class="[&:not(:last-child)]:border-b [&:not(:last-child)]:border-gray-400 [&:not(:last-child)]:pb-4 [&:not(:last-child)]:mb-4"
       >
         <div class="grid grid-cols-3 gap-3">
-          <h5 class="cv__section-title cv__section-title--sm" :class="[{ 'col-span-2': !job.location }]">
-            {{ job.title }}
-          </h5>
-          <span v-if="job.location" class="justify-self-center">{{ job.location }}</span>
+          <div class="col-span-2 flex gap-3">
+            <h5 class="cv__section-title cv__section-title--sm" :class="[{ 'col-span-2': !job.location }]">
+              {{ job.title }}
+            </h5>
+            <span v-if="job.location" class="justify-self-center">{{ job.location }}</span>
+          </div>
           <span class="justify-self-end">
             {{ formatDate(job.from) }} –
             <template v-if="job.current">

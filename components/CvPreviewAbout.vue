@@ -6,11 +6,11 @@ const { formSettings } = useCvState()
 
 <template>
   <section class="cv__section cv__section--main">
+    <!-- :class="formSettings.layout === 'one-column' && 'sr-only'" -->
     <h4
       class="cv__section-title cv__section-title--main"
-      :class="formSettings.layout === 'one-column' && 'sr-only'"
     >
-      {{ $t("about-me") }}
+      Summary
     </h4>
     <p class="font-light">
       <!-- Avoids unnecessary spaces at the begging while still allowing break lines -->

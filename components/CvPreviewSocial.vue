@@ -22,56 +22,72 @@ const { formSettings } = useCvState()
       <div
         v-if="formSettings.linkedin"
         class="cv__icon-wrapper"
+        itemscope
+        itemtype="https://schema.org/Person"
       >
-        <svg class="cv__icon">
+        <meta itemprop="url" :content="`https://linkedin.com/in/${formSettings.linkedin}`">
+        <svg class="cv__icon" aria-hidden="true">
           <use href="@/assets/sprite.svg#linkedin-color" />
         </svg>
         <a
           target="_blank"
           rel="noopener"
           :href="`https://linkedin.com/in/${formSettings.linkedin}`"
-        >{{ formSettings.linkedin }}</a>
+          itemprop="sameAs"
+          class="linkedin-profile"
+          aria-label="LinkedIn Profile"
+        >
+          <span class="sr-only">https://linkedin.com/in/</span>{{ formSettings.linkedin }}
+        </a>
       </div>
       <div
         v-if="formSettings.twitter"
         class="cv__icon-wrapper"
       >
-        <svg class="cv__icon">
+        <meta itemprop="url" :content="`https://twitter.com/${formSettings.twitter}`">
+        <svg class="cv__icon" aria-hidden="true">
           <use href="@/assets/sprite.svg#twitter-color" />
         </svg>
         <a
           target="_blank"
           rel="noopener"
           :href="`https://twitter.com/${formSettings.twitter}`"
-        >{{ formSettings.twitter }}</a>
+          aria-label="Twitter Profile"
+        >
+          <span class="sr-only">https://twitter.com/</span>{{ formSettings.twitter }}
+        </a>
       </div>
       <div
         v-if="formSettings.github"
         class="cv__icon-wrapper"
       >
-        <svg class="cv__icon">
+        <meta itemprop="url" :content="`https://github.com/${formSettings.github}`">
+        <svg class="cv__icon" aria-hidden="true">
           <use href="@/assets/sprite.svg#github-color" />
         </svg>
         <a
           target="_blank"
           rel="noopener"
           :href="`https://github.com/${formSettings.github}`"
-        >{{ formSettings.github }}</a>
+          aria-label="GitHub Profile"
+        >
+          <span class="sr-only">https://github.com/</span>{{ formSettings.github }}
+        </a>
       </div>
       <div
         v-if="formSettings.website"
         class="cv__icon-wrapper"
       >
-        <svg class="cv__icon">
+        <meta itemprop="url" :content="formSettings.website.includes('https') ? formSettings.website : `https://${formSettings.website}`">
+        <svg class="cv__icon" aria-hidden="true">
           <use href="@/assets/sprite.svg#website" />
         </svg>
         <a
           target="_blank"
           rel="noopener"
           :href="formSettings.website.includes('https') ? formSettings.website : `https://${formSettings.website}`"
-        >{{
-          formSettings.website
-        }}</a>
+          aria-label="Personal Website"
+        >{{ formSettings.website }}</a>
       </div>
     </div>
   </section>
