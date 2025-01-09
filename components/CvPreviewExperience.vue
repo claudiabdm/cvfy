@@ -25,20 +25,35 @@ const workSorted = computed(() => {
       >
         <div class="grid grid-cols-3 gap-3">
           <div class="col-span-2 flex gap-3">
-            <h5 class="cv__section-title cv__section-title--sm" :class="[{ 'col-span-2': !job.location }]">
+            <h5 class="cv__section-title cv__section-title--sm">
               {{ job.title }}
             </h5>
-            <span v-if="job.location" class="justify-self-center">{{ job.location }}</span>
+            <span class="justify-self-end text-sm text-gray-600">
+              {{ formatDate(job.from) }} –
+              <template v-if="job.current">
+                {{ $t("current") }}
+              </template>
+              <template v-else>
+                {{ formatDate(job.to) }}
+              </template>
+            </span>
           </div>
-          <span class="justify-self-end">
-            {{ formatDate(job.from) }} –
-            <template v-if="job.current">
-              {{ $t("current") }}
-            </template>
-            <template v-else>
-              {{ formatDate(job.to) }}
-            </template>
-          </span>
+          <div class="flex items-center justify-end gap-2 text-sm">
+            <a
+              v-if="job.companyUrl"
+              :href="job.companyUrl.includes('https') ? job.companyUrl : `https://${job.companyUrl}`"
+              target="_blank"
+              rel="noopener"
+              class="w-fit flex items-center font-medium italic text-underline before:bg-slate-700"
+            >
+              {{ job.company }}
+              <svg class="ml-1 size-4">
+                <use href="@/assets/sprite.svg#open-in-new-tab" />
+              </svg>
+            </a>
+            <span v-else class="font-medium">{{ job.company }}</span>
+            <!-- <span v-if="job.location" class="text-gray-600">· {{ job.location }}</span> -->
+          </div>
         </div>
         <CvTextEditor
           v-model="job.summary"

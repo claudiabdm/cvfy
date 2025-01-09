@@ -18,8 +18,7 @@ const phoneNumberHref = computed(() => {
   >
     <h4
       class="cv__section-title"
-      :class="[{ 'sr-only': formSettings.layout === 'one-column' }]"
-    >
+      :class="[{ 'sr-only': formSettings.layout === 'one-column' }]">
       {{ $t("contact") }}
     </h4>
     <div
@@ -48,18 +47,20 @@ const phoneNumberHref = computed(() => {
         <a
           :href="phoneNumberHref"
           rel="noopener"
-        >{{
-          formSettings.phoneNumber
-        }}</a>
+        >{{ formSettings.phoneNumber }}</a>
       </div>
       <div
-        v-if="formSettings.location"
+        v-if="formSettings.address || formSettings.city || formSettings.country"
         class="cv__icon-wrapper"
       >
         <svg class="cv__icon">
           <use href="@/assets/sprite.svg#location" />
         </svg>
-        <span tabindex="0">{{ formSettings.location }}</span>
+        <span class="address">
+          <template v-if="formSettings.address">{{ formSettings.address }}, </template>
+          <template v-if="formSettings.city">{{ formSettings.city }}, </template>
+          <template v-if="formSettings.country">{{ formSettings.country }}</template>
+        </span>
       </div>
     </div>
   </section>

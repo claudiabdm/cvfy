@@ -264,6 +264,43 @@ function getCurrentColor(colorValue: string): {
                   type="email"
                 >
               </div>
+              <div class="form__group col-span-full">
+                <label
+                  class="form__label"
+                  for="address"
+                >📍 {{ $t("address") }}</label>
+                <input
+                  id="address"
+                  v-model="formSettings.address"
+                  class="form__control"
+                  type="text"
+                  :placeholder="$t('address-placeholder')"
+                >
+              </div>
+              <div class="form__group">
+                <label
+                  class="form__label"
+                  for="city"
+                >🏙️ {{ $t("city") }}</label>
+                <input
+                  id="city"
+                  v-model="formSettings.city"
+                  class="form__control"
+                  type="text"
+                >
+              </div>
+              <div class="form__group">
+                <label
+                  class="form__label"
+                  for="country"
+                >🌍 {{ $t("country") }}</label>
+                <input
+                  id="country"
+                  v-model="formSettings.country"
+                  class="form__control"
+                  type="text"
+                >
+              </div>
               <div class="form__group">
                 <label
                   class="form__label"

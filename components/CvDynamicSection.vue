@@ -73,6 +73,37 @@ function focusEditor(id: string) {
                   type="text"
                 >
               </div>
+              <template v-if="sectionName === 'work'">
+                <div class="form__group col-span-full">
+                  <label
+                    class="form__label"
+                    :for="`entryCompany-${entry.id}`"
+                  >
+                    🏢 {{ $t("company") }}
+                  </label>
+                  <input
+                    :id="`entryCompany-${entry.id}`"
+                    v-model="entry.company"
+                    class="form__control"
+                    type="text"
+                  >
+                </div>
+                <div class="form__group col-span-full">
+                  <label
+                    class="form__label"
+                    :for="`entryCompanyUrl-${entry.id}`"
+                  >
+                    🔗 {{ $t("companyUrl") }}
+                  </label>
+                  <input
+                    :id="`entryCompanyUrl-${entry.id}`"
+                    v-model="entry.companyUrl"
+                    class="form__control"
+                    type="url"
+                    placeholder="https://example.com"
+                  >
+                </div>
+              </template>
               <div class="form__group col-span-full">
                 <label
                   class="form__label"

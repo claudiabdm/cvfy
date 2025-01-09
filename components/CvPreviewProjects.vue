@@ -24,6 +24,7 @@ const formatDate = useFormatDate()
       <li
         v-for="project in projectsSorted"
         :key="project.id"
+        class="[&:not(:last-child)]:border-b [&:not(:last-child)]:border-gray-400 [&:not(:last-child)]:pb-4 [&:not(:last-child)]:mb-4"
       >
         <div class="flex justify-between">
           <h5
