@@ -1,13 +1,13 @@
 <script lang="ts" setup>
 const { locale, locales, setLocale } = useI18n()
-
 const selected = ref(locale)
 
 function handleSelect(e: Event) {
   if (e.target && 'value' in e.target) {
-    const value = e.target.value as string
-    if (locales.value.some(l => l.code === value))
-      setLocale(value)
+    const value = e.target.value
+    if (locales.value.some(l => l.code === value)) {
+      setLocale(value as typeof locale.value)
+    }
   }
 }
 </script>

@@ -31,67 +31,54 @@ useHead({
   ],
   meta: [
     {
-      hid: 'description',
       name: 'description',
       content: t('description'),
     },
     {
-      hid: 'author',
       name: 'author',
       content: 'claudiabdm',
     },
     {
-      hid: 'og:image',
       property: 'og:image',
       content: CVFY_IMAGE,
     },
     {
-      hid: 'og:author',
       property: 'og:author',
       content: 'Claudia Benito',
     },
     {
-      hid: 'og:title',
       property: 'og:title',
       content: t('title-tag'),
     },
     {
-      hid: 'og:description',
       property: 'og:description',
       content: t('description'),
     },
     {
-      hid: 'twitter:creator',
       name: 'twitter:creator',
       content: '@claudiabdm',
     },
     {
-      hid: 'twitter:title',
       name: 'twitter:title',
       content: t('title-tag'),
     },
     {
-      hid: 'twitter:url',
       name: 'twitter:url',
       content: href,
     },
     {
-      hid: 'twitter:description',
       name: 'twitter:description',
       content: t('description'),
     },
     {
-      hid: 'twitter:card',
       name: 'twitter:card',
       content: 'summary_large_image',
     },
     {
-      hid: 'twitter:image',
       name: 'twitter:image',
       content: CVFY_IMAGE,
     },
     {
-      hid: 'twitter:image:alt',
       name: 'twitter:image:alt',
       content: t('description'),
     },
