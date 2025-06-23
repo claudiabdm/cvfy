@@ -10,7 +10,12 @@ export default function usePrint() {
     docTitle.value = document.title
 
     addEventListener('beforeprint', () => {
-      formSettings.value.layout === 'one-column' ? printMargin('0.45in') : printMargin('0in')
+      if (formSettings.value.layout === 'one-column') {
+        printMargin('0.45in')
+      }
+      else {
+        printMargin('0in')
+      }
     })
 
     addEventListener('afterprint', () => {
@@ -18,7 +23,7 @@ export default function usePrint() {
         document.title = docTitle.value
     })
 
-    addEventListener('keydown', (e) => {
+    addEventListener('keydown', (e: KeyboardEvent) => {
       if (e.metaKey && e.key === 'p') {
         e.preventDefault()
         downloadPdf()

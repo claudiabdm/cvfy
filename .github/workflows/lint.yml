@@ -30,7 +30,7 @@ jobs:
 
       - name: Prepare Nuxt
         run: npm run prepare
-        
+
       - name: Fix all auto-fixable errors
         id: fix-lint
         run: npm run lint:fix
