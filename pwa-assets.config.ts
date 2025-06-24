@@ -11,9 +11,11 @@ export default defineConfig({
   preset: {
     ...minimal2023Preset,
     maskable: {
+      padding: 0,
       sizes: [{ width: 512, height: 512 }],
     },
     apple: {
+      padding: 0,
       sizes: [{ width: 512, height: 512 }],
     },
     appleSplashScreens: createAppleSplashScreens({
