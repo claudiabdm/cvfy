@@ -117,6 +117,11 @@ export default defineNuxtConfig({
         file: 'az.json',
         name: 'Azerbaijani',
       },
+      {
+        code: 'nl',
+        file: 'nl.json',
+        name: 'Nederlands',
+      },
     ],
     lazy: false,
     defaultLocale: 'en',
