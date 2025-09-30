@@ -7,6 +7,7 @@ import id from './locales/id.json'
 import pt from './locales/pt.json'
 import zh from './locales/zh.json'
 import az from './locales/az.json'
+import nl from './locales/nl.json'
 
 // You can use `defineI18nConfig` to get type inferences for ozhions to pass to vue-i18n.
 export default defineI18nConfig(() => {
@@ -24,6 +25,7 @@ export default defineI18nConfig(() => {
       pt,
       zh,
       az,
+      nl,
     },
   }
 })
