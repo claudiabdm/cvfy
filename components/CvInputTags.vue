@@ -30,9 +30,12 @@ function formatList(value: typeof props.modelValue) {
   const list = [] as string[]
   if (value) {
     for (const tag of value) {
-      typeof tag === 'string'
-        ? list.push(tag)
-        : list.push(`${tag.lang}: ${t(tag.level)}`)
+      if (typeof tag === 'string') {
+        list.push(tag)
+      }
+      else {
+        list.push(`${tag.lang}: ${t(tag.level)}`)
+      }
     }
   }
   return list

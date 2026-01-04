@@ -10,16 +10,18 @@ export default defineConfig({
   },
   preset: {
     ...minimal2023Preset,
+    maskable: {
+      padding: 0,
+      sizes: [{ width: 512, height: 512 }],
+    },
+    apple: {
+      padding: 0,
+      sizes: [{ width: 512, height: 512 }],
+    },
     appleSplashScreens: createAppleSplashScreens({
       padding: 0.3,
       resizeOptions: { fit: 'contain', background: 'white' },
-      darkResizeOptions: { fit: 'contain', background: 'black' },
-      linkMediaOptions: {
-        log: true,
-        addMediaScreen: true,
-        xhtml: true,
-      },
     }, ['iPad Air 9.7"']),
   },
-  images: 'public/logo.svg',
+  images: ['public/logo.svg'],
 })

@@ -1,8 +1,8 @@
 import { defineNuxtConfig } from 'nuxt/config'
-import en from './lang/en.json'
+import en from './i18n/locales/en.json'
 
 export default defineNuxtConfig({
-  devtools: { enabled: true },
+  devtools: { enabled: false },
 
   site: {
     url:
@@ -23,7 +23,6 @@ export default defineNuxtConfig({
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
         {
-          hid: 'google-site-verification',
           name: 'google-site-verification',
           content: 'CGbgWpLEg4fyBPWujKEYS3rrwZR4mMU7XfsDEGArchg',
         },
@@ -36,7 +35,7 @@ export default defineNuxtConfig({
 
   // Modules (https://go.nuxtjs.dev/config-modules)
   modules: [
-    'nuxt-module-eslint-config',
+    '@nuxt/eslint',
     '@nuxtjs/i18n',
     '@nuxtjs/sitemap',
     '@nuxtjs/tailwindcss',
@@ -45,10 +44,6 @@ export default defineNuxtConfig({
     '@nuxt/image',
     '@pinia/nuxt',
   ],
-
-  eslintConfig: {
-    setup: false,
-  },
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {},
@@ -61,7 +56,17 @@ export default defineNuxtConfig({
     },
   },
 
+  fonts: {
+    defaults: {
+      weights: [300, 400, 700],
+    },
+  },
+
   i18n: {
+    vueI18n: './i18n.config.ts',
+    bundle: {
+      optimizeTranslationDirective: false,
+    },
     strategy: 'prefix_and_default',
     locales: [
       {
@@ -104,9 +109,13 @@ export default defineNuxtConfig({
         file: 'pt.json',
         name: 'Portuguese',
       },
+      {
+        code: 'az',
+        file: 'az.json',
+        name: 'Azerbaijani',
+      },
     ],
     lazy: false,
-    langDir: 'lang/',
     defaultLocale: 'en',
     detectBrowserLanguage: {
       useCookie: true,
@@ -123,17 +132,30 @@ export default defineNuxtConfig({
 
   pwa: {
     devOptions: {
-      enabled: true,
+      enabled: false,
     },
     registerType: 'autoUpdate',
     pwaAssets: {
       config: true,
     },
     manifest: {
-      name: en['title-tag'],
+      name: 'Cvfy',
       short_name: 'CvFy',
+      lang: 'en',
+      scope: '/',
+      display: 'standalone',
+      start_url: '/create',
       description: en.description,
       theme_color: '#f3f4f6',
+    },
+    workbox: {
+      cleanupOutdatedCaches: true,
+      navigateFallback: '/',
+      globPatterns: ['**/*.{js,css,html,png,svg,ico}'],
+    },
+    client: {
+      installPrompt: true,
+      periodicSyncForUpdates: 3600,
     },
   },
 
@@ -141,5 +163,5 @@ export default defineNuxtConfig({
     autoI18n: true,
   },
 
-  compatibilityDate: '2024-10-08',
+  compatibilityDate: '2025-06-12',
 })

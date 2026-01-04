@@ -23,8 +23,8 @@ export default defineComponent({
       el.style.height = 'auto'
       const height = getComputedStyle(element).height
       el.style.height = '0'
-      // eslint-disable-next-line no-unused-expressions
-      getComputedStyle(element).height
+
+      const _ = getComputedStyle(element).height
       requestAnimationFrame(() => {
         el.style.height = height
       })
@@ -37,8 +37,9 @@ export default defineComponent({
       const el = element as HTMLElement
       const height = getComputedStyle(element).height
       el.style.height = height
-      // eslint-disable-next-line no-unused-expressions
-      getComputedStyle(element).height
+
+      const _ = getComputedStyle(element).height
+
       requestAnimationFrame(() => {
         el.style.height = '0'
       })

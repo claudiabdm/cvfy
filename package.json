@@ -14,34 +14,34 @@
     "lint:fix": "eslint . --fix"
   },
   "dependencies": {
-    "@nuxt/fonts": "^0.7.0",
-    "@nuxt/image": "^1.7.0",
-    "@pinia/nuxt": "^0.9.0",
-    "@tiptap/extension-text-style": "^2.11.0",
-    "@tiptap/pm": "^2.2.4",
-    "@tiptap/starter-kit": "^2.2.4",
-    "@tiptap/vue-3": "^2.2.4",
-    "core-js": "^3.6.5",
-    "nuxt": "^3.13.2",
-    "pinia": "^2.3.0"
+    "@nuxt/fonts": "^0.11.4",
+    "@nuxt/image": "^1.10.0",
+    "@tiptap/pm": "^2.14.0",
+    "@tiptap/starter-kit": "^2.14.0",
+    "@tiptap/vue-3": "^2.14.0",
+    "core-js": "^3.43.0",
+    "nuxt": "^3.17.5"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^2.6.4",
+    "@antfu/eslint-config": "^2.27.3",
     "@domchristie/tailwind-utopia": "^1.1.1",
+    "@nuxt/eslint": "^1.12.1",
     "@nuxt/types": "2.17.3",
-    "@nuxtjs/i18n": "^8.0.1",
-    "@nuxtjs/sitemap": "^5.1.0",
-    "@nuxtjs/tailwindcss": "^6.11.2",
-    "@vite-pwa/assets-generator": "^0.2.4",
-    "@vite-pwa/nuxt": "^0.7.0",
+    "@nuxtjs/i18n": "^9.5.5",
+    "@nuxtjs/sitemap": "^5.3.5",
+    "@nuxtjs/tailwindcss": "^6.14.0",
+    "@vite-pwa/assets-generator": "^1.0.0",
+    "@vite-pwa/nuxt": "^1.0.4",
     "babel-eslint": "^10.1.0",
-    "eslint": "^8.57.0",
-    "nuxt-module-eslint-config": "^0.1.0",
+    "eslint": "^9.39.1",
     "postcss": "8.4.35",
     "postcss-nested": "6.0.1",
-    "sharp": "^0.33.4",
+    "sharp": "^0.33.5",
     "sharp-ico": "^0.1.5",
     "tailwind-utopia": "github:cwsdigital/tailwind-utopia",
-    "typescript": "^5.3.3"
+    "typescript": "^5.8.3"
+  },
+  "overrides": {
+    "estree-walker": "2.0.2"
   }
 }

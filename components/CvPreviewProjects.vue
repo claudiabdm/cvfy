@@ -49,6 +49,7 @@ const formatDate = useFormatDate()
         <CvPreviewProjectLink
           v-if="formSettings.layout === 'two-column'"
           class="mb-1"
+          :title="project.title"
           :href="project.location"
         />
         <CvTextEditor
