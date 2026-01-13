@@ -138,7 +138,6 @@ p {
 
     &--main {
       color: var(--primary);
-      white-space: nowrap;
     }
   }
 
