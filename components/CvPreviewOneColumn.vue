@@ -7,7 +7,7 @@
       <div class="flex flex-col justify-center">
         <CvPreviewName />
         <CvPreviewTitle />
-        <CvPreviewAbout class="mt-0" />
+        <CvPreviewAbout />
       </div>
       <div class="flex gap-2">
         <CvPreviewContact />

@@ -35,7 +35,7 @@ export default defineNuxtConfig({
 
   // Modules (https://go.nuxtjs.dev/config-modules)
   modules: [
-    'nuxt-module-eslint-config',
+    '@nuxt/eslint',
     '@nuxtjs/i18n',
     '@nuxtjs/sitemap',
     '@nuxtjs/tailwindcss',
@@ -43,10 +43,6 @@ export default defineNuxtConfig({
     '@nuxt/fonts',
     '@nuxt/image',
   ],
-
-  eslintConfig: {
-    setup: false,
-  },
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {},

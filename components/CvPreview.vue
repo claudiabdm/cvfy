@@ -28,7 +28,7 @@ const { formSettings, isLoading } = useCvState()
         class="cv shadow-lg mt-6 bg-white relative"
         :class="[
           { blur: isLoading },
-          formSettings.layout === 'one-column' && 'p-10 flex flex-col gap-4',
+          formSettings.layout === 'one-column' && 'p-10 flex flex-col gap-3',
           formSettings.layout === 'two-column' && 'grid grid-cols-3',
         ]"
       >
