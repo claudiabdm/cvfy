@@ -11,10 +11,10 @@
   "nl-name": "Nederlands",
   "about-me": "Over mij",
   "experience": "Ervaring",
-  "education": "Opleiding",
+  "education": "Opleiding & Certificaten",
   "contact": "Contact",
   "professional-skills": "Professionele vaardigheden",
-  "soft-skills": "Sociale vaardigheden",
+  "soft-skills": "Eigenschappen",
   "interests": "Interesses",
   "languages": "Talen",
   "current": "Huidig",
@@ -72,8 +72,7 @@
   "hero-title-3": "en behoud je gegevens",
   "get-started": "Aan de slag",
   "create-cv": "CV maken",
-  "native-bilingual": "Moedertaal / Tweetalig",
+  "native-bilingual": "Moedertaal",
   "show-date": "Toon datum",
   "hide-date": "Verberg datum"
 }
-
