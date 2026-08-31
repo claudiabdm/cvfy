@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { SectionNameList } from '~/types/cvfy'
+import { type SectionName, SectionNameList } from '~/types/cvfy'
 import { useCvState } from '~/data/useCvState'
+import { normalizeSectionLayout } from '~/utils/sectionLayout'
 
 const {
   formSettings,
@@ -70,6 +71,12 @@ function getCurrentColor(colorValue: string): {
     || config.colors[1]
   )
 }
+
+const orderedHistorySections = computed(() => {
+  return normalizeSectionLayout(formSettings.value.sectionLayout)
+    .map(section => section.id)
+    .filter((id): id is SectionName => id in SectionNameList)
+})
 </script>
 
 <template>
@@ -166,6 +173,8 @@ function getCurrentColor(colorValue: string): {
         </div>
       </fieldset>
       <!-- LAYOUT -->
+
+      <CvSettingsSectionOrder />
 
       <!-- COLOR THEME -->
       <fieldset class="form__section px-6 py-3">
@@ -441,10 +450,10 @@ function getCurrentColor(colorValue: string): {
 
       <!-- HISTORY SECTIONS -->
       <CvSettingsHistorySection
-        v-for="(value, key) in SectionNameList"
-        :key="key"
-        :section="key"
-        :name="value"
+        v-for="id in orderedHistorySections"
+        :key="id"
+        :section="id"
+        :name="SectionNameList[id]"
       />
       <!-- HISTORY SECTIONS -->
 

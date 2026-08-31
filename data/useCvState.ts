@@ -11,11 +11,13 @@ import {
   type SectionName,
   SectionNameList,
 } from '~/types/cvfy'
+import { normalizeSectionLayout } from '~/utils/sectionLayout'
 
 const state = reactive({
   formSettings: { ...cvSettingsEmptyTemplate } as Cv,
   isLoading: true,
   isProfilePhotoLoading: false,
+  overflowingPages: [] as boolean[],
 })
 
 export function useCvState() {
@@ -35,6 +37,7 @@ export function useCvState() {
       state.formSettings = { ...cvSettingsEmptyTemplate, ...cvSettingsObj }
       patchId(state.formSettings)
       patchDisplayDate(state.formSettings)
+      patchSectionLayout(state.formSettings)
     }
     localStorage.setItem(locale, JSON.stringify(state.formSettings))
     state.isLoading = false
@@ -110,6 +113,7 @@ export function useCvState() {
       }
       patchId(state.formSettings)
       patchDisplayDate(state.formSettings)
+      patchSectionLayout(state.formSettings)
     }
     fr.readAsText(e.target.files[0])
   }
@@ -141,6 +145,7 @@ export function useCvState() {
       | 'displayJobSkills'
       | 'displaySoftSkills'
       | 'displayLanguages'
+      | 'displaySocial'
     state.formSettings[propName] = e.status
   }
 
@@ -154,6 +159,10 @@ export function useCvState() {
         }
       }
     }
+  }
+
+  function patchSectionLayout(formSettings: Cv) {
+    formSettings.sectionLayout = normalizeSectionLayout(formSettings.sectionLayout)
   }
 
   function patchDisplayDate(formSettings: Cv) {

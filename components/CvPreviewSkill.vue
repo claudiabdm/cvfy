@@ -52,7 +52,7 @@ function withPunctuation(index: number, length: number) {
       <li
         v-for="(skill, i) in skills"
         :key="`preview${skill}`"
-        :class="[{ 'flex justify-between': isLanguage && formSettings.layout === 'two-column' }, { inline: formSettings.layout === 'one-column' }, { cv__tag: withTags }]"
+        :class="[{ 'flex justify-between gap-x-1 flex-wrap': isLanguage && formSettings.layout === 'two-column' }, { inline: formSettings.layout === 'one-column' }, { cv__tag: withTags }]"
       >
         <template v-if="isLanguage">
           <span
@@ -60,7 +60,7 @@ function withPunctuation(index: number, length: number) {
           >
             {{ (skill as LanguagesSkill['skill']).lang }}
           </span>
-          <span class="font-light ml-auto whitespace-nowrap">
+          <span class="font-light ml-auto">
             {{
               formatLangLevel($t((skill as LanguagesSkill['skill']).level), i, skills.length)
             }}
