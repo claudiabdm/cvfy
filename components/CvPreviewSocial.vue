@@ -9,10 +9,7 @@ const { formSettings } = useCvState()
     v-if="formSettings.displaySocial"
     class="cv__section"
   >
-    <h4
-      class="cv__section-title"
-      :class="formSettings.layout === 'one-column' && 'sr-only'"
-    >
+    <h4 class="cv__section-title">
       {{ $t("social") }}
     </h4>
     <div

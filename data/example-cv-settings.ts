@@ -1,7 +1,8 @@
-import { type Cv, LEVELS } from '~/types/cvfy'
+import { type Cv, DEFAULT_SECTION_LAYOUT, LEVELS } from '~/types/cvfy'
 
 export const cvSettingTemplate: Cv = {
   layout: 'two-column',
+  sectionLayout: DEFAULT_SECTION_LAYOUT.map(section => ({ ...section })),
   profileImageDataUri: '/knope_campaign_rect.webp',
   jobTitle: 'Deputy Director of Parks and Recreations',
   name: 'Leslie',
@@ -77,6 +78,7 @@ export const cvSettingTemplate: Cv = {
 
 export const cvSettingsEmptyTemplate: Cv = {
   layout: 'two-column',
+  sectionLayout: DEFAULT_SECTION_LAYOUT.map(section => ({ ...section })),
   profileImageDataUri: null,
   jobTitle: '',
   name: '',

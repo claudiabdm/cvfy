@@ -1,29 +1,34 @@
 <script lang="ts" setup>
+import type { LayoutSectionId } from '~/types/cvfy'
+
+defineProps<{
+  sections: LayoutSectionId[]
+  isFirstPage: boolean
+}>()
 </script>
 
 <template>
-  <div class="flex justify-between gap-1">
+  <div
+    v-if="isFirstPage"
+    class="flex justify-between gap-1"
+  >
     <div class="flex flex-col gap-1 justify-between">
       <div class="flex flex-col justify-center">
         <CvPreviewName />
         <CvPreviewTitle />
-        <CvPreviewAbout />
       </div>
       <div class="flex gap-2">
         <CvPreviewContact />
-        <CvPreviewSocial />
       </div>
     </div>
     <CvProfileImageViewer class="rounded ml-2" />
   </div>
 
-  <CvPreviewSkills />
-
-  <CvPreviewExperience />
-
-  <CvPreviewEducation />
-
-  <CvPreviewProjects />
+  <CvPreviewSection
+    v-for="sectionId in sections"
+    :key="sectionId"
+    :section-id="sectionId"
+  />
 </template>
 
 <style lang="postcss" scoped>

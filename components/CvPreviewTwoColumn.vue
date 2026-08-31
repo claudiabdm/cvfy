@@ -1,58 +1,59 @@
 <script lang="ts" setup>
+import type { LayoutSectionId } from '~/types/cvfy'
 import { useCvState } from '~/data/useCvState'
+
+defineProps<{
+  sections: LayoutSectionId[]
+  sidebarSections: LayoutSectionId[]
+  showIdentity: boolean
+  showSidebar: boolean
+}>()
 
 const { formSettings } = useCvState()
 </script>
 
 <template>
   <div
-    class="flex flex-col gap-4 p-6 py-7 col-span-1 bg-slate-50"
-    :class="formSettings.profileImageDataUri ? 'py-7' : 'py-8'"
+    v-if="showSidebar"
+    class="cv__sidebar flex flex-col gap-4 p-6 py-7 bg-slate-50 h-full"
+    :class="formSettings.profileImageDataUri && showIdentity ? 'py-7' : 'py-8'"
   >
-    <CvProfileImageViewer class="border-white border-8" />
+    <template v-if="showIdentity">
+      <CvProfileImageViewer class="border-white border-8" />
 
-    <div>
-      <CvPreviewName />
-      <CvPreviewTitle />
-    </div>
+      <div>
+        <CvPreviewName />
+        <CvPreviewTitle />
+      </div>
 
-    <CvPreviewContact />
+      <CvPreviewContact />
+    </template>
 
-    <CvPreviewSkills class="flex flex-col gap-6" />
-
-    <CvPreviewSocial />
+    <CvPreviewSection
+      v-for="sectionId in sidebarSections"
+      :key="sectionId"
+      :section-id="sectionId"
+    />
   </div>
-  <div class="pr-8 pl-5 py-8 col-span-2">
-    <CvPreviewAbout />
-
-    <hr class="cv__bar">
-
-    <CvPreviewExperience />
-
-    <hr
-      v-if="formSettings.displayEducation"
-      class="cv__bar"
+  <div
+    class="cv__main py-8"
+    :class="showSidebar ? 'pr-8 pl-5' : 'px-8'"
+  >
+    <template
+      v-for="(sectionId, index) in sections"
+      :key="sectionId"
     >
-
-    <CvPreviewEducation />
-
-    <hr
-      v-if="formSettings.displayProjects"
-      class="cv__bar"
-    >
-
-    <CvPreviewProjects />
+      <hr
+        v-if="index > 0"
+        class="cv__bar"
+      >
+      <CvPreviewSection :section-id="sectionId" />
+    </template>
   </div>
 </template>
 
 <style lang="postcss" scoped>
 .cv {
-  display: grid;
-  grid-template-columns: 1fr 2fr;
-  background-image: linear-gradient(to right,
-      #f8fafc 33%,
-      rgba(255, 255, 255, 0) 0%);
-
   :deep(&__tags) {
     @apply flex flex-wrap gap-2;
   }
@@ -75,6 +76,5 @@ const { formSettings } = useCvState()
       @apply mt-3;
     }
   }
-
 }
 </style>

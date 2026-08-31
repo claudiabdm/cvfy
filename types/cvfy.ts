@@ -7,9 +7,53 @@ export const LEVELS = [
 ] as const
 
 export type Level = (typeof LEVELS)[number]
+export const LAYOUT_SECTIONS = [
+  'about',
+  'jobSkills',
+  'softSkills',
+  'languages',
+  'interests',
+  'social',
+  'work',
+  'education',
+  'projects',
+] as const
+export type LayoutSectionId = (typeof LAYOUT_SECTIONS)[number]
+
+export const SKILL_LAYOUT_SECTIONS = [
+  'jobSkills',
+  'softSkills',
+  'languages',
+  'interests',
+] as const
+export type SkillLayoutSectionId = (typeof SKILL_LAYOUT_SECTIONS)[number]
+
+export interface LayoutSection {
+  id: LayoutSectionId
+  page?: number
+  pageBreakBefore?: boolean
+}
+
+export const DEFAULT_SECTION_LAYOUT: LayoutSection[] = LAYOUT_SECTIONS.map(id => ({
+  id,
+}))
+
+export const LAYOUT_SECTION_I18N_KEYS: Record<LayoutSectionId, string> = {
+  about: 'about-me',
+  jobSkills: 'technical-skills',
+  softSkills: 'soft-skills',
+  languages: 'languages',
+  interests: 'interests',
+  social: 'social',
+  work: 'experience',
+  education: 'education',
+  projects: 'projects',
+}
+
 export interface Cv {
   layout?: 'one-column' | 'two-column'
   profileImageDataUri?: string | null
+  sectionLayout?: LayoutSection[]
   jobTitle: string
   name: string
   lastName: string
